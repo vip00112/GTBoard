@@ -1,26 +1,20 @@
-
-# GTBoard #
-
-
+# GTBoard
 PHP 진영의 XE보드, 그누보드와 같이 일반 사용자도 쉽게 자신의 웹사이트 구축을 할 수 있도록 만든 java 기반의 보드
 
-
-## 개발 환경 ##
+## 개발 환경
 - Java 8
 - Spring Framework 4.2.5
 - Maven 3.3.9
 - Tomcat 8
 - MySQL 5.5
 
-
-### DB 설정 방법 ###
+### DB 설정 방법
 1. DB 폴더의 **gtboard.sql** 배치파일을 이용하여 배치
 2. **webapp/META-INF/context.xml** 파일에서 접속 설정
 
-
-### 프로젝트/웹사이트 설정 문서(xml) 경로 ###
+### 프로젝트/웹사이트 설정 문서(xml) 경로
 1. DB 접속
-    webapp/META-INF/context.xml
+    `webapp/META-INF/context.xml`
 2. MyBatis(typeAliases, Mappers)
     webapp/WEB-INF/config/mybatis-config.xml
 3. Spring Root 설정
@@ -34,16 +28,14 @@ PHP 진영의 XE보드, 그누보드와 같이 일반 사용자도 쉽게 자신
     webapp/WEB-INF/config/setting/setting-board.xml
     (관리자 페이지 에서 실시간 수정 가능)
 
-
-### 특징 ###
+### 특징
 1. 페이지별 CSS 파일이 /resources/css/skins 폴더에 개별적으로 작성되어 추후 커스터 마이징이 간편하다.
 2. 각종 설정이 xml 파일에 작성되어 있으므로 기존 웹사이트의 설정 백업이 용이하다.
 3. 관리자 페이지에서 웹사이트 설정, 게시판별 설정이 가능 하므로 비개발자의 사이트 운용이 간편하다.
 4. 포털사이트 검색 노출에 최적화된 meta 태그가 설정 되어 있다.
 > 기본 meta 태그 외 OpenGraph, Twitter용 meta 태그까지 포함
 
-
-### 기타 ###
+### 기타
 1. 기본적인 회원가입은 이메일 기반으로 인증 후 완료 됩니다.
 > Google SMTP를 이용하므로 Google 아이디 필수.
 > Spring Root 설정 xml에서 아이디/비밀번호 설정 해줘야 함.
