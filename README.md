@@ -10,7 +10,7 @@ PHP 진영의 XE보드, 그누보드와 같이 일반 사용자도 쉽게 자신
 
 ### DB 설정 방법
 1. DB 폴더의 **gtboard.sql** 배치파일을 이용하여 배치
-2. **webapp/META-INF/context.xml** 파일에서 'username','password','url' 설정
+2. **webapp/META-INF/context.xml** 파일에서 `username`,`password`,`url` 설정
 
 ### 프로젝트/웹사이트 설정 문서(xml) 경로
 - DB 접속
