@@ -67,5 +67,5 @@ webapp/WEB-INF/config/setting/setting-board.xml
 </property>
 </bean>
 ```
-- Googld SMTP는 하루 최대 메일 발송 제한이 있습니다.
+- Google SMTP는 하루 최대 메일 발송 제한이 있습니다.
 	- 추후 Google/Naver/Facebook/Twitter 로그인 기능 구현 예정
