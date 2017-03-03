@@ -45,10 +45,12 @@ webapp/WEB-INF/config/setting/setting-board.xml
 2. 각종 설정이 xml 파일에 작성되어 있으므로 기존 웹사이트의 설정 백업이 용이하다.
 3. 관리자 페이지에서 웹사이트 설정, 게시판별 설정이 가능 하므로 비개발자의 사이트 운용이 간편하다.
 4. 포털사이트 검색 노출에 최적화된 meta 태그가 설정 되어 있다.
+
 > 기본 meta 태그 외 OpenGraph, Twitter용 meta 태그까지 포함
 
 ### 기타
 1. 기본적인 회원가입은 이메일 기반으로 인증 후 완료 됩니다.
+
 > Google SMTP를 이용하므로 Google 아이디 필수.
 > Spring Root 설정 xml에서 아이디/비밀번호 설정 해줘야 함.
 ``` xml
