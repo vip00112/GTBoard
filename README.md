@@ -13,28 +13,28 @@ PHP 진영의 XE보드, 그누보드와 같이 일반 사용자도 쉽게 자신
 2. **webapp/META-INF/context.xml** 파일에서 접속 설정
 
 ### 프로젝트/웹사이트 설정 문서(xml) 경로
-1. DB 접속
+- DB 접속
 ```
 webapp/META-INF/context.xml
 ```
-2. MyBatis(typeAliases, Mappers)
+- MyBatis(typeAliases, Mappers)
 ```
 webapp/WEB-INF/config/mybatis-config.xml
 ```
-3. Spring Root 설정
+- Spring Root 설정
 ```
 webapp/WEB-INF/config/root-context.xml
 ```
-4. Spring Dispatcher Servlet 설정
+- Spring Dispatcher Servlet 설정
 ```
 webapp/WEB-INF/config/servlet-context.xml
 ```
-5. 웹사이트 기본 설정(meta, footer 등)
+- 웹사이트 기본 설정(meta, footer 등)
 ```
 webapp/WEB-INF/config/setting/setting-base.xml
 (관리자 페이지 에서 실시간 수정 가능)
 ```
-6. 게시판 별 설정(meta, footer 등)
+- 게시판 별 설정(meta, footer 등)
 ```
 webapp/WEB-INF/config/setting/setting-board.xml
 (관리자 페이지 에서 실시간 수정 가능)
