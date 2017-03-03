@@ -69,3 +69,10 @@ webapp/WEB-INF/config/setting/setting-board.xml
 ```
 - Google SMTP는 하루 최대 메일 발송 제한이 있습니다.
 	- 추후 Google/Naver/Facebook/Twitter 로그인 기능 구현 예정
+- 업로드된 이미지 저장 경로
+	- 임시폴더 `webapp/resources/img/upload/`
+	- 공지사항 `webapp/resources/img/notice/{noticeNo}/`
+	- 게시글 `webapp/resources/img/board/{boardNo}/`
+- 업로드된 첨부파일 저장 경로
+	- 임시폴더 `webapp/WEB-INF/attachFiles/upload/`
+	- 게시글 `webapp/WEB-INF/attachFiles/board/{boardNo}`
