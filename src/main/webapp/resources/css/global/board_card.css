@@ -1,0 +1,165 @@
+/* 공통 CSS */
+.board_frame.card .line {
+    padding: 0;
+    position: relative;
+}
+
+.board_frame.card .line.top {
+    display: none;
+}
+
+.board_frame.card .line.item {
+    padding: 20px;
+    border: 1px solid #aaa;
+    margin-bottom: 10px;
+}
+
+.board_frame.card .line.item .no {
+    display: none;
+}
+
+.board_frame.card.all .line.item .type,
+.board_frame.card.my .line.item .type {
+    display: block;
+    width: 100%;
+    text-align: left;
+    float: none;
+    line-height: 15px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.board_frame.card .line.item .title.notice:before {
+    content: "[공지사항]";
+    display: block;
+    margin-bottom: 5px;
+}
+
+.board_frame.card .line.item .nickname,
+.board_frame.card .line.item .date,
+.board_frame.card .line.item .hit,
+.board_frame.card .line.item .thumb {
+    text-align: left;
+}
+
+.board_frame.card .line.item .nickname {
+    padding-left: 0;
+}
+
+.board_frame.card.my .line.item .date {
+    padding-left: 0;
+}
+
+.board_frame.card.notice .line.item .hit {
+    border-right: none;
+}
+
+.board_frame.card.notice .line.item .thumb {
+    display: none;
+}
+
+.board_frame.card .line.item .thumb {
+    border-right: none;
+    font-weight: bold;
+    color: #f83938;
+}
+
+.board_frame.card.all .line.item .type:before,
+.board_frame.card.my .line.item .type:before {
+    content: "[";
+}
+
+.board_frame.card.all .line.item .type:after,
+.board_frame.card.my .line.item .type:after {
+    content: "]";
+}
+
+.board_frame.card .line.item .hit:before {
+    content: "조회 ";
+}
+
+.board_frame.card .line.item .thumb:before {
+    content: "추천 ";
+}
+
+/* Mobile First : 기본 레이아웃은 모바일 최적화 */
+/* exnteds board.css */
+
+/* Tablet & Desktop : 768px 이상 해상도 */
+@media (min-width:768px) {
+    .board_frame.card .line.item a,
+    .board_frame.card .line.item span {
+        display: inline;
+        vertical-align: middle;
+        float: none;
+    }
+    .board_frame.card .line.item span {
+        display: inline-block;
+    }
+    .board_frame.card .line .title a {
+        white-space: normal;
+    }
+    .board_frame.card .line .title {
+        display: block;
+        min-height: 45px;
+        float: right;
+        padding-left: 10px;
+        border-left: 1px solid #aaa;
+        box-sizing: border-box;
+    }
+    .board_frame.card .line.item .nickname,
+    .board_frame.card .line.item .date,
+    .board_frame.card .line.item .hit,
+    .board_frame.card .line.item .thumb {
+        display: block;
+        padding: 0 10px 0 0;
+        margin-top: 0;
+        border-right: none;
+        font-size: 1em;
+        color: #424242;
+        float: left;
+        line-height: 15px;
+        box-sizing: border-box;
+    }
+    .board_frame.card .line.item .hit,
+    .board_frame.card .line.item .thumb {
+        width: auto;
+    }
+    .board_frame.card .line.item .thumb {
+        color: #f83938;
+    }
+    .board_frame.card .line.item .nickname:before {
+        content: "글쓴이: ";
+        font-weight: bold;
+    }
+    .board_frame.card .line.item .date:before {
+        content: "작성일: ";
+        font-weight: bold;
+    }
+}
+
+/* Tablet : 768px~1024px 해상도 */
+@media (min-width:768px) and (max-width:1024px) {
+    .board_frame.card .line .title {
+        width: 80%;
+    }
+    .board_frame.card .line.item .nickname,
+    .board_frame.card .line.item .date,
+    .board_frame.card .line.item .hit,
+    .board_frame.card .line.item .thumb {
+        width: 20%;
+    }
+}
+
+/* Desktop : 1025px 이상 해상도 */
+@media (min-width:1025px) {
+    .board_frame.card .line .title {
+        width: 85%;
+    }
+    .board_frame.card .line.item .nickname,
+    .board_frame.card .line.item .date,
+    .board_frame.card .line.item .hit,
+    .board_frame.card .line.item .thumb {
+        width: 15%;
+    }
+}

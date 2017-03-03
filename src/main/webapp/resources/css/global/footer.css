@@ -1,0 +1,68 @@
+/* 공통 CSS */
+.wrap.footer {
+    color: #fff;
+    margin-top: 20px;
+}
+
+.wrap.footer,
+.wrap.footer .container {
+    background-color: #222;
+}
+
+.wrap.footer .container {
+    box-sizing: border-box;
+    padding: 20px 10px;
+}
+
+.wrap.footer .container ul:after {
+    display: block;
+    content: "";
+    clear: both;
+}
+
+.wrap.footer .container ul li {
+    float: left;
+    padding: 0 10px;
+    border-right: 1px solid #aaa;
+    margin-bottom: 5px;
+}
+
+.wrap.footer .container ul li:first-child {
+    padding-left: 0;
+}
+
+.wrap.footer .container ul li:last-child {
+    border-right: none;
+}
+
+.wrap.footer .container ul li a {
+    display: block;
+    color: #aaa;
+    text-decoration: none;
+    transition: .2s ease;
+}
+
+.wrap.footer .container ul li a:hover {
+    color: #fff;
+}
+
+.wrap.footer .container dl dt {
+    float: left;
+    width: 100px;
+    height: 20px;
+    line-height: 20px;
+    font-weight: bold;
+}
+
+.wrap.footer .container dl dd {
+    height: 20px;
+    line-height: 20px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.wrap.footer .container small {
+    display: block;
+    padding: 10px 0;
+}

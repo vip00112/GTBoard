@@ -1,0 +1,70 @@
+/* 공통 CSS */
+.wrap.top,
+.wrap.top .container {
+    background-color: #f83938;
+}
+
+.wrap.top {
+    position: fixed;
+    top: 0;
+    z-index: 2;
+}
+
+.wrap.top .container .logo {
+    float: left;
+    margin-left: 5px;
+}
+
+.wrap.top .container .logo a {
+    display: block;
+    height: 40px;
+    line-height: 40px;
+    font-size: 20px;
+    font-weight: bold;
+    text-decoration: none;
+    color: #fff;
+}
+
+.wrap.top .container .logo a img {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.wrap.top .container .user {
+    float: right;
+    margin-right: 5px;
+}
+
+.wrap.top .container .user:after {
+    display: block;
+    content: "";
+    clear: both;
+}
+
+.wrap.top .container .user li {
+    float: left;
+}
+
+.wrap.top .container .user li a {
+    display: block;
+    height: 40px;
+    line-height: 40px;
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 0 10px;
+}
+
+.wrap.top .container .gnav {
+    float: right;
+    margin-right: 5px;
+    padding: 0 10px;
+    border: none;
+    outline: inherit;
+    height: 40px;
+    line-height: 40px;
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+    background-color: transparent;
+}

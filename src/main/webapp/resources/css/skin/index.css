@@ -1,0 +1,10 @@
+section.all {
+    display: none;
+}
+
+/* Tablet & Desktop : 768px 이상 해상도 */
+@media (min-width:768px) {
+    section.all {
+        display: block;
+    }
+}

@@ -1,0 +1,182 @@
+/* 공통 CSS */
+.box {
+    position: relative;
+    padding: 10px 0;
+    max-width: 600px;
+    margin: auto;
+}
+
+.box:after {
+    display: block;
+    content: "";
+    clear: both;
+}
+
+.box.step {
+    padding: 0;
+    margin-bottom: 20px;
+    border: 1px solid #aaa;
+}
+
+.box.step span {
+    display: block;
+    position: relative;
+    float: left;
+    width: 25%;
+    text-align: center;
+    font-weight: bold;
+    height: 30px;
+    line-height: 30px;
+}
+
+.box.step span.now {
+    background-color: #424242;
+    color: #fff;
+}
+
+.box.step span.clear {
+    background-color: #424242;
+    color: #fff;
+}
+
+.box.step span.now:before {
+    display: block;
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    border-bottom: 15px solid transparent;
+    border-right: 15px solid #fff;
+}
+
+.box.step span.now:after {
+    display: block;
+    content: "";
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    border-top: 15px solid transparent;
+    border-right: 15px solid #fff;
+}
+
+.box.step span.complete {
+    color: #f83938;
+    text-shadow: 0px 0px 5px #fff;
+}
+
+.msg {
+    margin-top: 5px;
+    font-weight: bold;
+    display: none;
+}
+
+.msg.icon {
+    position: absolute;
+    top: 30px;
+    right: 5px;
+    z-index: 1;
+    background-color: #fff;
+    font-size: 20px;
+}
+
+.msg.error,
+.msg.overlap {
+    color: red;
+}
+
+.msg.done {
+    color: green;
+}
+
+.msg.on {
+    display: block;
+}
+
+.box label {
+    display: block;
+    width: 100%;
+    height: 15px;
+    font-weight: bold;
+}
+
+.box input {
+    display: block;
+    width: 100%;
+    height: 40px;
+    line-height: 40px;
+    padding: 0 10px;
+    box-sizing: border-box;
+    border: 1px solid #aaa;
+    transition: .2s ease;
+    border-radius: 5px;
+}
+
+.box input:hover {
+    border: 1px solid #424242;
+}
+
+.box input:focus {
+    border: 1px solid #f83938;
+}
+
+.box.captcha img {
+    width: 148px;
+    height: 38px;
+    float: right;
+    border: 1px solid #aaa;
+    cursor: pointer;
+    transition: .2s ease;
+}
+
+.box.captcha .variable {
+    position: absolute;
+    left: 0;
+    right: 160px;
+}
+
+.box.captcha .variable input {
+    width: 100%;
+}
+
+.box.captcha img:hover {
+    border: 1px solid #424242
+}
+
+.box.btn .btn {
+    display: block;
+    width: 49%;
+    height: 40px;
+    line-height: 40px;
+    cursor: pointer;
+    border-radius: 5px;
+    text-align: center;
+    text-decoration: none;
+    color: #424242;
+    border: 1px solid #aaa;
+}
+
+.box.btn .btn.next {
+    float: right;
+    font-weight: bold;
+    background-color: #424242;
+    color: #fff;
+}
+
+.box.btn .btn.prev {
+    float: left;
+}
+
+.box.link {
+    text-align: right;
+}
+
+.box.link a {
+    color: #424242;
+    text-decoration: none;
+    margin-left: 10px;
+    transition: .2s ease;
+}
+
+.box.link a:hover {
+    color: #f83938;
+}

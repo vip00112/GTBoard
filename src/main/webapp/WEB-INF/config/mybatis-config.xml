@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org/DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+	<!-- NULL 처리 -->
+	<settings>
+		<setting name="jdbcTypeForNull" value="NULL" />
+	</settings>
+
+	<!-- Aliases -->
+	<typeAliases>
+		<typeAlias alias="AttachFile" type="com.gt.board.vo.AttachFile" />
+		<typeAlias alias="Board" type="com.gt.board.vo.Board" />
+		<typeAlias alias="Comment" type="com.gt.board.vo.Comment" />
+		<typeAlias alias="Notice" type="com.gt.board.vo.Notice" />
+		<typeAlias alias="Thumb" type="com.gt.board.vo.Thumb" />
+		<typeAlias alias="User" type="com.gt.board.vo.User" />
+	</typeAliases>
+
+	<!-- Mappers -->
+	<mappers>
+		<mapper resource="com/gt/board/mapper/attachFiles.xml" />
+		<mapper resource="com/gt/board/mapper/boards.xml" />
+		<mapper resource="com/gt/board/mapper/comments.xml" />
+		<mapper resource="com/gt/board/mapper/notice.xml" />
+		<mapper resource="com/gt/board/mapper/thumbs.xml" />
+		<mapper resource="com/gt/board/mapper/users.xml" />
+	</mappers>
+
+</configuration>

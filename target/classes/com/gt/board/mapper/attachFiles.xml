@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="attachFiles">
+	<!-- 첨부파일 추가 -->
+	<insert id="insert" parameterType="AttachFile" useGeneratedKeys="true" keyProperty="no">
+		INSERT INTO attachFiles(boardNo, name, size, extension, newName, fullPath)
+		VALUES(#{boardNo}, #{name}, #{size}, #{extension}, #{newName}, #{fullPath})
+	</insert>
+
+	<!-- 첨부파일 1개 취득 -->
+	<select id="selectOne" parameterType="hashMap" resultType="AttachFile">
+		SELECT no, boardNo, name, size, extension, newName, fullPath, regdate
+		FROM attachFiles
+		WHERE no=#{no} AND boardNo=#{boardNo}
+	</select>
+
+	<!-- 해당 게시글의 첨부파일 목록 -->
+	<select id="selectList" parameterType="int" resultType="AttachFile">
+		SELECT no, boardNo, name, size, extension, newName, fullPath, regdate
+		FROM attachFiles
+		WHERE boardNo=#{boardNo}
+		ORDER BY regdate
+	</select>
+
+	<!-- 첨부파일 1개 삭제 -->
+	<delete id="deleteByName" parameterType="hashMap">
+		DELETE FROM attachFiles WHERE boardNo=#{boardNo} AND newName=#{newName}
+	</delete>
+
+	<!-- 해당 게시글의 첨부파일 삭제 -->
+	<delete id="deleteByBoard" parameterType="int">
+		DELETE FROM attachFiles WHERE boardNo=#{boardNo}
+	</delete>
+</mapper>

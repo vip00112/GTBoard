@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="notice">
+	<!-- 게시글 작성 -->
+	<insert id="insert" parameterType="Notice" useGeneratedKeys="true" keyProperty="no">
+		INSERT INTO notice(userNo, nickname, title, content)
+		VALUES(#{userNo}, #{nickname}, #{title}, #{content})
+	</insert>
+
+	<!-- 게시글 삭제 -->
+	<delete id="delete" parameterType="int">
+		DELETE FROM notice WHERE no=#{no}
+	</delete>
+
+	<!-- 게시글 수정 -->
+	<update id="update" parameterType="Notice">
+		UPDATE notice SET title=#{title}, content=#{content}, hit=#{hit}
+		<if test="regdate != null">, regdate=#{regdate}</if>
+		WHERE no=#{no}
+	</update>
+
+	<!-- 게시글 1개 취득 -->
+	<select id="selectOne" parameterType="int" resultType="Notice">
+		SELECT no, userNo, nickname, title, content, hit, regdate
+		FROM notice
+		WHERE no=#{no}
+	</select>
+
+	<!-- 조회수 증가 -->
+	<update id="updateHit" parameterType="int">
+		UPDATE notice SET hit=IFNULL(hit, 0)+1 WHERE no=#{no}
+	</update>
+
+	<!-- 공지사항 최신글 x개 -->
+	<select id="selectListByRecent" parameterType="hashMap" resultType="Notice">
+		SELECT no, userNo, nickname, title, content, hit, regdate
+		FROM notice
+		ORDER BY regdate DESC
+		LIMIT #{max}
+	</select>
+
+	<!-- 조건에 맞는 게시글 갯수 -->
+	<select id="selectCount" parameterType="hashMap" resultType="int">
+		SELECT count(*)
+		FROM notice
+		<where>
+			<if test="searchType == 'title' and search != ''"> <!-- 글 제목 -->
+				AND title LIKE CONCAT('%', #{search}, '%')
+			</if>
+			<if test="searchType == 'content' and search != ''"> <!-- 글 내용 -->
+				AND content LIKE CONCAT('%', #{search}, '%')
+			</if>
+			<if test="searchType == 'title_content' and search != ''"> <!-- 글 제목 + 글 내용 -->
+				AND (title LIKE CONCAT('%', #{search}, '%') OR content LIKE CONCAT('%', #{search}, '%'))
+			</if>
+		</where>
+	</select>
+
+	<!-- 조건에 맞는 페이징 처리된 게시글 목록 -->
+	<select id="selectList" parameterType="hashMap" resultType="Notice">
+		SELECT no, userNo, nickname, title, content, hit, regdate
+		FROM notice
+		<where>
+			<if test="searchType == 'title' and search != ''"> <!-- 글 제목 -->
+				AND title LIKE CONCAT('%', #{search}, '%')
+			</if>
+			<if test="searchType == 'content' and search != ''"> <!-- 글 내용 -->
+				AND content LIKE CONCAT('%', #{search}, '%')
+			</if>
+			<if test="searchType == 'title_content' and search != ''"> <!-- 글 제목 + 글 내용 -->
+				AND (title LIKE CONCAT('%', #{search}, '%') OR content LIKE CONCAT('%', #{search}, '%'))
+			</if>
+		</where>
+		ORDER BY ${order}
+		<if test="order != 'regdate DESC'">, regdate DESC</if>
+		LIMIT #{page.start}, #{page.end}
+	</select>
+</mapper>

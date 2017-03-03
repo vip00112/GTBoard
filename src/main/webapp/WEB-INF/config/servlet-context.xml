@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:p="http://www.springframework.org/schema/p" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.2.xsd">
+
+	<!-- 기본 설정 -->
+	<mvc:annotation-driven ignore-default-model-on-redirect="true" />
+
+	<!-- Internal Resouce View 접두/접미어 설정 -->
+	<mvc:view-resolvers>
+		<mvc:jsp prefix="/WEB-INF/view/" suffix=".jsp" />
+	</mvc:view-resolvers>
+
+	<!-- Model전달이 필요없는 Controller -->
+	<mvc:view-controller path="/error" />
+
+	<!-- 정적인 리소스 명시 -->
+	<mvc:resources location="/robots.txt" mapping="/robots.txt" order="0" />
+	<mvc:resources location="/resources/" mapping="/resources/**" />
+	<mvc:resources location="/ckeditor/" mapping="/ckeditor/**" />
+
+	<!-- interceptor 설정 -->
+	<mvc:interceptors>
+		<!-- 로그인 확인 + CSRFToken 확인 -->
+		<mvc:interceptor>
+			<!-- interceptor 적용할 접근 경로 -->
+			<mvc:mapping path="/join/verify" />
+			<mvc:mapping path="/join/complete" />
+			<mvc:mapping path="/**/write" />
+			<mvc:mapping path="/**/update" />
+			<mvc:mapping path="/**/delete" />
+			<mvc:mapping path="/user/**" />
+			<mvc:mapping path="/admin/**" />
+			<mvc:mapping path="/editor/**" />
+
+			<!-- 정적인 리소스는 interceptor 제외 -->
+			<mvc:exclude-mapping path="/resources/**" />
+			<mvc:exclude-mapping path="/ckeditor/**" />
+
+			<!-- Interceptor bean 설정 -->
+			<bean class="com.gt.board.interceptor.LoginCheckInterceptor" />
+		</mvc:interceptor>
+
+		<!-- 모든 페이지 -->
+		<mvc:interceptor>
+			<mvc:mapping path="/**" />
+
+			<!-- 정적인 리소스는 interceptor 제외 -->
+			<mvc:exclude-mapping path="/resources/**" />
+			<mvc:exclude-mapping path="/ckeditor/**" />
+
+			<!-- Interceptor bean 설정 -->
+			<bean class="com.gt.board.interceptor.GlobalModelInterceptor">
+				<property name="settingService" ref="settingService" />
+				<property name="fileUtil" ref="fileUtil" />
+			</bean>
+		</mvc:interceptor>
+	</mvc:interceptors>
+
+	<!-- Spring Web MVC에 대한 설정 (Controller) -->
+	<bean class="com.gt.board.controller.AdminController">
+		<property name="settingService" ref="settingService" />
+	</bean>
+	<bean class="com.gt.board.controller.BoardController">
+		<property name="boardService" ref="boardService" />
+		<property name="commentService" ref="commentService" />
+		<property name="thumbService" ref="thumbService" />
+		<property name="settingService" ref="settingService" />
+		<property name="attachFileService" ref="attachFileService" />
+		<property name="commonUtil" ref="commonUtil" />
+		<property name="cookieUtil" ref="cookieUtil" />
+		<property name="fileUtil" ref="fileUtil" />
+	</bean>
+	<bean class="com.gt.board.controller.CKEditorController">
+		<property name="CKEditorService" ref="CKEditorService" />
+		<property name="fileUtil" ref="fileUtil" />
+	</bean>
+	<bean class="com.gt.board.controller.LoginController">
+		<property name="userService" ref="userService" />
+		<property name="settingService" ref="settingService" />
+		<property name="mailService" ref="mailService" />
+		<property name="rsaUtil" ref="RSAUtil" />
+	</bean>
+	<bean class="com.gt.board.controller.MainController">
+		<property name="boardService" ref="boardService" />
+		<property name="noticeService" ref="noticeService" />
+		<property name="settingService" ref="settingService" />
+		<property name="cookieUtil" ref="cookieUtil" />
+		<property name="fileUtil" ref="fileUtil" />
+	</bean>
+	<bean class="com.gt.board.controller.UserController">
+		<property name="userService" ref="userService" />
+		<property name="boardService" ref="boardService" />
+		<property name="commentService" ref="commentService" />
+		<property name="settingService" ref="settingService" />
+	</bean>
+
+</beans>

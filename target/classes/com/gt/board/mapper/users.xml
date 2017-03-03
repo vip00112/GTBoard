@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="users">
+	<!-- 유저 정보 취득: 로그인, 비밀번호 찾기 -->
+	<select id="selectOneByEmail" parameterType="String" resultType="User">
+		SELECT no, email, password, nickname, isActive, grade, point, regdate
+		FROM users
+		WHERE email=#{email}
+	</select>
+
+	<!-- 유저 1개 취득 -->
+	<select id="selectOneByNo" parameterType="int" resultType="User">
+		SELECT no, email, password, nickname, isActive, grade, point, regdate
+		FROM users
+		WHERE no=#{no}
+	</select>
+
+	<!-- 회원가입 -->
+	<insert id="insert" parameterType="User">
+		INSERT INTO users(email, password, nickname)
+		VALUES(#{email}, #{password}, #{nickname})
+	</insert>
+
+	<!-- 계정 활성화 -->
+	<update id="updateActive" parameterType="int">
+		UPDATE users SET isActive=TRUE WHERE no=#{no}
+	</update>
+
+	<!-- email 중복 검사 -->
+	<select id="selectCountByEmail" parameterType="hashMap" resultType="int">
+		SELECT count(*) FROM users WHERE no<![CDATA[<>]]>#{no}
+		AND email=#{value}
+	</select>
+
+	<!-- nickname 중복 검사 -->
+	<select id="selectCountByNickname" parameterType="hashMap" resultType="int">
+		SELECT count(*) FROM users WHERE no<![CDATA[<>]]>#{no}
+		AND nickname=#{value}
+	</select>
+
+	<!-- 닉네임 변경 -->
+	<update id="updateNickname" parameterType="hashMap">
+		UPDATE users SET nickname=#{nickname} WHERE no=#{no}
+	</update>
+
+	<!-- 비밀번호 변경 -->
+	<update id="updatePassword" parameterType="hashMap">
+		UPDATE users SET password=#{password} WHERE email=#{email}
+	</update>
+
+	<!-- 포인트 증가/감소 -->
+	<update id="updatePoint" parameterType="hashMap">
+		UPDATE users SET
+		<choose>
+			<when test="type == 'I'"> <!-- 'I':Increase 증가, 'D':Decrease 감소 -->
+				point=IFNULL(point, 0)+#{point}
+			</when>
+			<otherwise>
+				point=IFNULL(point, 0)-#{point}
+			</otherwise>
+		</choose>
+		WHERE no=#{no}
+	</update>
+
+	<!-- 포인트 증가/감소 기록 -->
+	<insert id="insertPointHistory">
+		INSERT INTO point_history(userNo, type, point, reason)
+		VALUES(#{no}, #{type}, #{point}, #{reason})
+	</insert>
+</mapper>

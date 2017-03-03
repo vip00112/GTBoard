@@ -1,0 +1,10 @@
+.wrap.wide-paper,
+.wrap.wide-paper .container {
+    max-width: none;
+    background-color: #e3e8ec;
+}
+
+.wrap.wide-paper .container img {
+    width: 100%;
+    margin: auto;
+}

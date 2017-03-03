@@ -1,0 +1,79 @@
+/* 공통 CSS */
+.wrap.header {
+    margin-top: 41px;
+}
+
+.wrap.header .gnav:after,
+.wrap.header .gnav .menu:after {
+    display: block;
+    content: "";
+    clear: both;
+}
+
+.wrap.header .gnav>.menu li a {
+    display: block;
+    height: 0;
+    line-height: 30px;
+    text-decoration: none;
+    transition: .2s ease;
+}
+
+.wrap.header .gnav>.menu.on li a {
+    height: 30px;
+}
+
+/* Mobile First : 기본 레이아웃은 모바일 최적화 */
+.wrap.header .gnav>.menu li {
+    background-color: #f83938;
+}
+
+.wrap.header .gnav>.menu li a {
+    padding: 0 5px;
+    color: #fff;
+}
+
+.wrap.header .gnav>.menu.on>li {
+    border-bottom: 1px solid #fff;
+}
+
+.wrap.header .gnav .menu.sub>li a {
+    padding-left: 25px;
+}
+
+/* Desktop : 1025px 이상 해상도 */
+@media (min-width:1025px) {
+    .wrap.header {
+        border-bottom: 1px solid #aaa;
+    }
+    .wrap.header .gnav>.menu li {
+        background-color: transparent;
+    }
+    .wrap.header .gnav>.menu>li {
+        width: 20%;
+        float: left;
+    }
+    .wrap.header .gnav>.menu li a {
+        padding: 0;
+        color: #424242;
+        text-align: center;
+    }
+    .wrap.header .gnav>.menu li a:hover {
+        color: #fff;
+        background-color: #424242;
+    }
+    .wrap.header .gnav>.menu>li>a {
+        height: 30px;
+        font-weight: bold;
+    }
+    .wrap.header .gnav>.menu.on>li {
+        border-bottom: none;
+    }
+    .wrap.header .gnav .menu.sub>li a {
+        padding-left: 0;
+        overflow: hidden;
+    }
+    .wrap.header .gnav .menu:hover .menu.sub>li a,
+    .wrap.header .gnav .menu.on .menu.sub>li a {
+        height: 30px;
+    }
+}

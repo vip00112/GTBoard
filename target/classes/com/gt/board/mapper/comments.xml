@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="comments">
+	<!-- 댓글 작성 -->
+	<insert id="insert" parameterType="Comment">
+		INSERT INTO comments(boardNo, userNo, nickname, content, ip)
+		VALUES(#{boardNo}, #{userNo}, #{nickname}, #{content}, #{ip})
+	</insert>
+
+	<!-- 댓글 삭제 -->
+	<delete id="delete" parameterType="int">
+		DELETE FROM comments WHERE no=#{no}
+	</delete>
+
+	<!-- 게시글 삭제에 의한 댓글 삭제 -->
+	<delete id="deleteByBoard" parameterType="int">
+		DELETE FROM comments WHERE boardNo=#{boardNo}
+	</delete>
+
+	<!-- 댓글 1개 취득 -->
+	<select id="selectOne" parameterType="int" resultType="Comment">
+		SELECT no, boardNo, userNo, nickname, content, regdate
+		FROM comments
+		WHERE no=#{no}
+	</select>
+
+	<!-- 조건에 맞는 댓글 갯수 -->
+	<select id="selectCount" parameterType="hashMap" resultType="int">
+		SELECT count(*)
+		FROM comments
+		<where>
+			<if test="boardNo != null">
+				AND boardNo=#{boardNo}
+			</if>
+			<if test="userNo != null">
+				AND userNo=#{userNo}
+			</if>
+		</where>
+	</select>
+
+	<!-- 조건에 맞는 페이징 처리된 댓글 목록 -->
+	<select id="selectList" parameterType="hashMap" resultType="Comment">
+		SELECT no, boardNo, userNo, nickname, content, regdate
+		FROM comments
+		<where>
+			<if test="boardNo != null">
+				AND boardNo=#{boardNo}
+			</if>
+			<if test="userNo != null">
+				AND userNo=#{userNo}
+			</if>
+		</where>
+		ORDER BY regdate ASC
+		LIMIT #{page.start}, #{page.end}
+	</select>
+</mapper>

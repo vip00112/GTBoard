@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="boards">
+	<!-- 게시글 작성 -->
+	<insert id="insert" parameterType="Board" useGeneratedKeys="true" keyProperty="no">
+		INSERT INTO boards(typeNo, userNo, nickname, title, content, ip, isNotice)
+		VALUES(#{typeNo}, #{userNo}, #{nickname}, #{title}, #{content}, #{ip}, #{isNotice})
+	</insert>
+
+	<!-- 게시글 삭제 -->
+	<delete id="delete" parameterType="int">
+		DELETE FROM boards WHERE no=#{no}
+	</delete>
+
+	<!-- 게시글 수정 -->
+	<update id="update" parameterType="Board">
+		UPDATE boards SET typeNo=#{typeNo}, title=#{title}, content=#{content}, hit=#{hit}, isNotice=#{isNotice}, lastUpdate=NOW()
+		<if test="regdate != null">, regdate=#{regdate}</if>
+		WHERE no=#{no}
+	</update>
+
+	<!-- 게시글 내용만 수정 -->
+	<update id="updateContent">
+		UPDATE boards SET content=#{content} WHERE no=#{no}
+	</update>
+
+	<!-- 게시글 1개 취득 -->
+	<select id="selectOne" parameterType="int" resultType="Board">
+		SELECT no, typeNo, userNo, nickname, title, content, ip, commentCount, hit, thumb, isNotice, regdate, lastUpdate
+		FROM boards
+		WHERE no=#{no}
+	</select>
+
+	<!-- 조회수 증가 -->
+	<update id="updateHit" parameterType="int">
+		UPDATE boards SET hit=IFNULL(hit, 0)+1 WHERE no=#{no}
+	</update>
+
+	<!-- 댓글 수 증가/감소 -->
+	<update id="updateCommentCount" parameterType="hashMap">
+		UPDATE boards
+		SET
+		<choose>
+			<when test="type == 'add'">
+				commentCount=IFNULL(commentCount, 0)+1
+			</when>
+			<otherwise>
+				commentCount=IFNULL(commentCount, 0)-1
+			</otherwise>
+		</choose>
+		WHERE no=#{no}
+	</update>
+
+	<!-- 추천 수 증가 -->
+	<update id="updateThumb" parameterType="hashMap">
+		UPDATE boards SET thumb=IFNULL(thumb, 0)+1 WHERE no=#{no}
+	</update>
+
+	<!-- 해당 게시판 분류의 최신글 x개 -->
+	<select id="selectListByRecent" parameterType="hashMap" resultType="Board">
+		SELECT no, typeNo, userNo, nickname, title, content, ip, commentCount, hit, thumb, isNotice, regdate, lastUpdate
+		FROM boards
+		<where>
+			<foreach collection="typeNoList" item="no" separator="OR" open="(" close=")"> <!-- 게시판 분류 -->
+				typeNo=#{no}
+			</foreach>
+			AND isNotice=FALSE
+		</where>
+		ORDER BY regdate DESC
+		LIMIT #{max}
+	</select>
+
+	<!-- 조건에 맞는 일반 게시글 갯수 -->
+	<select id="selectCount" parameterType="hashMap" resultType="int">
+		SELECT count(*)
+		FROM boards b
+		<where>
+			<foreach collection="typeNoList" item="no" separator="OR" open="(" close=")"> <!-- 게시판 분류 -->
+				typeNo=#{no}
+			</foreach>
+			<if test="userNo != null"> <!-- 해당 유저의 게시글 -->
+				AND userNo=#{userNo}
+			</if>
+			<if test="popularThumb != null and popularThumb != 0"> <!-- 인기글 -->
+				<![CDATA[AND thumb >= #{popularThumb}]]>
+			</if>
+			<if test="search != ''"> <!-- 검색 조건 -->
+				<if test="searchType == 'title' and search != ''"> <!-- 글 제목 -->
+					AND title LIKE CONCAT('%', #{search}, '%')
+				</if>
+				<if test="searchType == 'content' and search != ''"> <!-- 글 내용 -->
+					AND content LIKE CONCAT('%', #{search}, '%')
+				</if>
+				<if test="searchType == 'title_content' and search != ''"> <!-- 글 제목 + 글 내용 -->
+					AND (title LIKE CONCAT('%', #{search}, '%') OR content LIKE CONCAT('%', #{search}, '%'))
+				</if>
+				<if test="searchType == 'nickname' and search != ''"> <!-- 글쓴이 닉네임 -->
+					AND (SELECT nickname FROM users WHERE no=b.userNo) LIKE CONCAT('%', #{search}, '%')
+				</if>
+				<if test="searchType == 'comment' and search != ''"> <!-- 댓글 내용 -->
+					<![CDATA[AND (SELECT count(*) FROM comments WHERE boardNo=b.no AND content LIKE CONCAT('%', #{search}, '%')) > 0]]>
+				</if>
+				<if test="searchType == 'comment_nickname' and search != ''"> <!-- 댓글 작성자 닉네임 -->>
+					<![CDATA[AND (SELECT count(*) FROM users u, comments c WHERE c.boardNo=b.no AND u.no=c.userNo AND u.nickname LIKE CONCAT('%', #{search}, '%')) > 0]]>
+				</if>
+			</if>
+			AND isNotice=FALSE
+		</where>
+	</select>
+
+	<!-- 조건에 맞는 페이징 처리된 일반 게시글 목록 -->
+	<select id="selectList" parameterType="hashMap" resultType="Board">
+		SELECT no, typeNo, userNo, nickname, title, content, ip, commentCount, hit, thumb, isNotice, regdate, lastUpdate
+		FROM boards b
+		<where>
+			<foreach collection="typeNoList" item="no" separator="OR" open="(" close=")"> <!-- 게시판 분류 -->
+				typeNo=#{no}
+			</foreach>
+			<if test="userNo != null"> <!-- 해당 유저의 게시글 -->
+				AND userNo=#{userNo}
+			</if>
+			<if test="popularThumb != null and popularThumb != 0"> <!-- 인기글 -->
+				<![CDATA[AND thumb >= #{popularThumb}]]>
+			</if>
+			<if test="search != ''"> <!-- 검색 조건 -->
+				<if test="searchType == 'title' and search != ''"> <!-- 글 제목 -->
+					AND title LIKE CONCAT('%', #{search}, '%')
+				</if>
+				<if test="searchType == 'content' and search != ''"> <!-- 글 내용 -->
+					AND content LIKE CONCAT('%', #{search}, '%')
+				</if>
+				<if test="searchType == 'title_content' and search != ''"> <!-- 글 제목 + 글 내용 -->
+					AND (title LIKE CONCAT('%', #{search}, '%') OR content LIKE CONCAT('%', #{search}, '%'))
+				</if>
+				<if test="searchType == 'nickname' and search != ''"> <!-- 글쓴이 닉네임 -->
+					AND (SELECT nickname FROM users WHERE no=b.userNo) LIKE CONCAT('%', #{search}, '%')
+				</if>
+				<if test="searchType == 'comment' and search != ''"> <!-- 댓글 내용 -->
+					<![CDATA[AND (SELECT count(*) FROM comments WHERE boardNo=b.no AND content LIKE CONCAT('%', #{search}, '%')) > 0]]>
+				</if>
+				<if test="searchType == 'comment_nickname' and search != ''"> <!-- 댓글 작성자 닉네임 -->>
+					<![CDATA[AND (SELECT count(*) FROM users u, comments c WHERE c.boardNo=b.no AND u.no=c.userNo AND u.nickname LIKE CONCAT('%', #{search}, '%')) > 0]]>
+				</if>
+			</if>
+			AND isNotice=FALSE
+		</where>
+		ORDER BY ${order}
+		<if test="order != 'regdate DESC'">, regdate DESC</if>
+		LIMIT #{page.start}, #{page.end}
+	</select>
+
+	<!-- 해당 게시판의 공지 게시글 목록 -->
+	<select id="selectListByNotice" parameterType="int" resultType="Board">
+		SELECT no, typeNo, userNo, nickname, title, content, ip, commentCount, hit, thumb, isNotice, regdate, lastUpdate
+		FROM boards
+		WHERE typeNo=#{typeNo} AND isNotice=TRUE
+		ORDER BY regdate DESC
+	</select>
+</mapper>

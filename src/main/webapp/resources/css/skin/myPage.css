@@ -1,0 +1,93 @@
+/* 공통 CSS */
+.box:after {
+    display: block;
+    content: "";
+    clear: both;
+}
+
+.box.menu {
+    position: relative;
+    border: 1px solid #aaa;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.box.menu li {
+    float: left;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.box.menu li.on {
+    cursor: default;
+    font-weight: bold;
+    top: 0;
+    left: 0;
+}
+
+.box.menu li.on,
+.box.menu li:hover {
+    background-color: #424242;
+    color: #fff;
+}
+
+.box.content {
+    padding: 10px 0;
+    display: none;
+}
+
+.box.content.on {
+    display: block;
+}
+
+.box.content.info dl:after {
+    display: block;
+    content: "";
+    clear: both;
+}
+
+.box.content.info dt,
+.box.content.info dd {
+    height: 30px;
+    line-height: 30px;
+}
+
+.box.content.info dt {
+    float: left;
+    width: 150px;
+    font-weight: bold;
+}
+
+.box.content.info dd {
+    overflow: hidden;
+}
+
+/* Mobile First : 기본 레이아웃은 모바일 최적화 */
+.box.menu {
+    padding-top: 35px;
+}
+
+.box.menu li {
+    width: 50%;
+}
+
+.box.menu li.on {
+    position: absolute;
+    width: 100%;
+}
+
+/* Tablet & Desktop : 768px 이상 해상도 */
+@media (min-width:768px) {
+    .box.menu {
+        padding-top: 0;
+    }
+    .box.menu li {
+        width: 12.5%;
+    }
+    .box.menu li.on {
+        position: relative;
+        width: 12.5%;
+    }
+}

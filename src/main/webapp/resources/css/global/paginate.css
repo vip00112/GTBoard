@@ -1,0 +1,75 @@
+/* 공통 CSS */
+.paginate {
+    width: 100%;
+    text-align: center;
+    padding: 5px 0;
+}
+
+.paginate ul {
+    display: inline-block;
+    display: none;
+}
+
+.paginate ul:after {
+    display: block;
+    content: "";
+    clear: both;
+}
+
+.paginate li {
+    float: left;
+}
+
+.paginate a {
+    display: block;
+    width: 25px;
+    height: 25px;
+    line-height: 25px;
+    text-decoration: none;
+    cursor: pointer;
+    color: #424242;
+    font-size: 11px;
+    font-weight: bold;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    transition: .2s ease;
+}
+
+.paginate .now {
+    cursor: default;
+}
+
+.paginate .now,
+.paginate a:hover {
+    color: #f83938;
+}
+
+.paginate .max,
+.paginate .max:hover {
+    cursor: no-drop;
+    color: #bdbdbd;
+}
+
+/* Mobile First : 기본 레이아웃은 모바일 최적화 */
+.paginate ul.mobile {
+    display: inline-block;
+}
+
+.paginate ul.mobile a {
+    width: auto;
+    padding: 0 10px;
+    border: 1px solid #aaa;
+    border-radius: 5px;
+    margin-right: 5px;
+}
+
+/* Tablet & Desktop : 768px 이상 해상도 */
+@media (min-width:768px) {
+    .paginate ul.mobile {
+        display: none;
+    }
+    .paginate ul.normal {
+        display: inline-block;
+    }
+}

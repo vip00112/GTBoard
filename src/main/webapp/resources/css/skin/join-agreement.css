@@ -1,0 +1,124 @@
+/* 공통 CSS */
+.box {
+    position: relative;
+    padding: 10px 0;
+    max-width: 600px;
+    margin: auto;
+}
+
+.box:after {
+    display: block;
+    content: "";
+    clear: both;
+}
+
+.box.step {
+    padding: 0;
+    margin-bottom: 20px;
+    border: 1px solid #aaa;
+}
+
+.box.step span {
+    display: block;
+    position: relative;
+    float: left;
+    width: 25%;
+    text-align: center;
+    font-weight: bold;
+    height: 30px;
+    line-height: 30px;
+}
+
+.box.step span.now {
+    background-color: #424242;
+    color: #fff;
+}
+
+.box.step span.clear {
+    background-color: #424242;
+    color: #fff;
+}
+
+.box.step span.now:before {
+    display: block;
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    border-bottom: 15px solid transparent;
+    border-right: 15px solid #fff;
+}
+
+.box.step span.now:after {
+    display: block;
+    content: "";
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    border-top: 15px solid transparent;
+    border-right: 15px solid #fff;
+}
+
+.box.step span.complete {
+    color: #f83938;
+    text-shadow: 0px 0px 5px #fff;
+}
+
+.box label,
+.box input {
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    vertical-align: middle;
+    font-weight: bold;
+    height: 20px;
+    line-height: 20px;
+    cursor: pointer;
+}
+
+.box .text {
+    font-size: 11px;
+    color: #828282;
+    border: 1px solid #aaa;
+    height: 200px;
+    overflow-y: scroll;
+}
+
+.box.btn .btn {
+    display: block;
+    width: 49%;
+    height: 40px;
+    line-height: 40px;
+    cursor: pointer;
+    border-radius: 5px;
+    text-align: center;
+    text-decoration: none;
+    color: #424242;
+    border: 1px solid #aaa;
+}
+
+.box.btn .btn.next {
+    float: right;
+    font-weight: bold;
+    background-color: #424242;
+    color: #fff;
+}
+
+.box.btn .btn.prev {
+    float: left;
+}
+
+.box.link {
+    text-align: right;
+}
+
+.box.link a {
+    color: #424242;
+    text-decoration: none;
+    margin-left: 10px;
+    transition: .2s ease;
+}
+
+.box.link a:hover {
+    color: #f83938;
+}

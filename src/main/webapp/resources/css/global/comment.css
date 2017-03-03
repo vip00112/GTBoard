@@ -1,0 +1,215 @@
+/* 공통 CSS */
+.comment_frame {
+    padding: 10px 0;
+    position: relative;
+}
+
+.comment_frame input,
+.comment_frame select,
+.comment_frame label,
+.comment_frame .btn {
+    display: inline-block;
+    height: 25px;
+    line-height: 25px;
+    cursor: pointer;
+    vertical-align: middle;
+    margin: 0;
+    outline: inherit;
+    transition: .2s ease;
+}
+
+.comment_frame input:hover,
+.comment_frame select:hover,
+.comment_frame .btn:hover {
+    border: 1px solid #424242;
+}
+
+.comment_frame input:focus,
+.comment_frame select:focus,
+.comment_frame .btn:focus {
+    border: 1px solid #f83938;
+}
+
+.comment_frame .box_top span {
+    display: block;
+    padding: 10px 0;
+}
+
+.comment_frame .box_top span strong {
+    font-weight: bold;
+    color: #f83938;
+}
+
+.comment_frame .box_top span strong:before {
+    content: "[";
+}
+
+.comment_frame .box_top span strong:after {
+    content: "]";
+}
+
+.comment_frame .box_select {
+    margin-bottom: 5px;
+}
+
+.comment_frame .box_select .form_delete {    
+    display: inline-block;
+}
+
+.comment_frame .box_select button {
+    width: 25px;
+    border-radius: 5px
+}
+
+.comment_frame .box_item {
+    border: 1px solid #aaa;
+}
+
+.comment_frame .item {
+    position: relative;
+    padding: 20px;
+    border-bottom: 1px solid #aaa;
+}
+
+.comment_frame .item:last-child {
+    border-bottom: none;
+}
+
+.comment_frame .item:after {
+    display: block;
+    content: "";
+    clear: both;
+}
+
+.comment_frame .item .delete {
+    margin-bottom: 5px;
+}
+
+.comment_frame .item .delete input {
+    display: block;
+    margin: 0;
+    padding: 0;
+    height: 15px;
+    position: absolute;
+    top: 5px;
+    left: 20px;
+}
+
+.comment_frame .item .delete .form_delete {
+    display: block;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    top: 5px;
+    right: 20px;
+}
+
+.comment_frame .item .delete .form_delete button {
+    height: 15px;
+    cursor: pointer;
+    border: none;
+    margin: 0;
+    transition: .2s ease;
+}
+
+.comment_frame .item .delete .form_delete button:hover {
+    color: #f83938;
+}
+
+.comment_frame .item .no {
+    display: none;
+}
+
+.comment_frame .text {
+    display: block;
+    line-height: 15px;
+    box-sizing: border-box;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    word-break: break-all;
+    text-align: justify;
+}
+
+.comment_frame .item .nickname {
+    color: #424242;
+}
+
+.comment_frame .item .nickname:before {
+    content: "닉네임: ";
+    font-weight: bold;
+}
+
+.comment_frame .item .date {
+    color: #828282;
+}
+
+/* Mobile First : 기본 레이아웃은 모바일 최적화 */
+.comment_frame .text {
+    width: 100%;
+    padding: 0;
+}
+
+.comment_frame .item .nickname,
+.comment_frame .item .date {
+    display: inline-block;
+    width: auto;
+    margin-bottom: 10px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.comment_frame .item .nickname {
+    max-width: 45%;
+    padding-right: 5px;
+    border-right: 1px solid #aaa;
+}
+
+/* Tablet & Desktop : 768px 이상 해상도 */
+@media (min-width:768px) {
+    .comment_frame .item .text {
+        min-height: 30px;
+        float: right;
+        padding-left: 20px;
+        border-left: 1px solid #ddd;
+    }
+    .comment_frame .item .nickname,
+    .comment_frame .item .date {
+        display: block;
+        padding: 0;
+        margin-bottom: 0;
+        line-height: 15px;
+        border-right: none;
+        position: absolute;
+        left: 20px;
+    }
+    .comment_frame .item .nickname {
+        top: 25px;
+    }
+    .comment_frame .item .date {
+        top: 40px;
+        font-size: 11px;
+    }
+}
+
+/* Tablet : 768px~1024px 해상도 */
+@media (min-width:768px) and (max-width:1024px) {
+    .comment_frame .item .text {
+        width: 78%;
+    }
+    .comment_frame .item .nickname,
+    .comment_frame .item .date {
+        width: 20%;
+    }
+}
+
+/* Desktop : 1025px 이상 해상도 */
+@media (min-width:1025px) {
+    .comment_frame .item .text {
+        width: 85%;
+    }
+    .comment_frame .item .nickname,
+    .comment_frame .item .date {
+        width: 15%;
+    }
+}

@@ -1,0 +1,82 @@
+/* 공통 CSS */
+.box {
+    padding: 5px 0;
+}
+
+.box:after {
+    display: block;
+    content: "";
+    clear: both;
+}
+
+/* Mobile First : 기본 레이아웃은 모바일 최적화 */
+.box.title {
+    border-bottom: 1px solid #ddd;
+}
+
+.box.title dt {
+    display: none;
+}
+
+.box.title .title {
+    line-height: 15px;
+    font-weight: bold;
+}
+
+.box.title .nickname,
+.box.title .date,
+.box.title .hit {
+    display: inline-block;
+    padding: 0 5px;
+    margin-top: 5px;
+    border-right: 1px solid #aaa;
+    font-size: 11px;
+    color: #828282;
+}
+
+.box.title .nickname {
+    padding-left: 0;
+}
+
+.box.title .hit {
+    border-right: none;
+}
+
+.box.title .hit:before {
+    content: "조회 ";
+}
+
+.box.button .btn {
+    display: block;
+    width: 80px;
+    height: 30px;
+    line-height: 30px;
+    cursor: pointer;
+    color: #424242;
+    text-decoration: none;
+    text-align: center;
+    font-weight: bold;
+    border: 1px solid #aaa;
+    box-sizing: border-box;
+    border-radius: 5px;
+    transition: .2s ease;
+}
+
+.box.button .list {
+    float: left;
+}
+
+.box.button .form_delete,
+.box.button .update {
+    float: right;
+    margin-left: 5px;
+}
+
+.box.button .update {
+    background-color: #424242;
+    color: #fff;
+}
+
+.box.button .btn:hover {
+    border: 1px solid #424242;
+}

@@ -1,0 +1,170 @@
+/* 공통 CSS */
+.board_frame.album .line li {
+    float: none;
+    text-align: inherit;
+    height: auto;
+}
+
+.board_frame.album .line.top {
+    display: none;
+}
+
+.board_frame.album .line.item {
+    float: left;
+    padding: 5px;
+    border: 1px solid transparent;
+    box-sizing: border-box;
+}
+
+.board_frame.album .line.item.now,
+.board_frame.album .line.item:hover {
+    background-color: transparent;
+    border: 1px solid #f83938;
+}
+
+.board_frame.album .line.item .delete {
+    position: static;
+    z-index: 0;
+    float: inherit;
+    margin-right: 5px;
+}
+
+.board_frame.album .line.item .no {
+    display: none;
+}
+
+.board_frame.album .line.item .type,
+.board_frame.album .line.item .title {
+    width: auto;
+}
+
+.board_frame.album .line.item .type {
+    margin-bottom: 10px;
+}
+
+.board_frame.album .line.item .nickname,
+.board_frame.album .line.item .date,
+.board_frame.album .line.item .hit,
+.board_frame.album .line.item .thumb {
+    display: block;
+    width: auto;
+    padding: 0;
+    margin-top: 5px;
+    border: none;
+    font-size: 11px;
+    color: #424242;
+}
+
+.board_frame.album .line.item .thumb {
+    color: #f83938;
+}
+
+.board_frame.album .line.item .thumbnail {
+    display: block;
+    margin-bottom: 5px;
+    background-color: #eee;
+}
+
+.board_frame.album .line.item .thumbnail a {
+    width: 100%;
+}
+
+.board_frame.album .line.item .thumbnail img {
+    display: block;
+    margin: auto;
+}
+
+.board_frame.album .line.item .title:after {
+	display: block;
+	content: "";
+	clear: both;
+}
+
+.board_frame.album .line.item .title a {
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: pre;
+    white-space: nowrap;
+}
+
+.board_frame.album .line.item .title a,
+.board_frame.album .line.item .title span {
+    display: block;
+    float: left;
+	padding: 5px 0;
+}
+
+.board_frame.album .line.item .title span.image {
+	display: none;
+}
+
+.board_frame.album.all .line.item .type:before,
+.board_frame.album.my .line.item .type:before {
+    content: "[";
+}
+
+.board_frame.album.all .line.item .type:after,
+.board_frame.album.my .line.item .type:after {
+    content: "]";
+}
+
+.board_frame.album .line.item .title.notice:before {
+    content: "[공지사항]";
+    display: block;
+}
+
+.board_frame.album .line.item .nickname:before {
+    content: "글쓴이 : ";
+    font-weight: bold;
+}
+
+.board_frame.album .line.item .date:before {
+    content: "작성일 : ";
+    font-weight: bold;
+}
+
+.board_frame.album .line.item .hit:before {
+    content: "조회 : ";
+    font-weight: bold;
+}
+
+.board_frame.album .line.item .thumb:before {
+    content: "추천 : ";
+    font-weight: bold;
+}
+
+/* Mobile First : 기본 레이아웃은 모바일 최적화 */
+.board_frame.album .line.item {
+    width: 49%;
+    margin-right: 1%;
+    margin-bottom: 1%;
+}
+
+.board_frame.album .line.item .thumbnail img {
+    height: 120px;
+}
+
+/* Tablet : 768px~1024px 해상도 */
+@media (min-width:768px) and (max-width:1024px) {
+    .board_frame.album .line.item {
+        width: 24.5%;
+        margin-right: 0.5%;
+        margin-bottom: 0.5%;
+    }
+    .board_frame.album .line.item .thumbnail img {
+        height: 150px;
+    }
+}
+
+/* Desktop : 1025px 이상 해상도 */
+@media (min-width:1025px) {
+    .board_frame.album .line.item {
+        width: 19.5%;
+        margin-right: 0.5%;
+        margin-bottom: 0.5%;
+    }
+    .board_frame.album .line.item .thumbnail img {
+        height: 180px;
+    }
+}

@@ -1,0 +1,24 @@
+.wrap.main .container {
+    box-sizing: border-box;
+    padding: 10px;
+}
+
+.wrap.main .container article:after {
+    display: block;
+    content: "";
+    clear: both;
+}
+
+.wrap.main .container #pageDescBox {
+    padding: 10px 0;
+}
+
+.wrap.main .container #pageDescBox h2 {
+    height: 30px;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.wrap.main .container #pageDescBox span {
+    color: #666666;
+}

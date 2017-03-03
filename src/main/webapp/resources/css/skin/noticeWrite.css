@@ -1,0 +1,112 @@
+/* 공통 CSS */
+.box {
+    position: relative;
+    margin-bottom: 10px;
+}
+
+.box .line {
+    position: relative;
+    margin-bottom: 10px;
+}
+
+.box:after,
+.box .line:after {
+    display: block;
+    content: "";
+    clear: both;
+}
+
+.box label,
+.box input,
+.box select {
+    display: block;
+    height: 30px;
+    line-height: 30px;
+    box-sizing: border-box;
+}
+
+.box label {
+    width: 80px;
+    font-weight: bold;
+}
+
+.box .variable {
+    position: absolute;
+    top: 0;
+    left: 80px;
+    right: 0;
+    height: 30px;
+}
+
+.box input,
+.box select {
+    width: 100%;
+    padding: 0 5px;
+    transition: .2s ease;
+}
+
+.box.admin #regdate {
+    cursor: pointer;
+}
+
+.box.title input {
+    width: 100%;
+}
+
+.box select:hover,
+.box input:hover {
+    border: 1px solid #424242;
+}
+
+.box select:focus,
+.box input:focus {
+    border: 1px solid #f83938;
+}
+
+.box.content textarea {
+    display: block;
+    width: 100%;
+    min-height: 200px;
+    padding: 5px;
+    line-height: 15px;
+    resize: vertical;
+    box-sizing: border-box;
+    word-wrap: break-word;
+    word-break: break-all;
+}
+
+.box.button {
+    text-align: right;
+}
+
+.box.button .btn {
+    display: inline-block;
+    padding: 5px;
+    width: 100px;
+    line-height: 30px;
+    text-align: center;
+    cursor: pointer;
+    text-decoration: none;
+    color: #424242;
+    border: 1px solid #aaa;
+    border-radius: 5px;
+    transition: .2s ease;
+}
+
+.box.button .btn:focus,
+.box.button .btn:hover {
+    border: 1px solid #424242;
+}
+
+/* Tablet & Desktop : 768px 이상 해상도 */
+@media (min-width:768px) {
+    .box .line.hit {
+        float: left;
+        width: 30%;
+        margin-right: 5%;
+    }
+    .box .line.regdate {
+        float: left;
+        width: 65%;
+    }
+}

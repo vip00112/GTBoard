@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="thumbs">
+
+	<!-- 해당 유저의 해당 게시글 추천 여부 -->
+	<select id="selectCount" parameterType="hashMap" resultType="int">
+		SELECT count(*) FROM thumbs WHERE userNo=#{userNo} AND boardNo=#{boardNo}
+	</select>
+
+	<!-- 게시글 추천 -->
+	<insert id="insert" parameterType="Thumb">
+		INSERT INTO thumbs(boardNo, userNo)
+		VALUES(#{boardNo}, #{userNo})
+	</insert>
+
+	<!-- 게시글 삭제에 의한 추천 기록 삭제 -->
+	<delete id="delete" parameterType="int">
+		DELETE FROM thumbs WHERE boardNo=#{boardNo}
+	</delete>
+</mapper>

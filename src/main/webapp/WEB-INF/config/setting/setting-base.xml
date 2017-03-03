@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<BaseSetting>
+    <Title>GTBoard</Title>
+    <Logo/>
+    <Author>GT</Author>
+    <Reply>GTBoard.com@gmail.com</Reply>
+    <Keyword>Java,JSP,Spring,MVC,REST,HTML5,CSS3,OpenProject,게시판,무료,보드</Keyword>
+    <Description>Java(JSP) 오픈 프로젝트로 진행하는 무료 보드 배포</Description>
+    <BusinessName/>
+    <BusinessNumber/>
+    <Ceo/>
+    <Address/>
+    <Tel/>
+    <Fax/>
+    <Email/>
+    <StartYear>2016</StartYear>
+    <IndexViewCount>5</IndexViewCount>
+    <IndexViewCountTotal>10</IndexViewCountTotal>
+</BaseSetting>

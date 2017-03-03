@@ -1,0 +1,623 @@
+/* 공통 CSS */
+.text {
+    /* white-space: pre-wrap; */
+    word-wrap: break-word;
+    word-break: break-all;
+    padding: 10px;
+    text-align: justify;
+}
+
+.text hr {
+    border: 0px;
+    border-top: 1px solid #ccc;
+    margin: 10px 0;
+}
+
+.text p {
+    line-height: 1.5;
+}
+
+.text img {
+	cursor: pointer;
+    cursor: -webkit-zoom-in;
+    cursor: -moz-zoom-in;
+}
+
+.text .screen,
+.text .viewer {
+	cursor: pointer;
+    cursor: -webkit-zoom-out;
+    cursor: -moz-zoom-out;
+}
+
+.text .viewer {
+    display: block;
+    margin: auto;
+    margin-top: 20px;
+}
+
+.board_frame {
+    padding: 10px 0;
+    position: relative;
+}
+
+.board_frame:after {
+    display: block;
+    content: "";
+    clear: both;
+}
+
+.board_frame input,
+.board_frame select,
+.board_frame label,
+.board_frame .btn {
+    display: inline-block;
+    height: 25px;
+    line-height: 25px;
+    cursor: pointer;
+    vertical-align: middle;
+    margin: 0;
+    outline: inherit;
+    transition: .2s ease;
+}
+
+.board_frame input:hover,
+.board_frame select:hover,
+.board_frame .btn:hover {
+    border: 1px solid #424242;
+}
+
+.board_frame input:focus,
+.board_frame select:focus,
+.board_frame .btn:focus {
+    border: 1px solid #f83938;
+}
+
+.board_frame>h3 {
+    height: 20px;
+    line-height: 20px;
+    color: #424242;
+    font-weight: bold;
+    border-bottom: 1px solid #bdbdbd;
+}
+
+.board_frame>h3 a {
+    height: 20px;
+    line-height: 20px;
+    color: #424242;
+    font-weight: bold;
+    text-decoration: none;
+    transition: .2s ease;
+}
+
+.board_frame>h3 a:hover {
+    color: #f83938;
+}
+
+.board_frame .box_option {
+    margin-bottom: 20px;
+}
+
+.board_frame .box_option:after {
+    display: block;
+    content: "";
+    clear: both;
+}
+
+.board_frame .box_option .option {
+    float: left;
+    margin-right: 20px;
+    margin-bottom: 5px;
+}
+
+.board_frame .box_option .option:last-child {
+    margin-right: 0;
+    margin-bottom: 0;
+}
+
+.board_frame .box_option i {
+    font-size: 16px;
+    vertical-align: middle;
+}
+
+.board_frame .box_option ul:after {
+    display: block;
+    content: "";
+    clear: both;
+}
+
+.board_frame .box_option ul li {
+    display: block;
+    float: left;
+    width: 65px;
+    height: 25px;
+    line-height: 25px;
+    text-align: center;
+    margin-right: 5px;
+    cursor: pointer;
+    border-radius: 5px;
+    background-color: #ddd;
+    transition: .2s ease;
+}
+
+.board_frame .box_option ul li .fa {
+    line-height: 25px;
+}
+
+.board_frame .box_option ul li:last-child {
+    margin-right: 0;
+}
+
+.board_frame .box_option ul li.on,
+.board_frame .box_option ul li:hover {
+    background-color: #424242;
+    color: #fff;
+}
+
+.board_frame .box_select button {
+    width: 25px;
+    border-radius: 5px
+}
+
+.board_frame .line {
+    padding: 5px 0;
+    position: relative
+}
+
+.board_frame .line:after {
+    display: block;
+    content: "";
+    clear: both;
+}
+
+.board_frame .box_item:after {
+    display: block;
+    content: "";
+    clear: both;
+}
+
+.board_frame .line.item {
+    word-wrap: break-word;
+    word-break: break-all;
+    border-bottom: 1px solid #bdbdbd;
+    transition: background-color .2s ease;
+}
+
+.board_frame .line.item:after {
+    display: block;
+    content: "";
+    clear: both;
+}
+
+.board_frame .line.item.now,
+.board_frame .line.item:hover,
+.board_frame .line.item.checked {
+    background-color: #eee;
+}
+
+.board_frame .line.item .notice,
+.board_frame .line.item .notice a,
+.board_frame .line.item .notice a:visited,
+.board_frame .line.item .notice.no {
+    font-weight: bold;
+    color: #f83938;
+}
+
+.board_frame .line.item .delete {
+    height: 15px;
+}
+
+.board_frame .line.item .delete input {
+    height: 15px;
+    line-height: 15px;
+    margin: 0;
+}
+
+.board_frame .line .type {
+    display: none;
+}
+
+.board_frame.all .line .type,
+.board_frame.my .line .type {
+    display: block;
+    line-height: 15px;
+    font-weight: bold;
+}
+
+.board_frame.all .line .type a:visited,
+.board_frame.my .line .type a:visited {
+    color: #424242;
+}
+
+.board_frame .line.item.now .no {
+    font-size: 14px;
+    color: #f83938;
+}
+
+.board_frame .line.item .thumbnail {
+    display: none;
+}
+
+.board_frame .line .title.popular {
+    font-weight: bold;
+}
+
+.board_frame.my .line .nickname,
+.board_frame.my .line.item .nickname{
+    display: none;
+}
+
+.board_frame .line.item a { 
+    line-height: 15px;
+    text-decoration: none;
+    color: #424242;
+}
+
+.board_frame .line.item a:hover {
+    text-decoration: underline;
+}
+
+.board_frame .line.item a:visited {
+    color: #424242;
+}
+
+.board_frame .line.item span {
+    display: inline-block;
+    vertical-align: middle;
+    height: 15px;
+    line-height: 15px;
+    margin-left: 1px;
+    background-repeat: no-repeat;
+    background-position: center
+}
+
+.board_frame .line.item span.image {
+    width: 14px;
+    background-image: url("../../../resources/img/image.gif");
+}
+
+.board_frame .line.item span.video {
+    width: 14px;
+    background-image: url("../../../resources/img/video.gif");
+}
+
+.board_frame .line.item span.count_comment {
+    font-size: 10px;
+    font-weight: bold;
+    color: red;
+}
+
+.board_frame .line.item span.count_comment:before {
+    content: "[";
+    font-weight: normal;
+}
+
+.board_frame .line.item span.count_comment:after {
+    content: "]";
+    font-weight: normal
+}
+
+.board_frame .line.item span.new {
+    width: 12px;
+    background-image: url("../../../resources/img/new.gif");
+}
+
+.board_frame .box_link {
+    padding: 5px 0;
+    text-align: right;
+}
+
+.board_frame .box_link:after {
+    display: block;
+    content: "";
+    clear: both;
+}
+
+.board_frame .box_link a {
+    display: block;
+    height: 30px;
+    line-height: 30px;
+    color: #424242;
+    text-decoration: none;
+    text-align: center;
+    font-weight: bold;
+    border: 1px solid #aaa;
+    box-sizing: border-box;
+    border-radius: 5px;
+    transition: .2s ease;
+}
+
+.board_frame .box_link a.all,
+.board_frame .box_link a.popular {
+    width: 80px;
+    float: left;
+    margin-right: 5px;
+}
+
+.board_frame .box_link a.write {
+    width: 100px;
+    float: right;
+    background-color: #424242;
+    color: #fff;
+}
+
+.board_frame .box_link a:hover {
+    border: 1px solid #424242;
+}
+
+.board_frame .form_search {
+    position: relative;
+    text-align: right;
+    display: block;
+    width: 100%;
+    max-width: 767px;
+    margin: auto;
+}
+
+.board_frame .form_search select {
+    float: left;
+    width: 100px;
+    box-sizing: border-box;
+}
+
+.board_frame .form_search .box.search {
+	padding: 0;
+    position: absolute;
+    left: 101px;
+    right: 26px;
+}
+
+.board_frame .form_search input {
+    width: 100%;
+    padding: 5px;
+    box-sizing: border-box;
+}
+
+.board_frame .form_search button {
+    width: 25px;
+    box-sizing: border-box;
+}
+
+/* Mobile First : 기본 레이아웃은 모바일 최적화 */
+.board_frame .line.top {
+    display: none;
+    font-weight: bold;
+    border-bottom: 1px solid #424242;
+}
+
+.board_frame .line.item {
+    padding: 10px 0;
+}
+
+.board_frame .line.item .title.notice:before {
+    content: "[공지] ";
+}
+
+.board_frame .line .no {
+    display: none;
+}
+
+.board_frame .line.item .delete {
+    float: left;
+    margin-right: 5px;
+}
+
+.board_frame.all .line.item .type,
+.board_frame.my .line.item .type {
+    margin-bottom: 10px;
+}
+
+.board_frame.all .line.item .type:before,
+.board_frame.my .line.item .type:before {
+    content: "[";
+}
+
+.board_frame.all .line.item .type:after,
+.board_frame.my .line.item .type:after {
+    content: "]";
+}
+
+.board_frame .line.item.now .no {
+    display: block;
+    float: left;
+    margin-right: 5px;
+}
+
+.board_frame .line.item .nickname,
+.board_frame .line.item .date,
+.board_frame .line.item .hit,
+.board_frame .line.item .thumb {
+    display: inline-block;
+    padding-right: 5px;
+    margin-top: 10px;
+    border-right: 1px solid #aaa;
+    font-size: 11px;
+}
+
+.board_frame.notice .line.item .hit {
+    border-right: none;
+}
+
+.board_frame.notice .line.item .thumb {
+    display: none;
+}
+
+.board_frame .line.item .thumb {
+    border-right: none;
+    font-weight: bold;
+    color: #f83938;
+}
+
+.board_frame .line.item .hit:before {
+    content: "조회 ";
+}
+
+.board_frame .line.item .thumb:before {
+    content: "추천 ";
+}
+
+/* Tablet & Desktop : 768px 이상 해상도 */
+@media (min-width:768px) {
+    /* Mobile CSS 초기화 */
+    .board_frame .line.top {
+        display: block;
+    }
+    .board_frame .line.item {
+        padding: 5px 0;
+    }
+    .board_frame .line.item .title.notice:before {
+        content: "";
+    }
+    .board_frame .line .no {
+        display: block;
+    }
+    .board_frame .line.item .delete {
+        position: absolute;
+        top: 5;
+        left: 0;
+        z-index: 1;
+        float: none;
+        margin-right: 0;
+    }
+    .board_frame.all .line.item .type,
+    .board_frame.my .line.item .type {
+        margin-bottom: 0;
+    }
+    .board_frame.all .line.item .type:before,
+    .board_frame.my .line.item .type:before {
+        content: "";
+    }
+    .board_frame.all .line.item .type:after,
+    .board_frame.my .line.item .type:after {
+        content: "";
+    }
+    .board_frame .line.item.now .no {
+        margin-right: 0;
+    }
+    .board_frame .line.item .nickname,
+    .board_frame .line.item .date,
+    .board_frame .line.item .hit,
+    .board_frame .line.item .thumb {
+        display: block;
+        padding: 0;
+        margin: 0;
+        border-right: none;
+        font-size: 12px;
+        color: #424242;
+    }
+    .board_frame .line.item .thumb {
+        color: #f83938;
+    }
+    .board_frame .line.item .hit:before {
+        content: "";
+    }
+    .board_frame .line.item .thumb:before {
+        content: "";
+    }
+    
+    /* CSS 추가 */
+    .board_frame .line li {
+        float: left;
+        text-align: center;
+        height: 15px;
+        line-height: 15px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        position: relative;
+    }
+    .board_frame .line.item .title a,
+    .board_frame .line.item .title span {
+        display: block;
+        float: left;
+    }
+    .board_frame .line .title a {
+        max-width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: pre;
+    }
+    .board_frame .line.item .title {
+        text-align: left;
+    }
+    .board_frame .line.item .no,
+    .board_frame .line.item .date,
+    .board_frame .line.item .hit,
+    .board_frame .line.item .thumb {
+        font-size: 11px;
+    }
+    .board_frame .line.item .no,
+    .board_frame .line.item .date {
+    	color: #828282;
+    }
+}
+
+/* Tablet : 768px~1024px 해상도 */
+@media (min-width:768px) and (max-width:1024px) {
+    .board_frame.all .line .type,
+    .board_frame.my .line .type {
+        width: 10%;
+    }
+    .board_frame .line .no {
+        width: 8%;
+    }
+    .board_frame.all .line .title {
+        width: 44%;
+    }
+    .board_frame.my .line .title {
+        width: 56%;
+    }
+    .board_frame.notice .line .title {
+        width: 62%;
+    }
+    .board_frame .line .title {
+        width: 54%;
+    }
+    .board_frame .line .nickname {
+        width: 12%;
+    }
+    .board_frame .line .date {
+        width: 10%;
+    }
+    .board_frame .line .hit {
+        width: 8%;
+    }
+    .board_frame .line .thumb {
+        width: 8%;
+    }
+}
+
+/* Desktop : 1025px 이상 해상도 */
+@media (min-width:1025px) {
+    .board_frame.all .line .type,
+    .board_frame.my .line .type {
+        width: 10%;
+    }
+    .board_frame .line .no {
+        width: 8%;
+    }
+    .board_frame.all .line .title {
+        width: 46%;
+    }
+    .board_frame.my .line .title {
+        width: 58%;
+    }
+    .board_frame.notice .line .title {
+        width: 64%;
+    }
+    .board_frame .line .title {
+        width: 56%;
+    }
+    .board_frame .line .nickname {
+        width: 12%;
+    }
+    .board_frame .line .date {
+        width: 8%;
+    }
+    .board_frame .line .hit {
+        width: 8%;
+    }
+    .board_frame .line .thumb {
+        width: 8%;
+    }
+}
