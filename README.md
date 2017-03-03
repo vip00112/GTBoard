@@ -32,8 +32,8 @@ webapp/WEB-INF/config/servlet-context.xml
 5. 웹사이트 기본 설정(meta, footer 등)
 ```
 webapp/WEB-INF/config/setting/setting-base.xml
-```
 (관리자 페이지 에서 실시간 수정 가능)
+```
 6. 게시판 별 설정(meta, footer 등)
 ```
 webapp/WEB-INF/config/setting/setting-board.xml
