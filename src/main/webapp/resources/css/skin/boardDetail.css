@@ -82,6 +82,66 @@ article h1.title {
     color: #f83938;
 }
 
+.box.attach>span {
+    display: block;
+    padding: 10px 0;
+}
+
+.box.attach>span strong {
+    font-weight: bold;
+    color: #f83938;
+}
+
+.box.attach>span strong:before {
+    content: "[";
+}
+
+.box.attach>span strong:after {
+    content: "]";
+}
+
+.box.attach ul li:after {
+    display: block;
+    content: "";
+    clear: both;
+}
+
+.box.attach ul li {
+    float: left;
+    height: 25px;
+    line-height: 25px;
+    padding: 0 5px;
+}
+
+.box.attach ul li a {
+    color: #424242;
+    text-decoration: none;
+    transition: .2s ease;
+}
+
+.box.attach ul li a:hover {
+    color: #f83938;
+}
+
+.box.attach ul li .ext {
+    padding: 0 5px;
+    background-color: #424242;
+    color: #fff;
+    border-radius: 5px;
+}
+
+.box.attach ul li .name {
+    font-weight: bold;
+}
+
+.box.attach ul li .size:before {
+    content: "(";
+}
+
+.box.attach ul li .size:after {
+    content: ")";
+}
+
 .box.button .btn {
     display: block;
     width: 80px;
