@@ -64,15 +64,17 @@ public class GlobalModelInterceptor extends HandlerInterceptorAdapter {
                 // 게시판 설정
                 session.setAttribute(SessionAttribute.SETTING_BOARD, settingService.getBoardSetting());
 
-                // 이미지 업로드 임시 파일 삭제
+                // 이미지/첨부파일 업로드 임시 파일 삭제
                 @SuppressWarnings("unchecked")
-                List<AttachFile> uploadedImageFiles = (List<AttachFile>) session.getAttribute(SessionAttribute.IMAGE_FILES);
-                fileUtil.deleteUploadedFiles(uploadedImageFiles);
+                List<AttachFile> files = (List<AttachFile>) session.getAttribute(SessionAttribute.ATTACH_FILES);
+                fileUtil.deleteUploadedFiles(files);
 
-                // 첨부파일 업로드 임시 파일 삭제
-                @SuppressWarnings("unchecked")
-                List<AttachFile> uploadedAttachFiles = (List<AttachFile>) session.getAttribute(SessionAttribute.ATTACH_FILES);
-                fileUtil.deleteUploadedFiles(uploadedAttachFiles);
+                // 글 수정 페이지 진입시 기존 업로드 파일 전달
+                Object obj = mav.getModel().get(SessionAttribute.ATTACH_FILES);
+                if (obj != null) {
+                    session.setAttribute(SessionAttribute.ATTACH_FILES, obj);
+                    mav.getModel().remove(SessionAttribute.ATTACH_FILES);
+                }
 
                 // captcha 코드 초기화
                 session.removeAttribute(SessionAttribute.CAPTCHA);

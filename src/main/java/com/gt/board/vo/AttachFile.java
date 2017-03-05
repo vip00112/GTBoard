@@ -4,7 +4,9 @@ import java.sql.Timestamp;
 import java.text.DecimalFormat;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.gt.board.enums.AttachFileStatus;
 import com.gt.board.enums.Path;
+import com.gt.board.service.other.CKEditorService;
 
 public class AttachFile {
     @JsonIgnore private int no;
@@ -16,12 +18,13 @@ public class AttachFile {
     @JsonIgnore private String fullPath; // 파일 전체 경로
     @JsonIgnore private Timestamp regdate;
 
-    private boolean uploaded; // 업로드 성공 여부
+    private boolean uploaded; // 업로드 성공 여부 (view 페이지 전달)
     private String url; // 링크 주소
     private String message; // 업로드 메시지
-    @JsonIgnore private boolean isProtected; // 삭제/중복업로드 방지(글 수정시 사용)
+    @JsonIgnore private AttachFileStatus status;
 
     public AttachFile() {
+        status = AttachFileStatus.NONE;
     }
 
     public int getNo() {
@@ -112,12 +115,12 @@ public class AttachFile {
         this.message = message;
     }
 
-    public boolean isProtected() {
-        return isProtected;
+    public AttachFileStatus getStatus() {
+        return status;
     }
 
-    public void setProtected(boolean isProtected) {
-        this.isProtected = isProtected;
+    public void setStatus(AttachFileStatus status) {
+        this.status = status;
     }
 
     /** 파일 크기 문자열 반환 **/
@@ -135,24 +138,43 @@ public class AttachFile {
         }
     }
 
+    /** 삭제 상태가 아닌 사용 가능한 상태인지 확인 **/
+    @JsonIgnore
+    public boolean isUseable() {
+        switch (status) {
+        case NONE:
+        case NORMAL:
+        case UPLOADED:
+            return true;
+        default:
+            return false;
+        }
+    }
+
     /** 이미지 유형 여부 **/
+    @JsonIgnore
     public boolean isImage() {
-        String[] extensions = { "bmp", "jpg", "jpeg", "gif", "png" };
-        for (String extension : extensions) {
-            if (extension.equals(this.extension)) {
-                return true;
+        if (extension != null) {
+            for (String extension : CKEditorService.EXTENDS_IMAGE) {
+                if (extension.equals(this.extension)) {
+                    return true;
+                }
             }
         }
         return false;
     }
 
     /** 이미지 파일 여부 **/
+    @JsonIgnore
     public boolean isImageFile() {
+        if (fullPath == null) return false;
         return isImage() && fullPath.contains(Path.IMAGE.getPath());
     }
 
     /** 이미지 링크 여부 **/
+    @JsonIgnore
     public boolean isImageLink() {
+        if (fullPath == null) return false;
         return isImage() && (fullPath.startsWith("http://") || fullPath.startsWith("https://"));
     }
 

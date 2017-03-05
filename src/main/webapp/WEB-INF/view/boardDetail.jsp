@@ -58,7 +58,7 @@
 			<h1 class="title" title="<c:out value="${board.title}"/>">
 				<c:out value="${board.title}" />
 			</h1>
-			
+
 			<div class="box title">
 				<ul>
 					<li class="nickname">${board.nickname}</li>
@@ -104,6 +104,27 @@
 			</c:choose>
 		</div>
 		<!-- // .box.thumb -->
+
+		<c:if test="${fn:length(downloadFiles) > 0}">
+			<div class="box attach">
+				<span>
+					첨부 파일
+					<strong>${fn:length(downloadFiles)}</strong>
+				</span>
+				<ul>
+					<c:forEach items="${downloadFiles}" var="file">
+						<li>
+							<a href="${file.url}" target="_blank">
+								<span class="ext">${file.extension}</span>
+								<span class="name">${file.name}</span>
+								<span class="size">${file.viewSize}</span>
+							</a>
+						</li>
+					</c:forEach>
+				</ul>
+			</div>
+			<!-- // .box.attach-->
+		</c:if>
 
 		<div class="box button">
 			<c:if test="${loginUser != null && (loginUser.admin || loginUser.grade == board.boardType.adminGrade || loginUser.no == board.userNo)}">

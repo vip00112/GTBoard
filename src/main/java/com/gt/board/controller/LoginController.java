@@ -121,7 +121,6 @@ public class LoginController {
 
                     session.setAttribute(SessionAttribute.TOKEN, UUID.randomUUID().toString());
                     session.setAttribute(SessionAttribute.USER, loginUser);
-                    session.setAttribute(SessionAttribute.IMAGE_FILES, new ArrayList<AttachFile>());
                     session.setAttribute(SessionAttribute.ATTACH_FILES, new ArrayList<AttachFile>());
 
                     // 계정 활성화 여부

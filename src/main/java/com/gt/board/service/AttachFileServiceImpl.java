@@ -8,6 +8,7 @@ import java.util.Map;
 import org.springframework.stereotype.Service;
 
 import com.gt.board.dao.AttachFilesDAO;
+import com.gt.board.enums.AttachFileStatus;
 import com.gt.board.util.FileUtil;
 import com.gt.board.vo.AttachFile;
 import com.gt.board.vo.Board;
@@ -39,33 +40,42 @@ public class AttachFileServiceImpl implements AttachFileService {
         // 임시폴더에서 실제 폴더로 파일 이동
         fileUtil.moveUploadedFiles(board.getContent(), tempFolder, folderName, files);
 
-        // DB 입력
+        // DB 입력 및 삭제, 본문 내용 수정
         for (AttachFile file : files) {
-            // TODO 기존 파일일 경우는 실제 파일이 없다면 디비에서 삭제
-            if (!file.isProtected()) { // 신규 파일만 입력
-                file.setBoardNo(no);
+            switch (file.getStatus()) {
+            case NORMAL: // 신규 업로드 파일 DB 입력
                 if (!file.isImageLink()) {
                     String newPath = file.getFullPath().replace(tempFolder, folderName);
                     file.setFullPath(newPath);
                 }
-                if (attachFilesDAO.insert(file) == 0) {
-                    return false;
-                }
+                file.setBoardNo(no);
 
-                if (!file.isImage()) { // 첨부파일 다운로드 URL 수정
-                    String oldUrl = "/board/{boardNo}/download/" + file.getNewName();
-                    String newUrl = "/board/" + no + "/download/" + file.getNo();
-                    content = content.replace(oldUrl, newUrl);
-                } else if (file.isImageFile()) { // 이미지 파일 src 수정
-                    String oldSrc = "/img/upload/" + file.getNewName();
-                    String newSrc = "/img/board/" + no + "/" + file.getNewName();
-                    content = content.replace(oldSrc, newSrc);
+                // DB 입력
+                if (attachFilesDAO.insert(file) == 1) {
+                    if (!file.isImage()) { // 첨부파일 다운로드 URL 수정
+                        String oldUrl = "/board/{boardNo}/download/" + file.getNewName();
+                        String newUrl = "/board/" + no + "/download/" + file.getNo();
+                        content = content.replace(oldUrl, newUrl);
+                    } else if (file.isImageFile()) { // 이미지 파일 src 수정
+                        String oldSrc = "/img/upload/" + file.getNewName();
+                        String newSrc = "/img/board/" + no + "/" + file.getNewName();
+                        content = content.replace(oldSrc, newSrc);
+                    }
                 }
+                break;
+            case UPLOADED_DELETE: // 기존 업로드된 파일 DB 삭제
+                Map<String, Object> paramMap = new HashMap<String, Object>();
+                paramMap.put("boardNo", no);
+                paramMap.put("newName", file.getNewName());
+                attachFilesDAO.deleteByName(paramMap);
+                break;
+            default:
+                break;
             }
         }
         files.clear();
 
-        // 본문 내용 수정
+        // 수정된 본문 내용 적용
         board.setContent(content);
         return true;
     }
@@ -89,8 +99,22 @@ public class AttachFileServiceImpl implements AttachFileService {
             } else {
                 file.setUrl("/board/" + boardNo + "/download/" + file.getNo());
             }
+            file.setStatus(AttachFileStatus.UPLOADED);
             file.setUploaded(true);
-            file.setProtected(true);
+        }
+        return files;
+    }
+
+    @Override
+    public List<AttachFile> getDownloadFileList(int boardNo) {
+        List<AttachFile> files = attachFilesDAO.selectList(boardNo);
+        AttachFile[] downloadFiles = files.toArray(new AttachFile[files.size()]);
+        for (AttachFile file : downloadFiles) {
+            if (file.isImage()) {
+                files.remove(file);
+            } else {
+                file.setUrl("/board/" + boardNo + "/download/" + file.getNo());
+            }
         }
         return files;
     }

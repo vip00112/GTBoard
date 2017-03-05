@@ -171,10 +171,15 @@ public class MainController {
 
         if (noticeService.writeNotice(notice)) {
             // 이미지 업로드 임시 파일 이동
-            List<AttachFile> files = (List<AttachFile>) session.getAttribute(SessionAttribute.IMAGE_FILES);
+            List<AttachFile> files = (List<AttachFile>) session.getAttribute(SessionAttribute.ATTACH_FILES);
             String tempFolder = File.separator + "upload" + File.separator;
             String folderName = File.separator + "notice" + File.separator + notice.getNo() + File.separator;
             fileUtil.moveUploadedFiles(notice.getContent(), tempFolder, folderName, files);
+            files.clear();
+
+            // local로 복사
+            String realPath = session.getServletContext().getRealPath(""); // 기본 경로
+            fileUtil.copyFolder(realPath + Path.IMAGE.getPath() + folderName, Path.IMAGE.getLocalPath(folderName));
 
             // 본문 내용 수정
             String content = notice.getContent().replace("/img/upload", "/img/notice/" + notice.getNo());
@@ -219,10 +224,15 @@ public class MainController {
             return "redirect:/notice/" + no;
         }
         // 이미지 업로드 임시 파일 이동
-        List<AttachFile> files = (List<AttachFile>) session.getAttribute(SessionAttribute.IMAGE_FILES);
+        List<AttachFile> files = (List<AttachFile>) session.getAttribute(SessionAttribute.ATTACH_FILES);
         String tempFolder = File.separator + "upload" + File.separator;
         String folderName = File.separator + "notice" + File.separator + no + File.separator;
         fileUtil.moveUploadedFiles(update.getContent(), tempFolder, folderName, files);
+        files.clear();
+
+        // local로 복사
+        String realPath = session.getServletContext().getRealPath(""); // 기본 경로
+        fileUtil.copyFolder(realPath + Path.IMAGE.getPath() + folderName, Path.IMAGE.getLocalPath(folderName));
 
         // 본문 내용 수정
         String content = update.getContent().replace("/img/upload", "/img/notice/" + no);

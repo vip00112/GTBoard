@@ -7,6 +7,7 @@ import java.util.List;
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 
+import com.gt.board.enums.AttachFileStatus;
 import com.gt.board.vo.AttachFile;
 
 public class FileUtil {
@@ -31,16 +32,33 @@ public class FileUtil {
             if (file.getFullPath() == null) {
                 continue;
             }
-
             String newPath = file.getFullPath().replace(tempFolder, folderName);
 
-            // 본문 검사
-            if (content == null || content.indexOf(file.getNewName()) != -1) {
-                moveFile(file.getFullPath(), newPath);
-            } else {
+            switch (file.getStatus()) {
+            case NORMAL:
+                if (file.isImage() && !content.contains(file.getNewName())) {
+                    deleteFile(file.getFullPath());
+                    file.setStatus(AttachFileStatus.DELETE);
+                } else {
+                    moveFile(file.getFullPath(), newPath);
+                }
+                break;
+            case UPLOADED:
+                if (file.isImage() && !content.contains(file.getNewName())) {
+                    deleteFile(file.getFullPath());
+                    file.setStatus(AttachFileStatus.UPLOADED_DELETE);
+                } else {
+                    moveFile(file.getFullPath(), newPath);
+                }
+                break;
+            case DELETE:
+            case UPLOADED_DELETE:
                 deleteFile(file.getFullPath());
-                files.remove(file);
+                break;
+            default:
+                break;
             }
+
         }
     }
 
@@ -55,9 +73,14 @@ public class FileUtil {
 
             for (AttachFile file : files) {
                 if (url.equals(file.getUrl())) {
-                    String fullPath = file.getFullPath();
-                    deleteFile(fullPath);
-                    files.remove(file);
+                    switch (file.getStatus()) {
+                    case UPLOADED:
+                        file.setStatus(AttachFileStatus.UPLOADED_DELETE);
+                        break;
+                    default:
+                        file.setStatus(AttachFileStatus.DELETE);
+                        break;
+                    }
                     return true;
                 }
             }
@@ -75,14 +98,26 @@ public class FileUtil {
                 return false;
             }
 
-            // TODO protected일때만 remove하면 다른페이지 이동시 session에 그대로 있는다.
             AttachFile[] fileArray = files.toArray(new AttachFile[files.size()]);
             for (AttachFile file : fileArray) {
-                if (file.isProtected()) {
-                    file.setProtected(false);
-                } else {
+                switch (file.getStatus()) {
+                case NONE:
+                    files.remove(file);
+                    break;
+                case NORMAL:
                     deleteFile(file.getFullPath());
                     files.remove(file);
+                    break;
+                case UPLOADED:
+                case UPLOADED_DELETE:
+                    file.setStatus(AttachFileStatus.NONE);
+                    break;
+                case DELETE:
+                    deleteFile(file.getFullPath());
+                    files.remove(file);
+                    break;
+                default:
+                    break;
                 }
             }
             return true;

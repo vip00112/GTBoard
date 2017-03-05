@@ -192,6 +192,9 @@ public class BoardController {
 
         // 게시글 상세 정보
         model.addAttribute("board", board);
+
+        // 다운로드 가능한 첨부파일 목록
+        model.addAttribute("downloadFiles", attachFileService.getDownloadFileList(no));
         return "boardDetail";
     }
 
@@ -249,10 +252,8 @@ public class BoardController {
             String content = board.getContent();
 
             // 이미지/첨부파일 업로드 임시 파일 이동, DB 저장
-            List<AttachFile> uploadedImageFiles = (List<AttachFile>) session.getAttribute(SessionAttribute.IMAGE_FILES);
-            List<AttachFile> uploadedAttachFiles = (List<AttachFile>) session.getAttribute(SessionAttribute.ATTACH_FILES);
-            attachFileService.addFiles(board, uploadedImageFiles);
-            attachFileService.addFiles(board, uploadedAttachFiles);
+            List<AttachFile> files = (List<AttachFile>) session.getAttribute(SessionAttribute.ATTACH_FILES);
+            attachFileService.addFiles(board, files);
 
             // local로 복사
             String realPath = session.getServletContext().getRealPath(""); // 기본 경로
@@ -274,7 +275,6 @@ public class BoardController {
     }
 
     // 게시글 수정 페이지 진입
-    @SuppressWarnings("unchecked")
     @RequestMapping(value = "/board/{no:[0-9]+}/update", method = RequestMethod.GET)
     public String boardUpdateForm(@PathVariable int no, Model model, HttpSession session, RedirectAttributes ra) {
         User user = (User) session.getAttribute(SessionAttribute.USER);
@@ -290,19 +290,7 @@ public class BoardController {
         model.addAttribute("board", board);
 
         // 기존 이미지/첨부파일 목록 취득
-        // TODO 굳이 List를 나눌 이유가 있는지 생각해보자
-        List<AttachFile> uploadedImageFiles = (List<AttachFile>) session.getAttribute(SessionAttribute.IMAGE_FILES);
-        List<AttachFile> uploadedAttachFiles = (List<AttachFile>) session.getAttribute(SessionAttribute.ATTACH_FILES);
-        List<AttachFile> files = attachFileService.getFileList(no);
-        uploadedImageFiles.clear();
-        uploadedAttachFiles.clear();
-        for (AttachFile file : files) {
-            if (file.isImage()) {
-                uploadedImageFiles.add(file);
-            } else {
-                uploadedAttachFiles.add(file);
-            }
-        }
+        model.addAttribute(SessionAttribute.ATTACH_FILES, attachFileService.getFileList(no));
         return "boardWrite";
     }
 
@@ -340,10 +328,8 @@ public class BoardController {
         String content = update.getContent();
 
         // 이미지/첨부파일 업로드 임시 파일 이동, DB 저장
-        List<AttachFile> uploadedImageFiles = (List<AttachFile>) session.getAttribute(SessionAttribute.IMAGE_FILES);
-        List<AttachFile> uploadedAttachFiles = (List<AttachFile>) session.getAttribute(SessionAttribute.ATTACH_FILES);
-        attachFileService.addFiles(update, uploadedImageFiles);
-        attachFileService.addFiles(update, uploadedAttachFiles);
+        List<AttachFile> files = (List<AttachFile>) session.getAttribute(SessionAttribute.ATTACH_FILES);
+        attachFileService.addFiles(update, files);
 
         // local로 복사
         String realPath = session.getServletContext().getRealPath(""); // 기본 경로

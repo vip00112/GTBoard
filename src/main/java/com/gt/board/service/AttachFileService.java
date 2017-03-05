@@ -20,6 +20,10 @@ public interface AttachFileService {
      *  @param boardNo 게시글 번호 **/
     public List<AttachFile> getFileList(int boardNo);
 
+    /** 해당 게시글의 다운로드 가능한 첨부파일 목록
+     *  @param boardNo 게시글 번호 **/
+    public List<AttachFile> getDownloadFileList(int boardNo);
+
     /** 첨부파일 1개 삭제
      *  @param boardNo 게시글 번호
      *  @param newName 새로운 파일명 **/

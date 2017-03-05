@@ -5,7 +5,6 @@ public class SessionAttribute {
     public static final String SETTING_BOARD = "boardSetting"; // 게시판 설정
 
     public static final String USER = "loginUser"; // 로그인 된 유저
-    public static final String IMAGE_FILES = "uploadedImageFiles"; // 이미지 첨부 목록
     public static final String ATTACH_FILES = "uploadedAttachFiles"; // 첨부파일 목록
     public static final String TOKEN = "CSRFToken"; // CSRF Token
 

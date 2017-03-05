@@ -25,6 +25,7 @@
 
 	<p>* 파일 업로드: 첨부 파일을 서버로 업로드</p>
 	<p>* 이미지 파일은 업로드 불가</p>
+	<p>* 본문에 미포함 되어도 서버에 저장 됨</p>
 	<p class="bold">* 1개 파일당 10MB, 최대 10개 제한</p>
 
 	<form action="/editor/browser/file/upload" method="post" enctype="multipart/form-data" class="form_upload">
@@ -142,6 +143,7 @@
 			} else if ($(this).val() == "") {
 				return;
 			}
+			var $input = $(this);
 			var formData = new FormData($(".form_upload")[0]);
 			$.ajax($(".form_upload").attr("action"), {
 				type: "POST",
@@ -156,7 +158,7 @@
 				}
 			}).always(function() {
 				$loader.fadeOut(200);
-				$(this).val("");
+				$input.val("");
 			}).done(function(data) {
 				if (data != null) {
 					var code = tmpFunc({
