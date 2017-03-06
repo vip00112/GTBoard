@@ -98,6 +98,7 @@ public class BoardServiceImpl implements BoardService {
             BoardSetting setting = settingService.getBoardSetting();
             BoardType boardType = setting.getBoardType(board.getTypeNo());
             board.setBoardType(boardType);
+            board.setDownloadFiles(attachFileService.getDownloadFileList(no));
 
             // 익명 게시판 처리
             if (!board.isNotice() && boardType.isAnonymous()) {
@@ -130,6 +131,7 @@ public class BoardServiceImpl implements BoardService {
         for (Board board : list) {
             BoardType boardType = setting.getBoardType(board.getTypeNo());
             board.setBoardType(boardType);
+            board.setDownloadFiles(attachFileService.getDownloadFileList(board.getNo()));
 
             // 익명 게시판 처리
             if (boardType.isAnonymous()) {
@@ -158,6 +160,7 @@ public class BoardServiceImpl implements BoardService {
         for (Board board : list) {
             BoardType boardType = setting.getBoardType(board.getTypeNo());
             board.setBoardType(boardType);
+            board.setDownloadFiles(attachFileService.getDownloadFileList(board.getNo()));
 
             // 익명 게시판 처리
             if (boardType.isAnonymous()) {
@@ -198,6 +201,7 @@ public class BoardServiceImpl implements BoardService {
         BoardSetting setting = settingService.getBoardSetting();
         for (Board board : list) {
             board.setBoardType(setting.getBoardType(board.getTypeNo()));
+            board.setDownloadFiles(attachFileService.getDownloadFileList(board.getNo()));
         }
         resultMap.put("boardList", list);
         resultMap.put("paginateHtml", paginateUtil.getPaginate(pageNo, total, numPage, 10, "/board/" + url + "?" + param));
@@ -210,6 +214,7 @@ public class BoardServiceImpl implements BoardService {
         BoardSetting setting = settingService.getBoardSetting();
         for (Board board : list) {
             board.setBoardType(setting.getBoardType(board.getTypeNo()));
+            board.setDownloadFiles(attachFileService.getDownloadFileList(board.getNo()));
         }
         return list;
     }

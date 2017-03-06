@@ -70,14 +70,14 @@
 							<ul class="line item">
 								<li class="no">${notice.no}</li>
 								<li class="title" title=<c:out value="${notice.title}"/>>
+									<c:if test="${notice.recent}">
+										<span class="new" title="신규 글"></span>
+									</c:if>
 									<a href="/notice/${notice.no}" class="${notice.titleClass}">
 										<c:out value="${notice.title}" />
 									</a>
 									<c:if test="${notice.includeImg}">
 										<span class="image" title="이미지 포함"></span>
-									</c:if>
-									<c:if test="${notice.recent}">
-										<span class="new" title="신규 글"></span>
 									</c:if>
 								</li>
 								<li class="nickname">${notice.nickname}</li>
@@ -127,17 +127,25 @@
 								</li>
 								<li class="no">${board.no}</li>
 								<li class="title <c:if test="${board.popular}">popular</c:if>" title="<c:out value="${board.title}"/>">
+									<c:choose>
+										<c:when test="${board.recent}">
+											<span class="new" title="신규 글"></span>
+										</c:when>
+										<c:when test="${board.popular}">
+											<span class="hot" title="인기 글"></span>
+										</c:when>
+									</c:choose>
 									<a href="/board/${board.no}" class="${board.titleClass}">
 										<c:out value="${board.title}" />
 									</a>
-									<c:if test="${board.includeImg}">
-										<span class="image" title="이미지 포함"></span>
-									</c:if>
 									<c:if test="${board.boardType.useComment && board.commentCount > 0}">
 										<span class="count_comment" title="댓글 수">${board.commentCount}</span>
 									</c:if>
-									<c:if test="${board.recent}">
-										<span class="new" title="신규 글"></span>
+									<c:if test="${board.includeAttachFile}">
+										<span class="file" title="첨부파일 포함"></span>
+									</c:if>
+									<c:if test="${board.includeImg}">
+										<span class="image" title="이미지 포함"></span>
 									</c:if>
 								</li>
 								<li class="nickname">${board.nickname}</li>
@@ -186,17 +194,25 @@
 								<ul class="line item">
 									<li class="no">${board.no}</li>
 									<li class="title <c:if test="${board.popular}">popular</c:if>" title=<c:out value="${board.title}"/>>
+										<c:choose>
+											<c:when test="${board.recent}">
+												<span class="new" title="신규 글"></span>
+											</c:when>
+											<c:when test="${board.popular}">
+												<span class="hot" title="인기 글"></span>
+											</c:when>
+										</c:choose>
 										<a href="/board/${board.no}?url=${board.boardType.url}" class="${board.titleClass}">
 											<c:out value="${board.title}" />
 										</a>
-										<c:if test="${board.includeImg}">
-											<span class="image" title="이미지 포함"></span>
-										</c:if>
 										<c:if test="${board.boardType.useComment && board.commentCount > 0}">
 											<span class="count_comment" title="댓글 수">${board.commentCount}</span>
 										</c:if>
-										<c:if test="${board.recent}">
-											<span class="new" title="신규 글"></span>
+										<c:if test="${board.includeAttachFile}">
+											<span class="file" title="첨부파일 포함"></span>
+										</c:if>
+										<c:if test="${board.includeImg}">
+											<span class="image" title="이미지 포함"></span>
 										</c:if>
 									</li>
 									<li class="nickname">${board.nickname}</li>

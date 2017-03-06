@@ -118,7 +118,9 @@ public class Notice {
      *  @return true:img 태그 포함, false:미포함 **/
     public boolean isIncludeImg() {
         if (content != null) {
-            return content.indexOf("<img") != -1;
+            Pattern p = Pattern.compile("<img[^>]*src=[\"']?([^>\"']+)[\"']?[^>]*>");
+            Matcher m = p.matcher(content);
+            return m.find();
         }
         return false;
     }
@@ -143,14 +145,14 @@ public class Notice {
     }
 
     /** a태그 제목의 max-width설정을 위한 claa 표기
-     *  @return i:이미지 포함, v:동영상 포함, c:댓글, n:새글 **/
+     *  @return n:새글, i:이미지 포함, v:동영상 포함 **/
     public String getTitleClass() {
         StringBuilder sb = new StringBuilder();
-        if (isIncludeImg()) {
-            sb.append("i ");
-        }
         if (isRecent()) {
             sb.append("n ");
+        }
+        if (isIncludeImg()) {
+            sb.append("i ");
         }
         return sb.toString().trim();
     }

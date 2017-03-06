@@ -32,14 +32,14 @@ public class LoginCheckInterceptor extends HandlerInterceptorAdapter {
 
             // 계정 활성화 여부
             if (!loginUser.isActive()) {
-                if (url.indexOf("/join/verify") == -1 && url.indexOf("/join/complete") == -1) {
+                if (!url.contains("/join/verify") && !url.contains("/join/complete")) {
                     response.sendRedirect("/join/complete");
                     return false;
                 }
             }
 
             // 관리자 페이지
-            if (url.indexOf("/admin") != -1 && !loginUser.isAdmin()) {
+            if (url.contains("/admin") && !loginUser.isAdmin()) {
                 response.sendRedirect("/error");
                 return false;
             }

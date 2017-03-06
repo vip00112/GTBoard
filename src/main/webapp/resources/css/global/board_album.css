@@ -92,7 +92,8 @@
 .board_frame.album .line.item .title span {
     display: block;
     float: left;
-	padding: 5px 0;
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
 
 .board_frame.album .line.item .title span.image {

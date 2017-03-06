@@ -275,17 +275,22 @@
 				</a>
 			</li>
 			<li class="title <@if(board.popular){@>popular<@}@>" title="<@=changeEntities(board.title)@>">
+				<@ if (board.recent) { @>
+					<span class="new" title="신규 글"></span>
+				<@ } else if (board.popular) { @>
+					<span class="hot" title="인기 글"></span>
+				<@ } @>
 				<a href="/board/<@=board.no@>" class="<@=board.titleClass@>">
 					<@=changeEntities(board.title)@>
 				</a>
-				<@ if (board.includeImg) { @>
-					<span class="image"></span>
-				<@ } @>
 				<@ if (board.boardType.useComment && board.commentCount > 0) { @>
 					<span class="count_comment" title="댓글 수"><@=board.commentCount@></span>
 				<@ } @>
-				<@ if (board.recent) { @>
-					<span class="new" title="신규 글"></span>
+				<@ if (board.includeAttachFile) { @>
+					<span class="file" title="첨부파일 포함"></span>
+				<@ } @>
+				<@ if (board.includeImg) { @>
+					<span class="image" title="이미지 포함"></span>
 				<@ } @>
 			</li>
 			<li class="nickname"><@=board.nickname@></li>

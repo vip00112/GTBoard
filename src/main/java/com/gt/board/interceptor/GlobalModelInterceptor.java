@@ -49,7 +49,7 @@ public class GlobalModelInterceptor extends HandlerInterceptorAdapter {
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView mav) throws Exception {
         // CKEditor 업로드 브라우저
-        boolean isCKEditor = request.getRequestURL().toString().indexOf("/editor/browser") != -1;
+        boolean isCKEditor = request.getRequestURL().toString().contains("/editor/browser");
 
         if (!isCKEditor && mav != null && mav.hasView()) {
             boolean isHasView = mav.getView() != null;

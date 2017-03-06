@@ -105,14 +105,14 @@
 		</div>
 		<!-- // .box.thumb -->
 
-		<c:if test="${fn:length(downloadFiles) > 0}">
+		<c:if test="${fn:length(board.downloadFiles) > 0}">
 			<div class="box attach">
 				<span>
 					첨부 파일
-					<strong>${fn:length(downloadFiles)}</strong>
+					<strong>${fn:length(board.downloadFiles)}</strong>
 				</span>
 				<ul>
-					<c:forEach items="${downloadFiles}" var="file">
+					<c:forEach items="${board.downloadFiles}" var="file">
 						<li>
 							<a href="${file.url}" target="_blank">
 								<span class="ext">${file.extension}</span>
@@ -306,17 +306,20 @@
 						<%-- <li class="thumbnail"> <a> <img/> </a> </li>
 						게시판 별 공지 게시글은 썸네일 이미지 보여주지 않는다. --%>
 						<li class="title notice" title="<c:out value="${board.title}"/>">
+							<c:if test="${board.recent}">
+								<span class="new" title="신규 글"></span>
+							</c:if>
 							<a href="/board/${board.no}?url=${boardType.url}&searchType=${searchType}&search=${search}&numPage=${numPage}&pageNo=${pageNo}&order=${order}" class="${board.titleClass}">
 								<c:out value="${board.title}" />
 							</a>
-							<c:if test="${board.includeImg}">
-								<span class="image" title="이미지 포함"></span>
-							</c:if>
 							<c:if test="${board.boardType.useComment && board.commentCount > 0}">
 								<span class="count_comment" title="댓글 수">${board.commentCount}</span>
 							</c:if>
-							<c:if test="${board.recent}">
-								<span class="new" title="신규 글"></span>
+							<c:if test="${board.includeAttachFile}">
+								<span class="file" title="첨부파일 포함"></span>
+							</c:if>
+							<c:if test="${board.includeImg}">
+								<span class="image" title="이미지 포함"></span>
 							</c:if>
 						</li>
 						<li class="nickname">${board.nickname}</li>
@@ -355,17 +358,25 @@
 									</a>
 								</li>
 								<li class="title <c:if test="${board.popular}">popular</c:if>" title="<c:out value="${board.title}"/>">
+									<c:choose>
+										<c:when test="${board.recent}">
+											<span class="new" title="신규 글"></span>
+										</c:when>
+										<c:when test="${board.popular}">
+											<span class="hot" title="인기 글"></span>
+										</c:when>
+									</c:choose>
 									<a href="/board/${board.no}?url=${boardType.url}&searchType=${searchType}&search=${search}&numPage=${numPage}&pageNo=${pageNo}&order=${order}" class="${board.titleClass}">
 										<c:out value="${board.title}" />
 									</a>
-									<c:if test="${board.includeImg}">
-										<span class="image" title="이미지 포함"></span>
-									</c:if>
 									<c:if test="${board.boardType.useComment && board.commentCount > 0}">
 										<span class="count_comment" title="댓글 수">${board.commentCount}</span>
 									</c:if>
-									<c:if test="${board.recent}">
-										<span class="new" title="신규 글"></span>
+									<c:if test="${board.includeAttachFile}">
+										<span class="file" title="첨부파일 포함"></span>
+									</c:if>
+									<c:if test="${board.includeImg}">
+										<span class="image" title="이미지 포함"></span>
 									</c:if>
 								</li>
 								<li class="nickname">${board.nickname}</li>

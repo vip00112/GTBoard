@@ -192,9 +192,6 @@ public class BoardController {
 
         // 게시글 상세 정보
         model.addAttribute("board", board);
-
-        // 다운로드 가능한 첨부파일 목록
-        model.addAttribute("downloadFiles", attachFileService.getDownloadFileList(no));
         return "boardDetail";
     }
 

@@ -86,14 +86,14 @@
 							<ul class="line item">
 								<li class="no">${board.no}</li>
 								<li class="title" title="<c:out value="${board.title}"/>">
+									<c:if test="${board.recent}">
+										<span class="new" title="신규 글"></span>
+									</c:if>
 									<a href="/notice/${board.no}?order=${order}&searchType=${searchType}&search=${search}&numPage=${numPage}&pageNo=${pageNo}" class="${board.titleClass}">
 										<c:out value="${board.title}" />
 									</a>
 									<c:if test="${board.includeImg}">
 										<span class="image" title="이미지 포함"></span>
-									</c:if>
-									<c:if test="${board.recent}">
-										<span class="new" title="신규 글"></span>
 									</c:if>
 								</li>
 								<li class="nickname">${board.nickname}</li>

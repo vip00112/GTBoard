@@ -2,6 +2,7 @@ package com.gt.board.vo;
 
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -24,6 +25,7 @@ public class Board {
     private Timestamp lastUpdate; // 최종 수정일자
 
     private BoardType boardType; // 게시판 분류
+    private List<AttachFile> downloadFiles; // 다운로드 가능한 첨부파일 목록
     private String text; // HTML 태그를 제거한 내용(meta 태그 표기를 위함)
     @JsonIgnore private String captcha; // 자동 방지 코드
     @JsonIgnore private SimpleDateFormat sdf; // viewDate 표기를 위한 변수 선언
@@ -144,6 +146,14 @@ public class Board {
         this.boardType = boardType;
     }
 
+    public List<AttachFile> getDownloadFiles() {
+        return downloadFiles;
+    }
+
+    public void setDownloadFiles(List<AttachFile> downloadFiles) {
+        this.downloadFiles = downloadFiles;
+    }
+
     public String getText() {
         return text;
     }
@@ -215,11 +225,19 @@ public class Board {
         return sdf.format(lastUpdate.getTime());
     }
 
+    /** 첨부파일이 포함된 게시글 여부
+     *  @return true:다운로드 가능한 첨부파일 있음, false:첨부파일 없음 **/
+    public boolean isIncludeAttachFile() {
+        return downloadFiles != null && downloadFiles.size() > 0;
+    }
+
     /** 이미지가 포함된 게시글 여부
      *  @return true:img 태그 포함, false:미포함 **/
     public boolean isIncludeImg() {
         if (content != null) {
-            return content.indexOf("<img") != -1;
+            Pattern p = Pattern.compile("<img[^>]*src=[\"']?([^>\"']+)[\"']?[^>]*>");
+            Matcher m = p.matcher(content);
+            return m.find();
         }
         return false;
     }
@@ -244,17 +262,22 @@ public class Board {
     }
 
     /** a태그 제목의 max-width설정을 위한 claa 표기
-     *  @return i:이미지 포함, v:동영상 포함, c:댓글, n:새글 **/
+     *  @return n:새글, h:인기글, c:댓글, f:첨부파일 포함, i:이미지 포함, v:동영상 포함 **/
     public String getTitleClass() {
         StringBuilder sb = new StringBuilder();
-        if (isIncludeImg()) {
-            sb.append("i ");
+        if (isRecent()) {
+            sb.append("n ");
+        } else if (isPopular()) {
+            sb.append("h ");
         }
         if (commentCount > 0) {
             sb.append("c ");
         }
-        if (isRecent()) {
-            sb.append("n ");
+        if (isIncludeAttachFile()) {
+            sb.append("f ");
+        }
+        if (isIncludeImg()) {
+            sb.append("i ");
         }
         return sb.toString().trim();
     }
