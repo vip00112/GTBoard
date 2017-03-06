@@ -125,6 +125,17 @@ public class Notice {
         return false;
     }
 
+    /** 비디오가 포함된 게시글 여부
+     *  @return true:div태그에 data-oembed-url속성 포함, false:미포함 **/
+    public boolean isIncludeVideo() {
+        if (content != null) {
+            Pattern p = Pattern.compile("<div[^>]*data-oembed-url=[\"']?([^>\"']+)[\"']?[^>]*>");
+            Matcher m = p.matcher(content);
+            return m.find();
+        }
+        return false;
+    }
+
     /** 기본 썸네일 이미지 URL 취득
      *  @return noimage.png 경로**/
     public String getDefaultThumbnail() {

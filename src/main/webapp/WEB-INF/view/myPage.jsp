@@ -292,6 +292,9 @@
 				<@ if (board.includeImg) { @>
 					<span class="image" title="이미지 포함"></span>
 				<@ } @>
+				<@ if (board.includeVideo) { @>
+					<span class="video" title="동영상 포함"></span>
+				<@ } @>
 			</li>
 			<li class="nickname"><@=board.nickname@></li>
 			<li class="date" title="<@=board.viewRegdateFull@>"><@=board.viewRegdate@></li>

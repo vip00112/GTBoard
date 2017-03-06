@@ -132,6 +132,9 @@
 							<c:if test="${board.includeImg}">
 								<span class="image" title="이미지 포함"></span>
 							</c:if>
+							<c:if test="${board.includeVideo}">
+								<span class="video" title="동영상 포함"></span>
+							</c:if>
 						</li>
 						<li class="nickname">${board.nickname}</li>
 						<li class="date" title="${board.viewRegdateFull}">${board.viewRegdate}</li>
@@ -180,6 +183,9 @@
 									</c:if>
 									<c:if test="${board.includeImg}">
 										<span class="image" title="이미지 포함"></span>
+									</c:if>
+									<c:if test="${board.includeVideo}">
+										<span class="video" title="동영상 포함"></span>
 									</c:if>
 								</li>
 								<li class="nickname">${board.nickname}</li>

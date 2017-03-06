@@ -208,6 +208,8 @@ public class BoardController {
         }
         model.addAttribute("type", "write");
         model.addAttribute("boardType", boardType);
+
+        // TODO BoardType.isUseAttachFile, BoardType.DownloadGrade 여부 전달
         return "boardWrite";
     }
 
@@ -249,6 +251,7 @@ public class BoardController {
             String content = board.getContent();
 
             // 이미지/첨부파일 업로드 임시 파일 이동, DB 저장
+            // TODO BoardType.isUseAttachFile 여부에 따라 분기
             List<AttachFile> files = (List<AttachFile>) session.getAttribute(SessionAttribute.ATTACH_FILES);
             attachFileService.addFiles(board, files);
 
@@ -288,6 +291,8 @@ public class BoardController {
 
         // 기존 이미지/첨부파일 목록 취득
         model.addAttribute(SessionAttribute.ATTACH_FILES, attachFileService.getFileList(no));
+
+        // TODO BoardType.isUseAttachFile, BoardType.DownloadGrade 여부 전달
         return "boardWrite";
     }
 
@@ -325,6 +330,7 @@ public class BoardController {
         String content = update.getContent();
 
         // 이미지/첨부파일 업로드 임시 파일 이동, DB 저장
+        // TODO BoardType.isUseAttachFile 여부에 따라 분기
         List<AttachFile> files = (List<AttachFile>) session.getAttribute(SessionAttribute.ATTACH_FILES);
         attachFileService.addFiles(update, files);
 
@@ -459,7 +465,6 @@ public class BoardController {
             User user = (User) session.getAttribute(SessionAttribute.USER);
             Board board = boardService.getBoard(no);
             if (board == null || board.getBoardType() == null || !board.getBoardType().isUse()) {
-                error = "Error";
                 error = "<script>alert('Attach file download error');window.close();</script>";
                 os.write(error.getBytes(Charset.forName("UTF-8")));
                 return;
@@ -469,10 +474,13 @@ public class BoardController {
                 return;
             }
 
+            // TODO 포인트 감소 처리
+
             AttachFile attachFile = attachFileService.getFile(no, fileNo);
             if (attachFile != null) {
                 File file = new File(attachFile.getFullPath());
                 if (file.exists()) {
+                    // 한글 파일명 처리
                     String name = attachFile.getName();
                     if (req.getHeader("User-Agent").contains("MSIE")) {
                         name = URLEncoder.encode(name, "UTF-8");
