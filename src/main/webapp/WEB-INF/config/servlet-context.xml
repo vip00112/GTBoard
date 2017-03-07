@@ -66,6 +66,7 @@
 		<property name="thumbService" ref="thumbService" />
 		<property name="settingService" ref="settingService" />
 		<property name="attachFileService" ref="attachFileService" />
+		<property name="userService" ref="userService" />
 		<property name="commonUtil" ref="commonUtil" />
 		<property name="cookieUtil" ref="cookieUtil" />
 		<property name="fileUtil" ref="fileUtil" />
