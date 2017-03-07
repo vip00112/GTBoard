@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.gt.board.dao.BoardsDAO;
 import com.gt.board.dao.ThumbsDAO;
+import com.gt.board.enums.Point;
 import com.gt.board.vo.Board;
 import com.gt.board.vo.Thumb;
 
@@ -40,7 +41,7 @@ public class ThumbServiceImpl implements ThumbService {
     public boolean addThumbTX(Thumb thumb, Board board) {
         int thumbPoint = board.getBoardType().getThumbPoint();
         if (thumbPoint > 0) {
-            userService.updatePointTX(board.getUserNo(), 'I', thumbPoint, UserService.POINT_REASON_ADD_THUMB); // 포인트 지급
+            userService.updatePointTX(board.getUserNo(), thumbPoint, Point.ADD_THUMB); // 포인트 지급
         }
         boardsDAO.updateThumb(thumb.getBoardNo());
         return thumbsDAO.insert(thumb) == 1;

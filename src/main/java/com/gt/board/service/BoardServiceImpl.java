@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.gt.board.dao.BoardsDAO;
 import com.gt.board.dao.CommentsDAO;
 import com.gt.board.dao.ThumbsDAO;
+import com.gt.board.enums.Point;
 import com.gt.board.service.other.SettingService;
 import com.gt.board.util.PaginateUtil;
 import com.gt.board.vo.Board;
@@ -59,7 +60,7 @@ public class BoardServiceImpl implements BoardService {
     public boolean writeBoardTX(Board board) {
         int writePoint = board.getBoardType().getWritePoint();
         if (writePoint > 0) {
-            userService.updatePointTX(board.getUserNo(), 'I', writePoint, UserService.POINT_REASON_WRITE_BOARD); // 포인트 지급
+            userService.updatePointTX(board.getUserNo(), writePoint, Point.WRITE_BOARD); // 포인트 지급
         }
         return boardsDAO.insert(board) == 1;
     }
@@ -70,10 +71,10 @@ public class BoardServiceImpl implements BoardService {
         int writePoint = board.getBoardType().getWritePoint();
         int thumbPoint = board.getBoardType().getThumbPoint() * board.getThumb(); // 추천수 * 추천포인트
         if (writePoint > 0) {
-            userService.updatePointTX(board.getUserNo(), 'D', writePoint, UserService.POINT_REASON_DELETE_BOARD); // 포인트 회수
+            userService.updatePointTX(board.getUserNo(), writePoint, Point.DELETE_BOARD); // 포인트 회수
         }
         if (thumbPoint > 0) {
-            userService.updatePointTX(board.getUserNo(), 'D', thumbPoint, UserService.POINT_REASON_REMOVE_THUMB); // 포인트 회수
+            userService.updatePointTX(board.getUserNo(), thumbPoint, Point.REMOVE_THUMB); // 포인트 회수
         }
         commentsDAO.deleteByBoard(no); // 댓글 삭제
         thumbsDAO.delete(no); // 추천 기록 삭제

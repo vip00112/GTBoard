@@ -1,5 +1,6 @@
 package com.gt.board.enums;
 
+/** 첨부 파일의 상태 열거 **/
 public enum AttachFileStatus {
     NONE,
 

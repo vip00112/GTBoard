@@ -64,7 +64,12 @@
 					<li class="nickname">${board.nickname}</li>
 					<li class="date">${board.viewRegdateFull}</li>
 					<li class="hit">${board.hit}</li>
-					<li class="comment">${board.commentCount}</li>
+					<li class="comment">
+						<c:choose>
+							<c:when test="${board.boardType.useComment}">${board.commentCount}</c:when>
+							<c:otherwise>-</c:otherwise>
+						</c:choose>
+					</li>
 					<c:if test="${board.lastUpdate != null}">
 						<li class="update">${board.viewLastUpdate}</li>
 					</c:if>
@@ -105,7 +110,7 @@
 		</div>
 		<!-- // .box.thumb -->
 
-		<c:if test="${fn:length(board.downloadFiles) > 0}">
+		<c:if test="${board.boardType.useAttachFile && fn:length(board.downloadFiles) > 0}">
 			<div class="box attach">
 				<span>
 					첨부 파일
@@ -115,7 +120,7 @@
 					<c:forEach items="${board.downloadFiles}" var="file">
 						<li>
 							<a href="${file.url}" target="_blank">
-								<span class="ext">${file.extension}</span>
+								<span class="ext">${file.viewExtension}</span>
 								<span class="name">${file.name}</span>
 								<span class="size">${file.viewSize}</span>
 							</a>
@@ -312,10 +317,7 @@
 							<a href="/board/${board.no}?url=${boardType.url}&searchType=${searchType}&search=${search}&numPage=${numPage}&pageNo=${pageNo}&order=${order}" class="${board.titleClass}">
 								<c:out value="${board.title}" />
 							</a>
-							<c:if test="${board.boardType.useComment && board.commentCount > 0}">
-								<span class="count_comment" title="댓글 수">${board.commentCount}</span>
-							</c:if>
-							<c:if test="${board.includeAttachFile}">
+							<c:if test="${board.boardType.useAttachFile && board.includeAttachFile}">
 								<span class="file" title="첨부파일 포함"></span>
 							</c:if>
 							<c:if test="${board.includeImg}">
@@ -323,6 +325,9 @@
 							</c:if>
 							<c:if test="${board.includeVideo}">
 								<span class="video" title="동영상 포함"></span>
+							</c:if>
+							<c:if test="${board.boardType.useComment && board.commentCount > 0}">
+								<span class="count_comment" title="댓글 수">${board.commentCount}</span>
 							</c:if>
 						</li>
 						<li class="nickname">${board.nickname}</li>
@@ -372,10 +377,7 @@
 									<a href="/board/${board.no}?url=${boardType.url}&searchType=${searchType}&search=${search}&numPage=${numPage}&pageNo=${pageNo}&order=${order}" class="${board.titleClass}">
 										<c:out value="${board.title}" />
 									</a>
-									<c:if test="${board.boardType.useComment && board.commentCount > 0}">
-										<span class="count_comment" title="댓글 수">${board.commentCount}</span>
-									</c:if>
-									<c:if test="${board.includeAttachFile}">
+									<c:if test="${board.boardType.useAttachFile && board.includeAttachFile}">
 										<span class="file" title="첨부파일 포함"></span>
 									</c:if>
 									<c:if test="${board.includeImg}">
@@ -383,6 +385,9 @@
 									</c:if>
 									<c:if test="${board.includeVideo}">
 										<span class="video" title="동영상 포함"></span>
+									</c:if>
+									<c:if test="${board.boardType.useComment && board.commentCount > 0}">
+										<span class="count_comment" title="댓글 수">${board.commentCount}</span>
 									</c:if>
 								</li>
 								<li class="nickname">${board.nickname}</li>

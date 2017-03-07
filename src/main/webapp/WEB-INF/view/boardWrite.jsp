@@ -198,7 +198,11 @@
 	<script src="/resources/js/ckeditor.js"></script>
 	<script>
 		$(window).load(function() {
-			createCKEditor();
+			if ("${boardType.useAttachFile}" == "true") {
+				createCKEditor();
+			} else {
+				createCKEditor();
+			}
 		});
 	</script>
 

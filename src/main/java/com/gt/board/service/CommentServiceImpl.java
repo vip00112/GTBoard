@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.gt.board.dao.BoardsDAO;
 import com.gt.board.dao.CommentsDAO;
+import com.gt.board.enums.Point;
 import com.gt.board.util.PaginateUtil;
 import com.gt.board.vo.Board;
 import com.gt.board.vo.Comment;
@@ -40,7 +41,7 @@ public class CommentServiceImpl implements CommentService {
     public boolean writeCommentTX(Comment comment, Board board) {
         int commentPoint = board.getBoardType().getCommentPoint();
         if (commentPoint > 0) {
-            userService.updatePointTX(board.getUserNo(), 'I', commentPoint, UserService.POINT_REASON_WRITE_COMMENT); // 포인트 지급
+            userService.updatePointTX(board.getUserNo(), commentPoint, Point.WRITE_COMMENT); // 포인트 지급
         }
         Map<String, Object> paramMap = new HashMap<String, Object>();
         paramMap.put("type", "add");
@@ -53,7 +54,7 @@ public class CommentServiceImpl implements CommentService {
     public boolean deleteCommentTX(int no, Board board) {
         int commentPoint = board.getBoardType().getCommentPoint();
         if (commentPoint > 0) {
-            userService.updatePointTX(board.getUserNo(), 'D', commentPoint, UserService.POINT_REASON_DELETE_COMMENT); // 포인트 회수
+            userService.updatePointTX(board.getUserNo(), commentPoint, Point.DELETE_COMMENT); // 포인트 회수
         }
         Map<String, Object> paramMap = new HashMap<String, Object>();
         paramMap.put("type", "remove");

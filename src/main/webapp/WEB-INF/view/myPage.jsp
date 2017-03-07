@@ -283,10 +283,7 @@
 				<a href="/board/<@=board.no@>" class="<@=board.titleClass@>">
 					<@=changeEntities(board.title)@>
 				</a>
-				<@ if (board.boardType.useComment && board.commentCount > 0) { @>
-					<span class="count_comment" title="댓글 수"><@=board.commentCount@></span>
-				<@ } @>
-				<@ if (board.includeAttachFile) { @>
+				<@ if (board.boardType.useAttachFile && board.includeAttachFile) { @>
 					<span class="file" title="첨부파일 포함"></span>
 				<@ } @>
 				<@ if (board.includeImg) { @>
@@ -294,6 +291,9 @@
 				<@ } @>
 				<@ if (board.includeVideo) { @>
 					<span class="video" title="동영상 포함"></span>
+				<@ } @>
+				<@ if (board.boardType.useComment && board.commentCount > 0) { @>
+					<span class="count_comment" title="댓글 수"><@=board.commentCount@></span>
 				<@ } @>
 			</li>
 			<li class="nickname"><@=board.nickname@></li>

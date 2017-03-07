@@ -49,6 +49,20 @@
 			}
 			this.timeout = setTimeout(this.resizeTitle, delay);
 		},
+		toggleDesc: function($btn) { // 게시판 상세 옵션 펼침/닫힘
+			var $box = $btn.parents(".box_desc");
+			$box.toggleClass("on");
+			$btn.toggleClass("on");
+
+			var icon = $btn.find("i.fa");
+			if ($btn.hasClass("on")) {
+				icon.removeClass("fa-caret-down");
+				icon.addClass("fa-caret-up");
+			} else {
+				icon.removeClass("fa-caret-up");
+				icon.addClass("fa-caret-down");
+			}
+		},
 		changeViewType: function($btn) { // 옵션 변경(보기 형식) 후 resizeTitleDelay 호출
 			var $frame = $btn.parents(".board_frame");
 			$frame.find(".box_option .view_type li.on").removeClass("on");
@@ -133,7 +147,7 @@
 				event.preventDefault ? event.preventDefault() : (event.returnValue = false);
 				return;
 			}
-			
+
 			// ajax 처리가 필요할시 callBack인자로 함수 전달
 			if (typeof callBack === 'function') {
 				callBack();
@@ -210,7 +224,7 @@
 				event.preventDefault ? event.preventDefault() : (event.returnValue = false);
 				return;
 			}
-			
+
 			// ajax 처리가 필요할시 callBack인자로 함수 전달
 			if (typeof callBack === 'function') {
 				callBack();

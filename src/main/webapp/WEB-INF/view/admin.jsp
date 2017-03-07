@@ -367,8 +367,8 @@
 						<label for="useAttachFile">첨부파일</label>
 						<div class="variable">
 							<select name="useAttachFile">
-								<option value="true">사용</option>
 								<option value="false">미사용</option>
+								<option value="true">사용</option>
 							</select>
 							<span class="desc">첨부파일 허용 여부</span>
 						</div>
@@ -483,7 +483,7 @@
 					<!-- // .box_wrap -->
 
 					<div class="box_wrap">
-						<label for="downloadGrade">다운로드 가능 등급</label>
+						<label for="downloadGrade">다운로드 등급</label>
 						<div class="variable">
 							<input type="text" id="downloadGrade" name="downloadGrade" value="">
 							<span class="desc">첨부파일 다운로드가 가능한 등급</span>
@@ -577,7 +577,7 @@
 	<script>
 		$(".box.content.boardType select[name='no']").change(function() {
 			if ($(this).val() == 0) {
-				$(".box.content.boardType input").val("");
+				$(".box.content.boardType input[name!='CSRFToken']").val("");
 				$(".box.content.boardType select").val("false");
 				$(this).val(0);
 			} else {

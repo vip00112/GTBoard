@@ -141,10 +141,7 @@
 									<a href="/board/${board.no}" class="${board.titleClass}">
 										<c:out value="${board.title}" />
 									</a>
-									<c:if test="${board.boardType.useComment && board.commentCount > 0}">
-										<span class="count_comment" title="댓글 수">${board.commentCount}</span>
-									</c:if>
-									<c:if test="${board.includeAttachFile}">
+									<c:if test="${board.boardType.useAttachFile && board.includeAttachFile}">
 										<span class="file" title="첨부파일 포함"></span>
 									</c:if>
 									<c:if test="${board.includeImg}">
@@ -152,6 +149,9 @@
 									</c:if>
 									<c:if test="${board.includeVideo}">
 										<span class="video" title="동영상 포함"></span>
+									</c:if>
+									<c:if test="${board.boardType.useComment && board.commentCount > 0}">
+										<span class="count_comment" title="댓글 수">${board.commentCount}</span>
 									</c:if>
 								</li>
 								<li class="nickname">${board.nickname}</li>
@@ -211,10 +211,7 @@
 										<a href="/board/${board.no}?url=${board.boardType.url}" class="${board.titleClass}">
 											<c:out value="${board.title}" />
 										</a>
-										<c:if test="${board.boardType.useComment && board.commentCount > 0}">
-											<span class="count_comment" title="댓글 수">${board.commentCount}</span>
-										</c:if>
-										<c:if test="${board.includeAttachFile}">
+										<c:if test="${board.boardType.useAttachFile && board.includeAttachFile}">
 											<span class="file" title="첨부파일 포함"></span>
 										</c:if>
 										<c:if test="${board.includeImg}">
@@ -222,6 +219,9 @@
 										</c:if>
 										<c:if test="${board.includeVideo}">
 											<span class="video" title="동영상 포함"></span>
+										</c:if>
+										<c:if test="${board.boardType.useComment && board.commentCount > 0}">
+											<span class="count_comment" title="댓글 수">${board.commentCount}</span>
 										</c:if>
 									</li>
 									<li class="nickname">${board.nickname}</li>

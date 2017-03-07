@@ -8,6 +8,7 @@ import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 
 import com.gt.board.dao.UsersDAO;
+import com.gt.board.enums.Point;
 import com.gt.board.vo.User;
 
 @Service
@@ -99,12 +100,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean updatePointTX(int no, char type, int point, String reason) {
+    public boolean updatePointTX(int no, int point, Point reason) {
         Map<String, Object> paramMap = new HashMap<String, Object>();
         paramMap.put("no", no);
-        paramMap.put("type", type);
+        paramMap.put("type", reason.getType());
         paramMap.put("point", point);
-        paramMap.put("reason", reason);
+        paramMap.put("reason", reason.getReason());
         usersDAO.insertPointHistory(paramMap);
         return usersDAO.updatePoint(paramMap) == 1;
     }

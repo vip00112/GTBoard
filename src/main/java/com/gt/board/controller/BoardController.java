@@ -30,10 +30,12 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.gt.board.config.SessionAttribute;
 import com.gt.board.enums.Path;
+import com.gt.board.enums.Point;
 import com.gt.board.service.AttachFileService;
 import com.gt.board.service.BoardService;
 import com.gt.board.service.CommentService;
 import com.gt.board.service.ThumbService;
+import com.gt.board.service.UserService;
 import com.gt.board.service.other.SettingService;
 import com.gt.board.util.CommonUtil;
 import com.gt.board.util.CookieUtil;
@@ -54,6 +56,7 @@ public class BoardController {
     private ThumbService thumbService;
     private SettingService settingService;
     private AttachFileService attachFileService;
+    private UserService userService;
     private CommonUtil commonUtil;
     private CookieUtil cookieUtil;
     private FileUtil fileUtil;
@@ -76,6 +79,10 @@ public class BoardController {
 
     public void setAttachFileService(AttachFileService attachFileService) {
         this.attachFileService = attachFileService;
+    }
+
+    public void setUserService(UserService userService) {
+        this.userService = userService;
     }
 
     public void setCommonUtil(CommonUtil commonUtil) {
@@ -208,8 +215,6 @@ public class BoardController {
         }
         model.addAttribute("type", "write");
         model.addAttribute("boardType", boardType);
-
-        // TODO BoardType.isUseAttachFile, BoardType.DownloadGrade 여부 전달
         return "boardWrite";
     }
 
@@ -251,7 +256,6 @@ public class BoardController {
             String content = board.getContent();
 
             // 이미지/첨부파일 업로드 임시 파일 이동, DB 저장
-            // TODO BoardType.isUseAttachFile 여부에 따라 분기
             List<AttachFile> files = (List<AttachFile>) session.getAttribute(SessionAttribute.ATTACH_FILES);
             attachFileService.addFiles(board, files);
 
@@ -291,8 +295,6 @@ public class BoardController {
 
         // 기존 이미지/첨부파일 목록 취득
         model.addAttribute(SessionAttribute.ATTACH_FILES, attachFileService.getFileList(no));
-
-        // TODO BoardType.isUseAttachFile, BoardType.DownloadGrade 여부 전달
         return "boardWrite";
     }
 
@@ -330,7 +332,7 @@ public class BoardController {
         String content = update.getContent();
 
         // 이미지/첨부파일 업로드 임시 파일 이동, DB 저장
-        // TODO BoardType.isUseAttachFile 여부에 따라 분기
+        update.setBoardType(board.getBoardType());
         List<AttachFile> files = (List<AttachFile>) session.getAttribute(SessionAttribute.ATTACH_FILES);
         attachFileService.addFiles(update, files);
 
@@ -474,8 +476,6 @@ public class BoardController {
                 return;
             }
 
-            // TODO 포인트 감소 처리
-
             AttachFile attachFile = attachFileService.getFile(no, fileNo);
             if (attachFile != null) {
                 File file = new File(attachFile.getFullPath());
@@ -493,6 +493,12 @@ public class BoardController {
 
                     is = new BufferedInputStream(new FileInputStream(file));
                     FileCopyUtils.copy(is, os);
+
+                    // 다운로드 포인트 감소
+                    int downloadPoint = board.getBoardType().getDownloadPoint();
+                    if (downloadPoint > 0) {
+                        userService.updatePointTX(user.getNo(), downloadPoint, Point.DOWNLOAD_FILE);
+                    }
                 } else {
                     error = "<script>alert('존재하지 않는 파일 입니다.');window.close();</script>";
                     os.write(error.getBytes(Charset.forName("UTF-8")));

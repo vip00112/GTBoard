@@ -1,15 +1,9 @@
 package com.gt.board.service;
 
+import com.gt.board.enums.Point;
 import com.gt.board.vo.User;
 
 public interface UserService {
-    public static final String POINT_REASON_WRITE_BOARD = "게시글 작성: 게시글 작성 포인트 지급";
-    public static final String POINT_REASON_DELETE_BOARD = "게시글 삭제: 게시글 작성 포인트 회수";
-    public static final String POINT_REASON_ADD_THUMB = "게시글 추천: 게시글 추천 포인트 지급";
-    public static final String POINT_REASON_REMOVE_THUMB = "게시글 삭제: 게시글 추천 포인트 회수";
-    public static final String POINT_REASON_WRITE_COMMENT = "댓글 작성: 댓글 작성 포인트 지급";
-    public static final String POINT_REASON_DELETE_COMMENT = "댓글 삭제: 댓글 작성 포인트 회수";
-
     /** 유저 정보 취득: 로그인, 비밀번호 찾기
      *  @param email 가입시 작성한 이메일 **/
     public User getUser(String email);
@@ -44,9 +38,8 @@ public interface UserService {
 
     /** 포인트 증가/감소
      *  @param no 유저 번호
-     *  @param type 'I':Increase 증가, 'D':Decrease 감소
      *  @param point 증가/감소할 포인트 수치
      *  @param reason 증가/감소의 원인 **/
-    public boolean updatePointTX(int no, char type, int point, String reason);
+    public boolean updatePointTX(int no, int point, Point reason);
 
 }

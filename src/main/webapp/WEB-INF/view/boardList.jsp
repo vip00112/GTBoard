@@ -61,6 +61,59 @@
 		</c:if>
 
 		<div class="board_frame ${all} ${album}">
+			<c:if test="${boardType.no != 0}">
+				<div class="box_desc">
+					<span>
+						게시판 상세 옵션
+						<i class="fa fa-caret-down fa-lg"></i>
+					</span>
+					<dl>
+						<dt>게시글/댓글 작성자</dt>
+						<dd>${boardType.anonymous ? "익명" : "공개"}</dd>
+						<dt>댓글 작성</dt>
+						<dd>${boardType.useComment ? "가능" : "불가능"}</dd>
+						<dt>파일 첨부</dt>
+						<dd>${boardType.useAttachFile ? "가능" : "불가능"}</dd>
+						<dt class="screen_out"></dt>
+						<dd>&nbsp;</dd>
+
+						<dt>글 읽기 등급</dt>
+						<dd>LV ${boardType.readGrade} 이상</dd>
+						<dt>글 작성 등급</dt>
+						<dd>LV ${boardType.writeGrade} 이상</dd>
+						<c:if test="${boardType.useComment}">
+							<dt>댓글 작성 등급</dt>
+							<dd>LV ${boardType.commentGrade} 이상</dd>
+						</c:if>
+						<c:if test="${boardType.useAttachFile}">
+							<dt>첨부파일 다운로드 등급</dt>
+							<dd>LV ${boardType.downloadGrade} 이상</dd>
+						</c:if>
+						<dt class="screen_out"></dt>
+						<dd>&nbsp;</dd>
+
+						<dt>추천 지급 포인트</dt>
+						<dd>${boardType.thumbPoint}P</dd>
+						<dt>글 작성 지급 포인트</dt>
+						<dd>${boardType.writePoint}P</dd>
+						<c:if test="${boardType.useComment}">
+							<dt>댓글 작성 지급 포인트</dt>
+							<dd>${boardType.commentPoint}P</dd>
+						</c:if>
+						<c:if test="${boardType.useAttachFile}">
+							<dt>첨부파일 다운로드 포인트</dt>
+							<dd>${boardType.downloadPoint}P</dd>
+						</c:if>
+						<dt class="screen_out"></dt>
+						<dd>&nbsp;</dd>
+
+						<dt>인기글 추천 수</dt>
+						<dd>${boardType.popularThumb}개</dd>
+					</dl>
+				</div>
+				<!-- // .box_desc -->
+			</c:if>
+
 			<div class="box_option">
 				<div class="view_type option">
 					<ul title="게시글 형식">
@@ -123,10 +176,7 @@
 							<a href="/board/${board.no}?url=${boardType.url}&searchType=${searchType}&search=${search}&numPage=${numPage}&pageNo=${pageNo}&order=${order}" class="${board.titleClass}">
 								<c:out value="${board.title}" />
 							</a>
-							<c:if test="${board.boardType.useComment && board.commentCount > 0}">
-								<span class="count_comment" title="댓글 수">${board.commentCount}</span>
-							</c:if>
-							<c:if test="${board.includeAttachFile}">
+							<c:if test="${board.boardType.useAttachFile && board.includeAttachFile}">
 								<span class="file" title="첨부파일 포함"></span>
 							</c:if>
 							<c:if test="${board.includeImg}">
@@ -134,6 +184,9 @@
 							</c:if>
 							<c:if test="${board.includeVideo}">
 								<span class="video" title="동영상 포함"></span>
+							</c:if>
+							<c:if test="${board.boardType.useComment && board.commentCount > 0}">
+								<span class="count_comment" title="댓글 수">${board.commentCount}</span>
 							</c:if>
 						</li>
 						<li class="nickname">${board.nickname}</li>
@@ -175,10 +228,7 @@
 									<a href="/board/${board.no}?url=${boardType.url}&searchType=${searchType}&search=${search}&numPage=${numPage}&pageNo=${pageNo}&order=${order}" class="${board.titleClass}">
 										<c:out value="${board.title}" />
 									</a>
-									<c:if test="${board.boardType.useComment && board.commentCount > 0}">
-										<span class="count_comment" title="댓글 수">${board.commentCount}</span>
-									</c:if>
-									<c:if test="${board.includeAttachFile}">
+									<c:if test="${board.boardType.useAttachFile && board.includeAttachFile}">
 										<span class="file" title="첨부파일 포함"></span>
 									</c:if>
 									<c:if test="${board.includeImg}">
@@ -186,6 +236,9 @@
 									</c:if>
 									<c:if test="${board.includeVideo}">
 										<span class="video" title="동영상 포함"></span>
+									</c:if>
+									<c:if test="${board.boardType.useComment && board.commentCount > 0}">
+										<span class="count_comment" title="댓글 수">${board.commentCount}</span>
 									</c:if>
 								</li>
 								<li class="nickname">${board.nickname}</li>

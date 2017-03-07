@@ -138,6 +138,11 @@ public class AttachFile {
         }
     }
 
+    /** 파일 확장자 대문자 반환 **/
+    public String getViewExtension() {
+        return extension != null ? extension.toUpperCase() : "--";
+    }
+
     /** 삭제 상태가 아닌 사용 가능한 상태인지 확인 **/
     @JsonIgnore
     public boolean isUseable() {

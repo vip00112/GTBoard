@@ -180,7 +180,7 @@
 			<!-- // .box_item -->
 
 			<div class="box_link">
-				<a href="/board/${boardType.url}" class="all">
+				<a href="/notice" class="all">
 					<i class="fa fa-bars"></i>
 					목록
 				</a>

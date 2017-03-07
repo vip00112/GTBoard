@@ -274,7 +274,7 @@ public class BoardType {
     public boolean isDownloadable(User user) {
         if (!isUse || !isUseAttachFile) {
             return false;
-        } else if (readGrade > 0 || downloadGrade > 0 || downloadPoint > 0) {
+        } else if (readGrade > 0 || downloadPoint > 0 || downloadGrade > 0) {
             if (user == null) {
                 return false;
             } else if (user.getPoint() < downloadPoint) {

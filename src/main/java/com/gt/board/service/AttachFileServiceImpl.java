@@ -28,8 +28,26 @@ public class AttachFileServiceImpl implements AttachFileService {
 
     @Override
     public boolean addFiles(Board board, List<AttachFile> files) {
-        if (board == null || files == null || files.size() == 0) {
+        if (board == null || board.getBoardType() == null || files == null || files.size() == 0) {
             return false;
+        }
+
+        // 게시판 설정이 첨부파일 사용불가 일때 처리
+        if (!board.getBoardType().isUseAttachFile()) {
+            AttachFile[] fileArray = files.toArray(new AttachFile[files.size()]);
+            for (AttachFile file : fileArray) {
+                if (!file.isImage()) {
+                    switch (file.getStatus()) {
+                    case UPLOADED:
+                    case UPLOADED_DELETE:
+                        file.setStatus(AttachFileStatus.UPLOADED_DELETE);
+                        break;
+                    default:
+                        file.setStatus(AttachFileStatus.DELETE);
+                        break;
+                    }
+                }
+            }
         }
 
         int no = board.getNo();
@@ -43,7 +61,7 @@ public class AttachFileServiceImpl implements AttachFileService {
         // DB 입력 및 삭제, 본문 내용 수정
         for (AttachFile file : files) {
             switch (file.getStatus()) {
-            case NORMAL: // 신규 업로드 파일 DB 입력
+            case NORMAL: // 신규 업로드 파일
                 if (!file.isImageLink()) {
                     String newPath = file.getFullPath().replace(tempFolder, folderName);
                     file.setFullPath(newPath);
@@ -63,7 +81,21 @@ public class AttachFileServiceImpl implements AttachFileService {
                     }
                 }
                 break;
-            case UPLOADED_DELETE: // 기존 업로드된 파일 DB 삭제
+            case DELETE: // 신규 업로드 파일 삭제
+                if (!file.isImage()) { // 첨부파일 다운로드 URL 삭제
+                    content = content.replaceAll("(?s)<a.*?" + file.getNewName() + ".*?>.*?<\\/a>", "");
+                } else if (file.isImageFile()) { // 이미지 파일 src 삭제
+                    content = content.replaceAll("(?s)<img.*?" + file.getNewName() + ".*?>", "");
+                }
+                break;
+            case UPLOADED_DELETE: // 기존 업로드된 파일 삭제
+                if (!file.isImage()) { // 첨부파일 다운로드 URL 삭제
+                    String replace = "/board/" + no + "/download/" + file.getNo();
+                    content = content.replaceAll("(?s)<a.*?" + replace + ".*?>.*?<\\/a>", "");
+                } else if (file.isImageFile()) { // 이미지 파일 src 삭제
+                    String replace = "/img/board/" + no + "/" + file.getNewName();
+                    content = content.replaceAll("(?s)<img.*?" + replace + ".*?>", "");
+                }
                 Map<String, Object> paramMap = new HashMap<String, Object>();
                 paramMap.put("boardNo", no);
                 paramMap.put("newName", file.getNewName());

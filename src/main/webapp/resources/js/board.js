@@ -12,6 +12,11 @@ $(window).load(function() {
 		gtBoard.board.resizeTitleDelay(100);
 	});
 
+	// 게시판 상세 옵션 펼침/닫힘
+	$(".board_frame .box_desc>span").click(function() {
+		gtBoard.board.toggleDesc($(this));
+	});
+
 	// 옵션 변경: 보기 형식
 	$(".board_frame .box_option .view_type li").click(function() {
 		gtBoard.board.changeViewType($(this));
