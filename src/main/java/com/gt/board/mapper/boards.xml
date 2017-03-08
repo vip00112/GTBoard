@@ -4,8 +4,8 @@
 <mapper namespace="boards">
 	<!-- 게시글 작성 -->
 	<insert id="insert" parameterType="Board" useGeneratedKeys="true" keyProperty="no">
-		INSERT INTO boards(typeNo, userNo, nickname, title, content, ip, isNotice)
-		VALUES(#{typeNo}, #{userNo}, #{nickname}, #{title}, #{content}, #{ip}, #{isNotice})
+		INSERT INTO boards(typeNo, userNo, nickname, title, content, ip, groupName)
+		VALUES(#{typeNo}, #{userNo}, #{nickname}, #{title}, #{content}, #{ip}, #{groupName})
 	</insert>
 
 	<!-- 게시글 삭제 -->
@@ -15,7 +15,7 @@
 
 	<!-- 게시글 수정 -->
 	<update id="update" parameterType="Board">
-		UPDATE boards SET typeNo=#{typeNo}, title=#{title}, content=#{content}, hit=#{hit}, isNotice=#{isNotice}, lastUpdate=NOW()
+		UPDATE boards SET typeNo=#{typeNo}, title=#{title}, content=#{content}, hit=#{hit}, groupName=#{groupName}, lastUpdate=NOW()
 		<if test="regdate != null">, regdate=#{regdate}</if>
 		WHERE no=#{no}
 	</update>
@@ -27,7 +27,7 @@
 
 	<!-- 게시글 1개 취득 -->
 	<select id="selectOne" parameterType="int" resultType="Board">
-		SELECT no, typeNo, userNo, nickname, title, content, ip, commentCount, hit, thumb, isNotice, regdate, lastUpdate
+		SELECT no, typeNo, userNo, nickname, title, content, ip, commentCount, hit, thumb, groupName, regdate, lastUpdate
 		FROM boards
 		WHERE no=#{no}
 	</select>
@@ -59,13 +59,13 @@
 
 	<!-- 해당 게시판 분류의 최신글 x개 -->
 	<select id="selectListByRecent" parameterType="hashMap" resultType="Board">
-		SELECT no, typeNo, userNo, nickname, title, content, ip, commentCount, hit, thumb, isNotice, regdate, lastUpdate
+		SELECT no, typeNo, userNo, nickname, title, content, ip, commentCount, hit, thumb, groupName, regdate, lastUpdate
 		FROM boards
 		<where>
 			<foreach collection="typeNoList" item="no" separator="OR" open="(" close=")"> <!-- 게시판 분류 -->
 				typeNo=#{no}
 			</foreach>
-			AND isNotice=FALSE
+			AND groupName='normal'
 		</where>
 		ORDER BY regdate DESC
 		LIMIT #{max}
@@ -105,13 +105,13 @@
 					<![CDATA[AND (SELECT count(*) FROM users u, comments c WHERE c.boardNo=b.no AND u.no=c.userNo AND u.nickname LIKE CONCAT('%', #{search}, '%')) > 0]]>
 				</if>
 			</if>
-			AND isNotice=FALSE
+			AND groupName='normal'
 		</where>
 	</select>
 
 	<!-- 조건에 맞는 페이징 처리된 일반 게시글 목록 -->
 	<select id="selectList" parameterType="hashMap" resultType="Board">
-		SELECT no, typeNo, userNo, nickname, title, content, ip, commentCount, hit, thumb, isNotice, regdate, lastUpdate
+		SELECT no, typeNo, userNo, nickname, title, content, ip, commentCount, hit, thumb, groupName, regdate, lastUpdate
 		FROM boards b
 		<where>
 			<foreach collection="typeNoList" item="no" separator="OR" open="(" close=")"> <!-- 게시판 분류 -->
@@ -143,18 +143,26 @@
 					<![CDATA[AND (SELECT count(*) FROM users u, comments c WHERE c.boardNo=b.no AND u.no=c.userNo AND u.nickname LIKE CONCAT('%', #{search}, '%')) > 0]]>
 				</if>
 			</if>
-			AND isNotice=FALSE
+			AND groupName='normal'
 		</where>
 		ORDER BY ${order}
 		<if test="order != 'regdate DESC'">, regdate DESC</if>
-		LIMIT #{page.start}, #{page.end}
+		LIMIT #{page.offset}, #{page.limit}
 	</select>
 
 	<!-- 해당 게시판의 공지 게시글 목록 -->
 	<select id="selectListByNotice" parameterType="int" resultType="Board">
-		SELECT no, typeNo, userNo, nickname, title, content, ip, commentCount, hit, thumb, isNotice, regdate, lastUpdate
+		SELECT no, typeNo, userNo, nickname, title, content, ip, commentCount, hit, thumb, groupName, regdate, lastUpdate
 		FROM boards
-		WHERE typeNo=#{typeNo} AND isNotice=TRUE
+		WHERE typeNo=#{typeNo} AND groupName='notice'
+		ORDER BY regdate DESC
+	</select>
+
+	<!-- 해당 게시판의 광고 게시글 목록 -->
+	<select id="selectListByAd" parameterType="int" resultType="Board">
+		SELECT no, typeNo, userNo, nickname, title, content, ip, commentCount, hit, thumb, groupName, regdate, lastUpdate
+		FROM boards
+		WHERE typeNo=#{typeNo} AND groupName='ad'
 		ORDER BY regdate DESC
 	</select>
 </mapper>

@@ -32,4 +32,15 @@
 	<delete id="deleteByBoard" parameterType="int">
 		DELETE FROM attachFiles WHERE boardNo=#{boardNo}
 	</delete>
+
+	<!-- 첨부파일 다운로드 로그 기록 -->
+	<select id="insertLog">
+		INSERT INTO download_log(userNo, fileNo)
+		VALUES(#{userNo}, #{fileNo})
+	</select>
+
+	<!-- 첨부파일 다운로드 로그 확인 -->
+	<select id="selectCountLog">
+		SELECT count(*) FROM download_log WHERE userNo=#{userNo} AND fileNo=#{fileNo}
+	</select>
 </mapper>

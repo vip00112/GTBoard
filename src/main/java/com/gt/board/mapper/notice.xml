@@ -74,6 +74,6 @@
 		</where>
 		ORDER BY ${order}
 		<if test="order != 'regdate DESC'">, regdate DESC</if>
-		LIMIT #{page.start}, #{page.end}
+		LIMIT #{page.offset}, #{page.limit}
 	</select>
 </mapper>

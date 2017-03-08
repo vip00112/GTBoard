@@ -8,7 +8,7 @@ import com.gt.board.vo.Board;
 public interface BoardsDAO {
 
     /** 게시글 작성
-     *  @param board typeNo, userNo, nickname, title, content, notice **/
+     *  @param board typeNo, userNo, nickname, title, content, group **/
     public int insert(Board board);
 
     /** 게시글 삭제
@@ -16,7 +16,7 @@ public interface BoardsDAO {
     public int delete(int no);
 
     /** 게시글 수정
-     *  @param board no, typeNo, title, content, notice **/
+     *  @param board no, typeNo, title, content, group **/
     public int update(Board board);
 
     /** 게시글 내용만 수정
@@ -54,5 +54,9 @@ public interface BoardsDAO {
     /** 해당 게시판의 공지 게시글 목록
      *  @param typeNo BoardType.no **/
     public List<Board> selectListByNotice(int typeNo);
+
+    /** 해당 게시판의 광고 게시글 목록
+     *  @param typeNo BoardType.no **/
+    public List<Board> selectListByAd(int typeNo);
 
 }

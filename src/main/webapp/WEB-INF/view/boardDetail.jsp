@@ -340,6 +340,56 @@
 			<!-- // .box_item.notice -->
 
 			<div class="box_item normal">
+				<%-- 광고 --%>
+				<c:forEach items="${adList}" var="board">
+					<c:set var="boardNo">${board.no}</c:set>
+					<ul class="line item <c:if test="${board.no == boardNo}">now</c:if>">
+						<li class="type">
+							<a href="/board/${board.boardType.url}">${board.boardType.name}</a>
+						</li>
+						<li class="no">
+							<c:choose>
+								<c:when test="${board.no == boardNo}">
+									<i class="fa fa-caret-right"></i>
+								</c:when>
+								<c:otherwise>${board.no}</c:otherwise>
+							</c:choose>
+						</li>
+						<li class="thumbnail">
+							<a href="/board/${board.no}?url=${boardType.url}&searchType=${searchType}&search=${search}&numPage=${numPage}&pageNo=${pageNo}&order=${order}">
+								<c:set var="thumbnail" value="${board.defaultThumbnail}" />
+								<c:if test="${board.thumbnail != null}">
+									<c:set var="thumbnail" value="${board.thumbnail}" />
+								</c:if>
+								<img alt="썸네일 이미지" src="${thumbnail}">
+							</a>
+						</li>
+						<li class="title popular" title="<c:out value="${board.title}"/>">
+							<span class="ad" title="광고 글"></span>
+							<a href="/board/${board.no}?url=${boardType.url}&searchType=${searchType}&search=${search}&numPage=${numPage}&pageNo=${pageNo}&order=${order}" class="${board.titleClass}">
+								<c:out value="${board.title}" />
+							</a>
+							<c:if test="${board.boardType.useAttachFile && board.includeAttachFile}">
+								<span class="file" title="첨부파일 포함"></span>
+							</c:if>
+							<c:if test="${board.includeImg}">
+								<span class="image" title="이미지 포함"></span>
+							</c:if>
+							<c:if test="${board.includeVideo}">
+								<span class="video" title="동영상 포함"></span>
+							</c:if>
+							<c:if test="${board.boardType.useComment && board.commentCount > 0}">
+								<span class="count_comment" title="댓글 수">${board.commentCount}</span>
+							</c:if>
+						</li>
+						<li class="nickname">${board.nickname}</li>
+						<li class="date" title="${board.viewRegdateFull}">${board.viewRegdate}</li>
+						<li class="hit">${board.hit}</li>
+						<li class="thumb">${board.thumb}</li>
+					</ul>
+				</c:forEach>
+
+				<%-- 일반 게시글 --%>
 				<c:choose>
 					<c:when test="${fn:length(boardList) > 0}">
 						<c:set var="boardNo">${board.no}</c:set>
@@ -374,6 +424,9 @@
 											<span class="hot" title="인기 글"></span>
 										</c:when>
 									</c:choose>
+									<c:if test="${board.boardType.secret}">
+										<span class="secret" title="비밀 글"></span>
+									</c:if>
 									<a href="/board/${board.no}?url=${boardType.url}&searchType=${searchType}&search=${search}&numPage=${numPage}&pageNo=${pageNo}&order=${order}" class="${board.titleClass}">
 										<c:out value="${board.title}" />
 									</a>
@@ -464,32 +517,6 @@
 	<!-- CKEditor CodeSnippet Plugin -->
 	<script src="/ckeditor/plugins/prism/lib/prism/prism_patched.min.js"></script>
 
-	<!-- commentTmp -->
-	<script type="text/template" id="commentTmp">
-	<@ _.each(list, function(comment) { @>
-		<ul class="comment item">
-			<li class="delete">
-				<@ if (admin == "true" || comment.userNo == userNo) { @>
-					<form action="/board/<@=boardNo@>/comment/<@=comment.no@>/delete" method="post" class="form_delete">
-						<fieldset>
-							<legend class="screen_out">댓글 삭제 폼</legend>
-							<input type="hidden" name="_method" value="DELETE" />
-							<input type="hidden" name="CSRFToken" value="<@=CSRFToken@>" />
-							<button>
-								<i class="fa fa-close"></i> 삭제
-							</button>
-						</fieldset>
-					</form>
-				<@ } @>
-			</li>
-			<li class="no"><@=comment.no@></li>
-			<li class="nickname"><@=comment.nickname@></li>
-			<li class="date"><@=comment.viewRegdateFull@></li>
-			<li class="text" title="<@=changeEntities(comment.content)@>"><@=changeEntities(comment.content)@></li>
-		</ul>
-	<@ }) @>
-	</script>
-
 	<%-- 로그인 변수 선언 --%>
 	<c:if test="${loginUser != null}">
 		<script>
@@ -497,29 +524,9 @@
 		</script>
 	</c:if>
 
+	<!-- board script -->
 	<script>
 		var $thumbLoader = $(".box.thumb .loading");
-		var $commentLoader = $(".loading.comment");
-		var $captchaLoader = $(".box.captcha .loading");
-		var $captchaImg = $(".box.captcha img");
-		var $commentCount = $(".box.title .comment");
-		var $commentCountInFrame = $(".comment_frame .box_top strong");
-
-		var commentTmpFunc = _.template($("#commentTmp").html());
-
-		// 페이지네이트 설정
-		var boardPaginate = new Paginate(".board_frame .paginate");
-		var commentPaginate = new Paginate(".comment_frame .paginate", {
-			preventDefault: true,
-			onPageClick: function() {
-				getCommentList();
-				$("html,body").animate({
-					scrollTop: $(".comment_frame").offset().top - 50
-				}, 200);
-			}
-		});
-
-		getCommentList(); // 댓글 목록 취득 ajax
 
 		// 게시글 삭제
 		$(".box.button .form_delete").submit(function(e) {
@@ -564,101 +571,87 @@
 			});
 		});
 
-		// 해당 글의 댓글 목록 ajax
-		function getCommentList(pageNo) {
-			if (typeof pageNo === "undefined") {
-				pageNo = commentPaginate.getCurrentPage();
-				if (pageNo == 0) {
-					pageNo = 1;
+		// 첨부파일 다운로드
+		$(".box.content a, .box.attach a").click(function() {
+			var url = $(this).attr("href");
+			if (url && url.indexOf("/board/${board.no}/download/") != -1) {
+				var point = "${board.boardType.downloadPoint}";
+				var msg = "해당 첨부파일을 다운로드 하시겠습니까?\n";
+				msg += "(최초 다운로드시 " + point + " 포인트가 소모 됩니다.)";
+				if (!confirm(msg)) {
+					return false;
 				}
 			}
-
-			$.ajax("/board/${board.no}/comment", {
-				type: "GET",
-				dataType: "json",
-				data: {
-					pageNo: pageNo
-				},
-				beforeSend: function() {
-					$commentLoader.show();
-				},
-			}).always(function() {
-				$commentLoader.fadeOut(200);
-			}).fail(function(xhr, error, code) {
-				alert(error + " : " + code);
-				console.log(xhr.status + " : " + code + "\n" + xhr.responseText);
-			}).done(function(data) {
-				// 최대 페이지 넘을시 처리
-				var max = commentPaginate.getMaxPage();
-				if (max > 0 && pageNo > max) {
-					getCommentList(max);
-					return;
-				}
-				var code = commentTmpFunc({
-					list: data.list,
-					boardNo: "${board.no}",
-					admin: "${loginUser.admin || loginUser.grade == board.boardType.adminGrade}",
-					userNo: "${loginUser.no}",
-					CSRFToken: "${CSRFToken}"
-				});
-				$(".comment_frame .box_item").html(code);
-				$(".comment_frame .paginate").html(data.paginateHtml);
-			});
-		}
-
-		// 댓글 등록
-		$(".comment.form_write").submit(function(e) {
-			e.preventDefault();
-
-			if (isEmpty($(".comment.form_write textarea").val())) {
-				alert("내용을 입력 해주세요.");
-				return false;
-			}
-
-			$.ajax($(this).attr("action"), {
-				type: "POST",
-				dataType: "json",
-				data: $(this).serialize(),
-				beforeSend: function() {
-					$commentLoader.show();
-				}
-			}).always(function() {
-				$commentLoader.fadeOut(200);
-			}).fail(function(xhr, error, code) {
-				alert(error + " : " + code);
-				console.log(xhr.status + " : " + code + "\n" + xhr.responseText);
-			}).done(function(result) {
-				if (result) {
-					var count = parseInt($commentCount.text()) + 1;
-					$commentCount.text(count);
-					$commentCountInFrame.text(count);
-
-					// 입력 값 초기화
-					$(".comment.form_write textarea").val("");
-					$(".comment.form_write .box.captcha input").val("");
-
-					// captcha 이미지 새로고침
-					$captchaLoader.show();
-					$captchaImg.attr("src", "/captcha?ran=" + Math.random());
-					$captchaLoader.fadeOut(500);
-
-					getCommentList();
-					alert("댓글을 등록 하였습니다.");
-				} else {
-					alert("댓글 등록에 실패 하였습니다.");
-				}
-			});
 		});
+	</script>
 
-		// 댓글 삭제
-		$(".comment_frame .box_item").on("submit", ".form_delete", function(e) {
-			var $form = $(this);
-			var $comment = $(this).parents("li");
-			gtBoard.comment.deleteOne(e, function() {
-				$.ajax($form.attr("action"), {
-					type: "POST",
+	<%-- 댓글 사용일 경우만 load --%>
+	<c:if test="${board.boardType.useComment}">
+		<!-- commentTmp -->
+		<script type="text/template" id="commentTmp">
+		<@ _.each(list, function(comment) { @>
+			<ul class="comment item">
+				<li class="delete">
+					<@ if (admin == "true" || comment.userNo == userNo) { @>
+						<form action="/board/<@=boardNo@>/comment/<@=comment.no@>/delete" method="post" class="form_delete">
+							<fieldset>
+								<legend class="screen_out">댓글 삭제 폼</legend>
+								<input type="hidden" name="_method" value="DELETE" />
+								<input type="hidden" name="CSRFToken" value="<@=CSRFToken@>" />
+								<button>
+									<i class="fa fa-close"></i> 삭제
+								</button>
+							</fieldset>
+						</form>
+					<@ } @>
+				</li>
+				<li class="no"><@=comment.no@></li>
+				<li class="nickname"><@=comment.nickname@></li>
+				<li class="date"><@=comment.viewRegdateFull@></li>
+				<li class="text" title="<@=changeEntities(comment.content)@>"><@=changeEntities(comment.content)@></li>
+			</ul>
+		<@ }) @>
+		</script>
+
+		<!-- comment script -->
+		<script>
+			var $commentLoader = $(".loading.comment");
+			var $captchaLoader = $(".box.captcha .loading");
+			var $captchaImg = $(".box.captcha img");
+			var $commentCount = $(".box.title .comment");
+			var $commentCountInFrame = $(".comment_frame .box_top strong");
+
+			var commentTmpFunc = _.template($("#commentTmp").html());
+
+			// 페이지네이트 설정
+			var boardPaginate = new Paginate(".board_frame .paginate");
+			var commentPaginate = new Paginate(".comment_frame .paginate", {
+				preventDefault: true,
+				onPageClick: function() {
+					getCommentList();
+					$("html,body").animate({
+						scrollTop: $(".comment_frame").offset().top - 50
+					}, 200);
+				}
+			});
+
+			getCommentList(); // 댓글 목록 취득 ajax
+
+			// 해당 글의 댓글 목록 ajax
+			function getCommentList(pageNo) {
+				if (typeof pageNo === "undefined") {
+					pageNo = commentPaginate.getCurrentPage();
+					if (pageNo == 0) {
+						pageNo = 1;
+					}
+				}
+
+				$.ajax("/board/${board.no}/comment", {
+					type: "GET",
 					dataType: "json",
-					data: $form.serialize(),
+					data: {
+						pageNo: pageNo
+					},
 					beforeSend: function() {
 						$commentLoader.show();
 					},
@@ -667,31 +660,112 @@
 				}).fail(function(xhr, error, code) {
 					alert(error + " : " + code);
 					console.log(xhr.status + " : " + code + "\n" + xhr.responseText);
+				}).done(function(data) {
+					// 최대 페이지 넘을시 처리
+					var max = commentPaginate.getMaxPage();
+					if (max > 0 && pageNo > max) {
+						getCommentList(max);
+						return;
+					}
+					var code = commentTmpFunc({
+						list: data.list,
+						boardNo: "${board.no}",
+						admin: "${loginUser.admin || loginUser.grade == board.boardType.adminGrade}",
+						userNo: "${loginUser.no}",
+						CSRFToken: "${CSRFToken}"
+					});
+					$(".comment_frame .box_item").html(code);
+					$(".comment_frame .paginate").html(data.paginateHtml);
+				});
+			}
+
+			// 댓글 등록
+			$(".comment.form_write").submit(function(e) {
+				e.preventDefault();
+
+				if (isEmpty($(".comment.form_write textarea").val())) {
+					alert("내용을 입력 해주세요.");
+					return false;
+				}
+
+				$.ajax($(this).attr("action"), {
+					type: "POST",
+					dataType: "json",
+					data: $(this).serialize(),
+					beforeSend: function() {
+						$commentLoader.show();
+					}
+				}).always(function() {
+					$commentLoader.fadeOut(200);
+				}).fail(function(xhr, error, code) {
+					alert(error + " : " + code);
+					console.log(xhr.status + " : " + code + "\n" + xhr.responseText);
 				}).done(function(result) {
 					if (result) {
-						var count = parseInt($commentCount.text()) - 1;
-						if (count < 0) {
-							count = 0;
-						}
+						var count = parseInt($commentCount.text()) + 1;
 						$commentCount.text(count);
 						$commentCountInFrame.text(count);
-						$comment.remove();
+
+						// 입력 값 초기화
+						$(".comment.form_write textarea").val("");
+						$(".comment.form_write .box.captcha input").val("");
+
+						// captcha 이미지 새로고침
+						$captchaLoader.show();
+						$captchaImg.attr("src", "/captcha?ran=" + Math.random());
+						$captchaLoader.fadeOut(500);
 
 						getCommentList();
-						alert("댓글을 삭제 하였습니다.");
+						alert("댓글을 등록 하였습니다.");
+					} else {
+						alert("댓글 등록에 실패 하였습니다.");
 					}
 				});
 			});
-			return false;
-		});
 
-		// captcha 새로고침
-		$captchaImg.click(function() {
-			$captchaLoader.show();
-			$(this).attr("src", "/captcha?ran=" + Math.random());
-			$captchaLoader.fadeOut(500);
-		});
-	</script>
+			// 댓글 삭제
+			$(".comment_frame .box_item").on("submit", ".form_delete", function(e) {
+				var $form = $(this);
+				var $comment = $(this).parents("li");
+				gtBoard.comment.deleteOne(e, function() {
+					$.ajax($form.attr("action"), {
+						type: "POST",
+						dataType: "json",
+						data: $form.serialize(),
+						beforeSend: function() {
+							$commentLoader.show();
+						},
+					}).always(function() {
+						$commentLoader.fadeOut(200);
+					}).fail(function(xhr, error, code) {
+						alert(error + " : " + code);
+						console.log(xhr.status + " : " + code + "\n" + xhr.responseText);
+					}).done(function(result) {
+						if (result) {
+							var count = parseInt($commentCount.text()) - 1;
+							if (count < 0) {
+								count = 0;
+							}
+							$commentCount.text(count);
+							$commentCountInFrame.text(count);
+							$comment.remove();
+
+							getCommentList();
+							alert("댓글을 삭제 하였습니다.");
+						}
+					});
+				});
+				return false;
+			});
+
+			// captcha 새로고침
+			$captchaImg.click(function() {
+				$captchaLoader.show();
+				$(this).attr("src", "/captcha?ran=" + Math.random());
+				$captchaLoader.fadeOut(500);
+			});
+		</script>
+	</c:if>
 </body>
 
 </html>

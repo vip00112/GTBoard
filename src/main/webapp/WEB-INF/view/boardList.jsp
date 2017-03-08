@@ -70,6 +70,8 @@
 					<dl>
 						<dt>게시글/댓글 작성자</dt>
 						<dd>${boardType.anonymous ? "익명" : "공개"}</dd>
+						<dt>게시글 공개</dt>
+						<dd>${boardType.secret ? "비밀 글" : "공개 글"}</dd>
 						<dt>댓글 작성</dt>
 						<dd>${boardType.useComment ? "가능" : "불가능"}</dd>
 						<dt>파일 첨부</dt>
@@ -199,6 +201,48 @@
 			<!-- // .box_item.notice -->
 
 			<div class="box_item normal">
+				<%-- 광고 --%>
+				<c:forEach items="${adList}" var="board">
+					<ul class="line item">
+						<li class="type">
+							<a href="/board/${board.boardType.url}">${board.boardType.name}</a>
+						</li>
+						<li class="no">${board.no}</li>
+						<li class="thumbnail">
+							<a href="/board/${board.no}?url=${boardType.url}&searchType=${searchType}&search=${search}&numPage=${numPage}&pageNo=${pageNo}&order=${order}">
+								<c:set var="thumbnail" value="${board.defaultThumbnail}" />
+								<c:if test="${board.thumbnail != null}">
+									<c:set var="thumbnail" value="${board.thumbnail}" />
+								</c:if>
+								<img alt="썸네일 이미지" src="${thumbnail}">
+							</a>
+						</li>
+						<li class="title popular" title="<c:out value="${board.title}"/>">
+							<span class="ad" title="광고 글"></span>
+							<a href="/board/${board.no}?url=${boardType.url}&searchType=${searchType}&search=${search}&numPage=${numPage}&pageNo=${pageNo}&order=${order}" class="${board.titleClass}">
+								<c:out value="${board.title}" />
+							</a>
+							<c:if test="${board.boardType.useAttachFile && board.includeAttachFile}">
+								<span class="file" title="첨부파일 포함"></span>
+							</c:if>
+							<c:if test="${board.includeImg}">
+								<span class="image" title="이미지 포함"></span>
+							</c:if>
+							<c:if test="${board.includeVideo}">
+								<span class="video" title="동영상 포함"></span>
+							</c:if>
+							<c:if test="${board.boardType.useComment && board.commentCount > 0}">
+								<span class="count_comment" title="댓글 수">${board.commentCount}</span>
+							</c:if>
+						</li>
+						<li class="nickname">${board.nickname}</li>
+						<li class="date" title="${board.viewRegdateFull}">${board.viewRegdate}</li>
+						<li class="hit">${board.hit}</li>
+						<li class="thumb">${board.thumb}</li>
+					</ul>
+				</c:forEach>
+
+				<%-- 일반 게시글 --%>
 				<c:choose>
 					<c:when test="${fn:length(boardList) > 0}">
 						<c:forEach items="${boardList}" var="board">
@@ -225,6 +269,9 @@
 											<span class="hot" title="인기 글"></span>
 										</c:when>
 									</c:choose>
+									<c:if test="${board.boardType.secret}">
+										<span class="secret" title="비밀 글"></span>
+									</c:if>
 									<a href="/board/${board.no}?url=${boardType.url}&searchType=${searchType}&search=${search}&numPage=${numPage}&pageNo=${pageNo}&order=${order}" class="${board.titleClass}">
 										<c:out value="${board.title}" />
 									</a>

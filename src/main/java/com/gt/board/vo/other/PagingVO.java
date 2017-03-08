@@ -1,31 +1,22 @@
 package com.gt.board.vo.other;
 
 public class PagingVO {
-    private int start;
-    private int end;
+    private int offset; // 시작 지점
+    private int limit; // 최대 갯수
 
-    public PagingVO() {
-    }
-
+    /** 페이지네이션
+     *  @param pageNo 페이지 번호
+     *  @param numPage 페이지당 보여줄 게시글 갯수 **/
     public PagingVO(int pageNo, int numPage) {
-        end = pageNo * numPage;
-        start = end - numPage;
-        end = numPage;
+        offset = (pageNo * numPage) - numPage;
+        limit = numPage;
     }
 
-    public int getStart() {
-        return start;
+    public int getOffset() {
+        return offset;
     }
 
-    public void setStart(int start) {
-        this.start = start;
-    }
-
-    public int getEnd() {
-        return end;
-    }
-
-    public void setEnd(int end) {
-        this.end = end;
+    public int getLimit() {
+        return limit;
     }
 }

@@ -32,4 +32,14 @@ public interface AttachFileService {
     /** 해당 게시글의 첨부파일 삭제
      *  @param boardNo 게시글 번호 **/
     public boolean removeFileList(int boardNo);
+
+    /** 첨부파일 다운로드 로그 기록
+     *  @param userNo 유저 번호
+     *  @param fileNo 파일 번호 **/
+    public boolean addDownloadLog(int userNo, int fileNo);
+
+    /** 해당 첨부파일을 이미 다운로드 받았는지 확인
+     *  @param userNo 유저 번호
+     *  @param fileNo 파일 번호 **/
+    public boolean isDownloaded(int userNo, int fileNo);
 }

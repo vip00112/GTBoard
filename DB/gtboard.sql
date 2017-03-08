@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50535
 File Encoding         : 65001
 
-Date: 2017-03-03 17:23:00
+Date: 2017-03-08 22:25:13
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -49,7 +49,7 @@ CREATE TABLE `boards` (
   `commentCount` int(10) DEFAULT '0',
   `hit` int(10) DEFAULT '0',
   `thumb` int(10) DEFAULT '0',
-  `isNotice` tinyint(1) DEFAULT '0',
+  `groupName` varchar(10) DEFAULT 'normal',
   `regdate` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `lastUpdate` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`no`),
@@ -77,6 +77,22 @@ CREATE TABLE `comments` (
 
 -- ----------------------------
 -- Records of comments
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `download_log`
+-- ----------------------------
+DROP TABLE IF EXISTS `download_log`;
+CREATE TABLE `download_log` (
+  `no` int(10) NOT NULL AUTO_INCREMENT,
+  `userNo` int(10) NOT NULL,
+  `fileNo` int(10) NOT NULL,
+  `regdate` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`no`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of download_log
 -- ----------------------------
 
 -- ----------------------------

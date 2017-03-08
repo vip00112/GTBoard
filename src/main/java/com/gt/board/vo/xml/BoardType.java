@@ -5,6 +5,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import com.gt.board.vo.Board;
 import com.gt.board.vo.User;
 
 @XmlRootElement(name = "BoardType")
@@ -17,6 +18,7 @@ public class BoardType {
     @XmlElement(name = "Url") private String url; // 브라우저 주소창에 표기/구분 될 URL
     @XmlElement(name = "IsUse") private boolean isUse; // 게시판 사용 여부
     @XmlElement(name = "IsAnonymous") private boolean isAnonymous; // 익명 여부
+    @XmlElement(name = "IsSecret") private boolean isSecret; // 비밀글 여부
     @XmlElement(name = "IsAlbum") private boolean isAlbum; // 앨범 형식 여부
     @XmlElement(name = "IsUseComment") private boolean isUseComment; // 게시판 내 댓글 사용 여부
     @XmlElement(name = "IsUseWriteCode") private boolean isUseWriteCode; // 글 작성시 자동 방지 코드 사용 여부
@@ -97,6 +99,14 @@ public class BoardType {
 
     public void setAnonymous(boolean isAnonymous) {
         this.isAnonymous = isAnonymous;
+    }
+
+    public boolean isSecret() {
+        return isSecret;
+    }
+
+    public void setSecret(boolean isSecret) {
+        this.isSecret = isSecret;
     }
 
     public boolean isAlbum() {
@@ -220,15 +230,21 @@ public class BoardType {
     }
 
     /** 게시글 읽기 권한 여부 확인
-     *  @param user 게시글 읽기를 시도한 유저 **/
-    public boolean isReadableBoard(User user) {
+     *  @param user 게시글 읽기를 시도한 유저
+     *  @param board 읽으려는 게시글 **/
+    public boolean isReadableBoard(User user, Board board) {
         if (!isUse) {
             return false;
-        } else if (readGrade > 0) {
+        } else if (readGrade > 0 || isSecret) {
             if (user == null) {
                 return false;
             }
             int grade = user.getGrade();
+
+            // 비밀글은 등급과 상관없이 본인의 글은 읽기 가능
+            if (isSecret) {
+                return user.isAdmin() || grade == adminGrade || user.getNo() == board.getUserNo();
+            }
             return user.isAdmin() || grade == adminGrade || grade >= readGrade;
         }
         return true;

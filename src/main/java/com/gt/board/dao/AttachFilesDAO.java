@@ -25,4 +25,12 @@ public interface AttachFilesDAO {
     /** 해당 게시글의 첨부파일 삭제
      *  @param boardNo 게시글 번호 **/
     public int deleteByBoard(int boardNo);
+    
+    /** 첨부파일 다운로드 로그 기록
+     *  @param map userNo, fileNo **/
+    public int insertLog(Map<String, Object> map);
+
+    /** 첨부파일 다운로드 로그 확인
+     *  @param map userNo, fileNo **/
+    public int selectCountLog(Map<String, Object> map);
 }

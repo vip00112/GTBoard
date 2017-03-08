@@ -40,4 +40,14 @@ public class AttachFilesDAOImpl implements AttachFilesDAO {
     public int deleteByBoard(int boardNo) {
         return session.delete("attachFiles.deleteByBoard", boardNo);
     }
+
+    @Override
+    public int insertLog(Map<String, Object> map) {
+        return session.insert("attachFiles.insertLog", map);
+    }
+
+    @Override
+    public int selectCountLog(Map<String, Object> map) {
+        return session.selectOne("attachFiles.selectCountLog", map);
+    }
 }

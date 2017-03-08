@@ -165,6 +165,9 @@ public class Notice {
         if (isIncludeImg()) {
             sb.append("i ");
         }
+        if (isIncludeVideo()) {
+            sb.append("v "); // 비디오 아이콘
+        }
         return sb.toString().trim();
     }
 

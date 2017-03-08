@@ -280,6 +280,9 @@
 				<@ } else if (board.popular) { @>
 					<span class="hot" title="인기 글"></span>
 				<@ } @>
+				<@ if (board.boardType.secret) { @>
+					<span class="secret" title="비밀 글"></span>
+				<@ } @>
 				<a href="/board/<@=board.no@>" class="<@=board.titleClass@>">
 					<@=changeEntities(board.title)@>
 				</a>

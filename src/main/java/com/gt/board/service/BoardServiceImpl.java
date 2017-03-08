@@ -101,9 +101,11 @@ public class BoardServiceImpl implements BoardService {
             board.setBoardType(boardType);
             board.setDownloadFiles(attachFileService.getDownloadFileList(no));
 
-            // 익명 게시판 처리
-            if (!board.isNotice() && boardType.isAnonymous()) {
+            // 닉네임 처리
+            if (board.isNormal() && boardType.isAnonymous()) {
                 board.setNickname("익명");
+            } else if (board.isAd()) {
+                board.setNickname("광고");
             }
         }
         return board;
@@ -134,7 +136,7 @@ public class BoardServiceImpl implements BoardService {
             board.setBoardType(boardType);
             board.setDownloadFiles(attachFileService.getDownloadFileList(board.getNo()));
 
-            // 익명 게시판 처리
+            // 닉네임 처리
             if (boardType.isAnonymous()) {
                 board.setNickname("익명");
             }
@@ -163,7 +165,7 @@ public class BoardServiceImpl implements BoardService {
             board.setBoardType(boardType);
             board.setDownloadFiles(attachFileService.getDownloadFileList(board.getNo()));
 
-            // 익명 게시판 처리
+            // 닉네임 처리
             if (boardType.isAnonymous()) {
                 board.setNickname("익명");
             }
@@ -213,9 +215,25 @@ public class BoardServiceImpl implements BoardService {
     public List<Board> getNoticeList(int typeNo) {
         List<Board> list = boardsDAO.selectListByNotice(typeNo);
         BoardSetting setting = settingService.getBoardSetting();
+        BoardType boardType = setting.getBoardType(typeNo);
         for (Board board : list) {
-            board.setBoardType(setting.getBoardType(board.getTypeNo()));
+            board.setBoardType(boardType);
             board.setDownloadFiles(attachFileService.getDownloadFileList(board.getNo()));
+        }
+        return list;
+    }
+
+    @Override
+    public List<Board> getAdList(int typeNo) {
+        List<Board> list = boardsDAO.selectListByAd(typeNo);
+        BoardSetting setting = settingService.getBoardSetting();
+        BoardType boardType = setting.getBoardType(typeNo);
+        for (Board board : list) {
+            board.setBoardType(boardType);
+            board.setDownloadFiles(attachFileService.getDownloadFileList(board.getNo()));
+
+            // 닉네임 처리
+            board.setNickname("광고");
         }
         return list;
     }

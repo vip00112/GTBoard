@@ -52,6 +52,6 @@
 			</if>
 		</where>
 		ORDER BY regdate ASC
-		LIMIT #{page.start}, #{page.end}
+		LIMIT #{page.offset}, #{page.limit}
 	</select>
 </mapper>

@@ -163,4 +163,20 @@ public class AttachFileServiceImpl implements AttachFileService {
     public boolean removeFileList(int boardNo) {
         return attachFilesDAO.deleteByBoard(boardNo) > 0;
     }
+
+    @Override
+    public boolean addDownloadLog(int userNo, int fileNo) {
+        Map<String, Object> paramMap = new HashMap<String, Object>();
+        paramMap.put("userNo", userNo);
+        paramMap.put("fileNo", fileNo);
+        return attachFilesDAO.insertLog(paramMap) == 1;
+    }
+
+    @Override
+    public boolean isDownloaded(int userNo, int fileNo) {
+        Map<String, Object> paramMap = new HashMap<String, Object>();
+        paramMap.put("userNo", userNo);
+        paramMap.put("fileNo", fileNo);
+        return attachFilesDAO.selectCountLog(paramMap) > 0;
+    }
 }

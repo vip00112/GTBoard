@@ -8,7 +8,7 @@ import com.gt.board.vo.Board;
 public interface BoardService {
 
     /** 게시글 작성
-     *  @param board typeNo, userNo, nickname, title, content, notice **/
+     *  @param board typeNo, userNo, nickname, title, content, group **/
     public boolean writeBoardTX(Board board);
 
     /** 게시글 삭제
@@ -16,7 +16,7 @@ public interface BoardService {
     public boolean deleteBoardTX(Board board);
 
     /** 게시글 수정
-     *  @param board typeNo, title, content, notice **/
+     *  @param board typeNo, title, content, group **/
     public boolean updateBoard(Board board);
 
     /** 게시글 내용만 수정
@@ -68,4 +68,8 @@ public interface BoardService {
     /** 해당 게시판의 공지 게시글 목록
      *  @param typeNo BoardType.no **/
     public List<Board> getNoticeList(int typeNo);
+
+    /** 해당 게시판의 광고 게시글 목록
+     *  @param typeNo BoardType.no **/
+    public List<Board> getAdList(int typeNo);
 }

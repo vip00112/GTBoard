@@ -8,6 +8,7 @@
         <Url>free</Url>
         <IsUse>true</IsUse>
         <IsAnonymous>false</IsAnonymous>
+        <IsSecret>false</IsSecret>
         <IsAlbum>false</IsAlbum>
         <IsUseComment>true</IsUseComment>
         <IsUseWriteCode>false</IsUseWriteCode>
@@ -32,6 +33,7 @@
         <Url>humor</Url>
         <IsUse>true</IsUse>
         <IsAnonymous>false</IsAnonymous>
+        <IsSecret>false</IsSecret>
         <IsAlbum>true</IsAlbum>
         <IsUseComment>true</IsUseComment>
         <IsUseWriteCode>false</IsUseWriteCode>
@@ -56,6 +58,7 @@
         <Url>issue</Url>
         <IsUse>true</IsUse>
         <IsAnonymous>true</IsAnonymous>
+        <IsSecret>false</IsSecret>
         <IsAlbum>false</IsAlbum>
         <IsUseComment>true</IsUseComment>
         <IsUseWriteCode>true</IsUseWriteCode>
@@ -73,13 +76,39 @@
         <AdminGrade>9999</AdminGrade>
     </BoardType>
     <BoardType>
-        <No>4</No>
+        <No>5</No>
         <Order>4</Order>
+        <Name>비밀 게시판</Name>
+        <Description>게시글 작성자만 볼 수 있는 게시판 입니다.</Description>
+        <Url>secret</Url>
+        <IsUse>true</IsUse>
+        <IsAnonymous>false</IsAnonymous>
+        <IsSecret>true</IsSecret>
+        <IsAlbum>false</IsAlbum>
+        <IsUseComment>false</IsUseComment>
+        <IsUseWriteCode>false</IsUseWriteCode>
+        <IsUseCommentCode>false</IsUseCommentCode>
+        <IsUseAttachFile>false</IsUseAttachFile>
+        <WritePoint>0</WritePoint>
+        <CommentPoint>0</CommentPoint>
+        <ThumbPoint>0</ThumbPoint>
+        <DownloadPoint>0</DownloadPoint>
+        <PopularThumb>0</PopularThumb>
+        <WriteGrade>1</WriteGrade>
+        <ReadGrade>1</ReadGrade>
+        <CommentGrade>1</CommentGrade>
+        <DownloadGrade>1</DownloadGrade>
+        <AdminGrade>9999</AdminGrade>
+    </BoardType>
+    <BoardType>
+        <No>4</No>
+        <Order>5</Order>
         <Name>유틸 자료실</Name>
         <Description>파일을 첨부 및 다운로드가 가능한 게시판</Description>
         <Url>utility</Url>
         <IsUse>true</IsUse>
         <IsAnonymous>false</IsAnonymous>
+        <IsSecret>false</IsSecret>
         <IsAlbum>false</IsAlbum>
         <IsUseComment>true</IsUseComment>
         <IsUseWriteCode>true</IsUseWriteCode>

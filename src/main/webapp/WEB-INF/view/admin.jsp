@@ -338,6 +338,19 @@
 					<!-- // .box_wrap -->
 
 					<div class="box_wrap">
+						<label for="secret">비밀 게시글</label>
+						<div class="variable">
+							<select name="secret">
+								<option value="false">공개 글</option>
+								<option value="true">비밀 글</option>
+							</select>
+							<span class="desc">비밀 글은 작성자와 운영자만 열람 가능</span>
+						</div>
+						<!-- // .variable -->
+					</div>
+					<!-- // .box_wrap -->
+
+					<div class="box_wrap">
 						<label for="album">기본 보기 형식</label>
 						<div class="variable">
 							<select name="album">

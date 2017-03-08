@@ -138,6 +138,9 @@
 											<span class="hot" title="인기 글"></span>
 										</c:when>
 									</c:choose>
+									<c:if test="${board.boardType.secret}">
+										<span class="secret" title="비밀 글"></span>
+									</c:if>
 									<a href="/board/${board.no}" class="${board.titleClass}">
 										<c:out value="${board.title}" />
 									</a>
@@ -208,6 +211,9 @@
 												<span class="hot" title="인기 글"></span>
 											</c:when>
 										</c:choose>
+										<c:if test="${board.boardType.secret}">
+											<span class="secret" title="비밀 글"></span>
+										</c:if>
 										<a href="/board/${board.no}?url=${board.boardType.url}" class="${board.titleClass}">
 											<c:out value="${board.title}" />
 										</a>

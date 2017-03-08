@@ -63,11 +63,12 @@
 						<c:if test="${loginUser != null && (loginUser.admin || loginUser.grade == boardType.adminGrade)}">
 							<div class="box admin">
 								<div class="line">
-									<label for="notice">공지</label>
+									<label for="groupName">분류</label>
 									<div class="variable">
-										<select name="notice" id="notice">
-											<option value="false">일반 게시글로 등록</option>
-											<option value="true">공지로 등록하여 최상단 노출</option>
+										<select name="groupName" id="groupName">
+											<option value="normal">일반 게시글로 등록</option>
+											<option value="notice">공지로 등록하여 최상단 노출</option>
+											<option value="ad">광고로 등록하여 공지 아래 노출</option>
 										</select>
 									</div>
 								</div>
@@ -121,11 +122,12 @@
 						<c:if test="${loginUser != null && (loginUser.admin || loginUser.grade == boardType.adminGrade)}">
 							<div class="box admin">
 								<div class="line">
-									<label for="notice">공지</label>
+									<label for="groupName">분류</label>
 									<div class="variable">
-										<select name=notice id="notice">
-											<option value="false" <c:if test="${!board.notice}">selected</c:if>>일반 게시글로 등록</option>
-											<option value="true" <c:if test="${board.notice}">selected</c:if>>공지로 등록하여 최상단 노출</option>
+										<select name="groupName" id="groupName">
+											<option value="normal" <c:if test="${board.groupName == 'normal'}">selected</c:if>>일반 게시글로 등록</option>
+											<option value="notice" <c:if test="${board.groupName == 'notice'}">selected</c:if>>공지로 등록하여 최상단 노출</option>
+											<option value="ad" <c:if test="${board.groupName == 'ad'}">selected</c:if>>광고로 등록하여 공지 아래 노출</option>
 										</select>
 									</div>
 								</div>
@@ -201,7 +203,7 @@
 			if ("${boardType.useAttachFile}" == "true") {
 				createCKEditor();
 			} else {
-				createCKEditor();
+				createCKEditor("File");
 			}
 		});
 	</script>
@@ -219,24 +221,29 @@
 			$(this).attr("src", "/captcha?ran=" + Math.random());
 			$captchaLoader.fadeOut(500);
 		});
-
-		// 작성일자 datepicket 설정
-		$("#regdate").datetimepicker({
-			dateFormat: 'yy-mm-dd',
-			monthNamesShort: [ '1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월' ],
-			dayNamesMin: [ '일', '월', '화', '수', '목', '금', '토' ],
-			changeMonth: true,
-			changeYear: true,
-			showMonthAfterYear: true,
-			maxDate: 0,
-
-			// timepicker 설정
-			timeFormat: 'HH:mm:ss',
-			controlType: 'select',
-			oneLine: true,
-			maxTime: 0
-		});
 	</script>
+
+	<%-- 운영자 또는 게시판관리자 일 경우만 load --%>
+	<c:if test="${loginUser != null && (loginUser.admin || loginUser.grade == boardType.adminGrade)}">
+		<script>
+			// 작성일자 datepicket 설정
+			$("#regdate").datetimepicker({
+				dateFormat: 'yy-mm-dd',
+				monthNamesShort: [ '1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월' ],
+				dayNamesMin: [ '일', '월', '화', '수', '목', '금', '토' ],
+				changeMonth: true,
+				changeYear: true,
+				showMonthAfterYear: true,
+				maxDate: 0,
+
+				// timepicker 설정
+				timeFormat: 'HH:mm:ss',
+				controlType: 'select',
+				oneLine: true,
+				maxTime: 0
+			});
+		</script>
+	</c:if>
 </body>
 
 </html>

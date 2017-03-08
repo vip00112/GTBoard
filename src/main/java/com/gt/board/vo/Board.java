@@ -10,6 +10,10 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.gt.board.vo.xml.BoardType;
 
 public class Board {
+    public static final String NORMAL = "normal";
+    public static final String NOTICE = "notice";
+    public static final String AD = "ad";
+
     private int no; // 각 게시글의 고유 번호
     private int typeNo; // BoardType.no
     @JsonIgnore private int userNo; // 작성자 유저 번호
@@ -20,7 +24,7 @@ public class Board {
     private int commentCount; // 댓글 갯수
     private int hit; // 조회수
     private int thumb; // 추천수
-    private boolean isNotice; // 게시판 공지 여부
+    private String groupName; // 일반글, 공지, 광고 구분
     private Timestamp regdate; // 등록일자
     private Timestamp lastUpdate; // 최종 수정일자
 
@@ -114,12 +118,12 @@ public class Board {
         this.thumb = thumb;
     }
 
-    public boolean isNotice() {
-        return isNotice;
+    public String getGroupName() {
+        return groupName;
     }
 
-    public void setNotice(boolean isNotice) {
-        this.isNotice = isNotice;
+    public void setGroupName(String groupName) {
+        this.groupName = groupName.toLowerCase();
     }
 
     public Timestamp getRegdate() {
@@ -164,6 +168,30 @@ public class Board {
 
     public void setCaptcha(String captcha) {
         this.captcha = captcha;
+    }
+
+    /** 일반 게시글 여부 **/
+    public boolean isNormal() {
+        if (groupName == null) {
+            return false;
+        }
+        return groupName.equals(NORMAL);
+    }
+
+    /** 공지 여부 **/
+    public boolean isNotice() {
+        if (groupName == null) {
+            return false;
+        }
+        return groupName.equals(NOTICE);
+    }
+
+    /** 광고 여부 **/
+    public boolean isAd() {
+        if (groupName == null) {
+            return false;
+        }
+        return groupName.equals(AD);
     }
 
     /** 게시글 수정/삭제 권한 여부 확인
@@ -252,7 +280,7 @@ public class Board {
         }
         return false;
     }
-    
+
     /** 기본 썸네일 이미지 URL 취득
      *  @return noimage.png 경로**/
     public String getDefaultThumbnail() {
@@ -273,22 +301,30 @@ public class Board {
     }
 
     /** a태그 제목의 max-width설정을 위한 claa 표기
-     *  @return n:새글, h:인기글, c:댓글, f:첨부파일 포함, i:이미지 포함, v:동영상 포함 **/
+     *  @return a:광고, n:새글, h:인기글, f:첨부파일, i:이미지, v:동영상, c:댓글 **/
     public String getTitleClass() {
         StringBuilder sb = new StringBuilder();
-        if (isRecent()) {
-            sb.append("n ");
+        if (isAd()) {
+            sb.append("a "); // 광고 아이콘
+        } else if (isRecent()) {
+            sb.append("n "); // new 아이콘
         } else if (isPopular()) {
-            sb.append("h ");
+            sb.append("h "); // hot 아이콘
         }
-        if (commentCount > 0) {
-            sb.append("c ");
+        if (boardType.isSecret()) {
+            sb.append("s "); // 비밀글 아이콘
         }
         if (isIncludeAttachFile()) {
-            sb.append("f ");
+            sb.append("f "); // 첨부파일 아이콘
         }
         if (isIncludeImg()) {
-            sb.append("i ");
+            sb.append("i "); // 이미지 아이콘
+        }
+        if (isIncludeVideo()) {
+            sb.append("v "); // 비디오 아이콘
+        }
+        if (commentCount > 0) {
+            sb.append("c "); // 댓글 아이콘
         }
         return sb.toString().trim();
     }

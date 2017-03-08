@@ -132,6 +132,7 @@ public class BoardController {
 
             model.addAttribute("boardType", boardType);
             model.addAttribute("noticeList", boardService.getNoticeList(boardType.getNo())); // 공지로 등록된 게시글 리스트
+            model.addAttribute("adList", boardService.getAdList(boardType.getNo())); // 광고로 등록된 게시글 리스트
         }
 
         // 일반 게시글 리스트
@@ -153,7 +154,7 @@ public class BoardController {
         Board board = boardService.getBoard(no);
         if (board == null || board.getBoardType() == null || !board.getBoardType().isUse()) {
             return "redirect:/error";
-        } else if (!board.getBoardType().isReadableBoard(user)) {
+        } else if (!board.getBoardType().isReadableBoard(user, board)) {
             ra.addFlashAttribute(SessionAttribute.MSG, "해당 게시글의 열람 권한이 없습니다.");
             return "redirect:/board/" + board.getBoardType().getUrl();
         }
@@ -192,6 +193,7 @@ public class BoardController {
 
             model.addAttribute("boardType", board.getBoardType());
             model.addAttribute("noticeList", boardService.getNoticeList(board.getBoardType().getNo())); // 공지로 등록된 게시글 리스트
+            model.addAttribute("adList", boardService.getAdList(board.getBoardType().getNo())); // 광고로 등록된 게시글 리스트
         }
 
         // 일반 게시글 리스트
@@ -248,8 +250,10 @@ public class BoardController {
         board.setNickname(user.getNickname());
         board.setBoardType(boardType);
         board.setIp(commonUtil.getIp(req));
+
+        // 최고 관리자, 게시판 지기가 아닐경우 옵션 불가
         if (!user.isAdmin() && user.getGrade() != boardType.getAdminGrade()) {
-            board.setNotice(false);
+            board.setGroupName(Board.NORMAL);
         }
 
         if (boardService.writeBoardTX(board)) {
@@ -323,8 +327,9 @@ public class BoardController {
             }
         }
 
-        // 최고 관리자, 게시판 지기가 아닐경우 조회수, 작성일자 변경 불가
+        // 최고 관리자, 게시판 지기가 아닐경우 옵션 불가
         if (!user.isAdmin() && user.getGrade() != board.getBoardType().getAdminGrade()) {
+            update.setGroupName(board.getGroupName());
             update.setHit(board.getHit());
             update.setRegdate(board.getRegdate());
         }
@@ -496,7 +501,8 @@ public class BoardController {
 
                     // 다운로드 포인트 감소
                     int downloadPoint = board.getBoardType().getDownloadPoint();
-                    if (downloadPoint > 0) {
+                    if (downloadPoint > 0 && !attachFileService.isDownloaded(user.getNo(), fileNo)) {
+                        attachFileService.addDownloadLog(user.getNo(), fileNo);
                         userService.updatePointTX(user.getNo(), downloadPoint, Point.DOWNLOAD_FILE);
                     }
                 } else {
