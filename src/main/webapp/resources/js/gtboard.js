@@ -8,22 +8,25 @@
 				var frame = $(this).parents(".board_frame");
 				var $a = $(this).find("a");
 
+				var isAd = $a.hasClass("a");
 				var isNew = $a.hasClass("n");
 				var isPopular = $a.hasClass("h");
-				var hasComment = $a.hasClass("c");
+				var isSecret = $a.hasClass("s");
 				var hasImage = $a.hasClass("i");
 				var hasVideo = $a.hasClass("v");
 				var hasFile = $a.hasClass("f");
+				var hasComment = $a.hasClass("c");
 				var maxWidth = $(this).width();
 
-				if (isNew) {
+				if (isAd) {
+					maxWidth -= $(this).find(".ad").width() + 2;
+				} else if (isNew) {
 					maxWidth -= $(this).find(".new").width() + 2;
-				}
-				if (isPopular) {
+				} else if (isPopular) {
 					maxWidth -= $(this).find(".hot").width() + 2;
 				}
-				if (hasComment) {
-					maxWidth -= $(this).find(".count_comment").width() + 2;
+				if (isSecret) {
+					maxWidth -= $(this).find(".secret").width() + 2;
 				}
 
 				// 앨범형 보기는 이미지 표기 아이콘 숨김
@@ -37,6 +40,9 @@
 				}
 				if (hasFile) {
 					maxWidth -= $(this).find(".file").width() + 2;
+				}
+				if (hasComment) {
+					maxWidth -= $(this).find(".count_comment").width() + 2;
 				}
 
 				$a.css("max-width", maxWidth + "px"); // 제목 width 조정

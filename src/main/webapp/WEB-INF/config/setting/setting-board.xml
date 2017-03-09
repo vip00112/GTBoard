@@ -17,7 +17,7 @@
         <WritePoint>2</WritePoint>
         <CommentPoint>1</CommentPoint>
         <ThumbPoint>5</ThumbPoint>
-        <DownloadPoint>10</DownloadPoint>
+        <DownloadPoint>0</DownloadPoint>
         <PopularThumb>10</PopularThumb>
         <WriteGrade>1</WriteGrade>
         <ReadGrade>0</ReadGrade>
@@ -47,7 +47,7 @@
         <WriteGrade>1</WriteGrade>
         <ReadGrade>0</ReadGrade>
         <CommentGrade>1</CommentGrade>
-        <DownloadGrade>0</DownloadGrade>
+        <DownloadGrade>1</DownloadGrade>
         <AdminGrade>9999</AdminGrade>
     </BoardType>
     <BoardType>
@@ -72,7 +72,7 @@
         <WriteGrade>1</WriteGrade>
         <ReadGrade>0</ReadGrade>
         <CommentGrade>1</CommentGrade>
-        <DownloadGrade>0</DownloadGrade>
+        <DownloadGrade>1</DownloadGrade>
         <AdminGrade>9999</AdminGrade>
     </BoardType>
     <BoardType>

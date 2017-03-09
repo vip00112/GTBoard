@@ -36,229 +36,183 @@
 </head>
 
 <body>
-	<%-- top template --%>
-	<c:import url="template/top.jsp"></c:import>
+	<div class="loading"></div>
+	<!-- // .loading -->
 
-	<%-- header Template --%>
-	<c:import url="template/header.jsp"></c:import>
+	<aside class="menu">
+		<button class="on">
+			<i class="fa fa-caret-left fa-fw fa-2x"></i>
+		</button>
 
-	<%-- wide-paper Template --%>
-	<c:import url="template/wide-paper.jsp">
-		<c:param name="pageTitle">사이트 관리</c:param>
-		<c:param name="pageDesc">사이트의 전반적인 정보 관리 및 설정<br />
-			<br />
-								 Server : <%=application.getServerInfo()%><br />
-								 Servlet : <%=application.getMajorVersion()%>.<%=application.getMinorVersion()%><br />
-								 JSP : <%=JspFactory.getDefaultFactory().getEngineInfo().getSpecificationVersion()%>
-		</c:param>
-	</c:import>
-
-	<%-- main article --%>
-	<section>
-		<ul class="box menu">
+		<ul>
 			<li class="base on">기본 정보 설정</li>
+            <li class="nav">메뉴 설정</li>
 			<li class="boardType">게시판 설정</li>
 			<li class="board">게시글 관리</li>
 			<li class="comment">댓글 관리</li>
 		</ul>
-	</section>
+	</aside>
 
-	<section>
-		<div class="box content base on">
+	<section class="content">
+		Server :
+		<%=application.getServerInfo()%>
+		<br />
+		Servlet :
+		<%=application.getMajorVersion()%>.<%=application.getMinorVersion()%>
+		<br />
+		JSP :
+		<%=JspFactory.getDefaultFactory().getEngineInfo().getSpecificationVersion()%>
+		<br />
+
+		<div class="box base on">
+			<h2>기본 정보 설정</h2>
+
 			<form action="/admin/setting/base/update" method="post">
 				<fieldset>
 					<legend class="screen_out">기본 정보 설정</legend>
 					<input type="hidden" name="CSRFToken" value="${CSRFToken}" />
 
-					<div class="box base">
-						<h2>기본 설정</h2>
+					<div class="box">
+						<h3>기본 설정</h3>
 
 						<div class="box_wrap">
-							<label for="title">Title</label>
-							<div class="variable">
-								<input type="text" id="title" name="title">
-								<span class="desc">브라우저 및 meta 태그의 타이틀</span>
-							</div>
-							<!-- // .variable -->
+							<label>Title</label>
+							<input type="text" name="title" value="">
+							<span class="desc">브라우저 및 meta 태그의 타이틀</span>
 						</div>
 						<!-- // .box_wrap -->
 
 						<div class="box_wrap">
-							<label for="logo">Logo</label>
-							<div class="variable">
-								<input type="text" id="logo" name="logo">
-								<span class="desc">로고 이미지 경로 (미지정시 Title 표기)</span>
-							</div>
-							<!-- // .variable -->
-						</div>
-						<!-- // .box_wrap -->
-
-
-					</div>
-					<!-- // .box.meta -->
-
-					<div class="box meta">
-						<h2>meta 태그 설정</h2>
-
-						<div class="box_wrap">
-							<label for="author">Author</label>
-							<div class="variable">
-								<input type="text" id="author" name="author">
-								<span class="desc">해당 페이지 소유주</span>
-							</div>
-							<!-- // .variable -->
-						</div>
-						<!-- // .box_wrap -->
-
-						<div class="box_wrap">
-							<label for="reply">Reply</label>
-							<div class="variable">
-								<input type="text" id="reply" name="reply">
-								<span class="desc">해당 페이지 소유주의 이메일</span>
-							</div>
-							<!-- // .variable -->
-						</div>
-						<!-- // .box_wrap -->
-
-						<div class="box_wrap">
-							<label for="keyword">Keyword</label>
-							<div class="variable">
-								<input type="text" id="keyword" name="keyword">
-								<span class="desc">검색 엔진에 노출될 해당 페이지 키워드</span>
-							</div>
-							<!-- // .variable -->
-						</div>
-						<!-- // .box_wrap -->
-
-						<div class="box_wrap">
-							<label for="description">Description</label>
-							<div class="variable">
-								<input type="text" id="description" name="description">
-								<span class="desc">검색 엔진에 노출될 해당 페이지 설명</span>
-							</div>
-							<!-- // .variable -->
+							<label>Logo</label>
+							<input type="text" name="logo" value="">
+							<span class="desc">로고 이미지 경로 (미지정시 Title 표기)</span>
 						</div>
 						<!-- // .box_wrap -->
 					</div>
-					<!-- // .box.meta -->
+					<!-- // .box -->
 
-					<div class="box footer">
-						<h2>하단 정보 설정</h2>
+					<div class="box">
+						<h3>meta 태그 설정</h3>
 
 						<div class="box_wrap">
-							<label for="businessName">상호명</label>
-							<div class="variable">
-								<input type="text" id="businessName" name="businessName">
-								<span class="desc">footer에 표기될 사업자 등록된 상호명</span>
-							</div>
-							<!-- // .variable -->
+							<label for="athor">Author</label>
+							<input type="text" id="athor" name="athor" value="">
+							<span class="desc">해당 페이지 소유주</span>
 						</div>
 						<!-- // .box_wrap -->
 
 						<div class="box_wrap">
-							<label for="businessNumber">사업자번호</label>
-							<div class="variable">
-								<input type="text" id="businessNumber" name="businessNumber">
-								<span class="desc">footer에 표기될 사업자 번호</span>
-							</div>
-							<!-- // .variable -->
+							<label>Reply</label>
+							<input type="text" name="reply" value="">
+							<span class="desc">해당 페이지 소유주의 이메일</span>
 						</div>
 						<!-- // .box_wrap -->
 
 						<div class="box_wrap">
-							<label for="ceo">대표</label>
-							<div class="variable">
-								<input type="text" id="ceo" name="ceo">
-								<span class="desc">footer에 표기될 사업자 등록된 대표명</span>
-							</div>
-							<!-- // .variable -->
+							<label>Keyword</label>
+							<input type="text" name="keyword" value="">
+							<span class="desc">검색 엔진에 노출될 해당 페이지 키워드</span>
 						</div>
 						<!-- // .box_wrap -->
 
 						<div class="box_wrap">
-							<label for="address">주소</label>
-							<div class="variable">
-								<input type="text" id="address" name="address">
-								<span class="desc">footer에 표기될 사업자 등록된 주소</span>
-							</div>
-							<!-- // .variable -->
-						</div>
-						<!-- // .box_wrap -->
-
-						<div class="box_wrap">
-							<label for="tel">연락처</label>
-							<div class="variable">
-								<input type="text" id="tel" name="tel">
-								<span class="desc">footer에 표기될 사업자 등록된 연락처</span>
-							</div>
-							<!-- // .variable -->
-						</div>
-						<!-- // .box_wrap -->
-
-						<div class="box_wrap">
-							<label for="fax">팩스</label>
-							<div class="variable">
-								<input type="text" id="fax" name="fax">
-								<span class="desc">footer에 표기될 사업자 등록된 팩스번호</span>
-							</div>
-							<!-- // .variable -->
-						</div>
-						<!-- // .box_wrap -->
-
-						<div class="box_wrap">
-							<label for="email">이메일</label>
-							<div class="variable">
-								<input type="text" id="email" name="email">
-								<span class="desc">footer에 표기될 사업자 등록된 이메일</span>
-							</div>
-							<!-- // .variable -->
-						</div>
-						<!-- // .box_wrap -->
-
-						<div class="box_wrap">
-							<label for="startYear">설립년도</label>
-							<div class="variable">
-								<input type="text" id="startYear" name="startYear">
-								<span class="desc">footer의 coptright에 표기될 설립년도</span>
-							</div>
-							<!-- // .variable -->
+							<label>Description</label>
+							<input type="text" name="description" value="">
+							<span class="desc">검색 엔진에 노출될 해당 페이지 설명</span>
 						</div>
 						<!-- // .box_wrap -->
 					</div>
-					<!-- // .box.footer -->
+					<!-- // .box -->
 
-					<div class="box index">
-						<h2>시작 페이지 게시글 갯수 설정</h2>
+					<div class="box">
+						<h3>하단 정보 설정</h3>
 
 						<div class="box_wrap">
-							<label for="indexViewCount">게시판 별 갯수</label>
-							<div class="variable">
-								<input type="text" id="indexViewCount" name="indexViewCount">
-								<span class="desc">index 페이지에 보여질 게시판 별 게시글 갯수</span>
-							</div>
-							<!-- // .variable -->
+							<label>상호명</label>
+							<input type="text" name="businessName" value="">
+							<span class="desc">footer에 표기될 사업자 등록된 상호명</span>
 						</div>
 						<!-- // .box_wrap -->
 
 						<div class="box_wrap">
-							<label for="indexViewCountTotal">전체 게시판 갯수</label>
-							<div class="variable">
-								<input type="text" id="indexViewCountTotal" name="indexViewCountTotal">
-								<span class="desc">index 페이지에 보여질 전체 게시판 게시글 갯수</span>
-							</div>
-							<!-- // .variable -->
+							<label>사업자번호</label>
+							<input type="text" name="businessNumber" value="">
+							<span class="desc">footer에 표기될 사업자 번호</span>
+						</div>
+						<!-- // .box_wrap -->
+
+						<div class="box_wrap">
+							<label>대표</label>
+							<input type="text" name="ceo" value="">
+							<span class="desc">footer에 표기될 사업자 등록된 대표명</span>
+						</div>
+						<!-- // .box_wrap -->
+
+						<div class="box_wrap">
+							<label>주소</label>
+							<input type="text" name="address" value="">
+							<span class="desc">footer에 표기될 사업자 등록된 주소</span>
+						</div>
+						<!-- // .box_wrap -->
+
+						<div class="box_wrap">
+							<label>연락처</label>
+							<input type="text" name="tel" value="">
+							<span class="desc">footer에 표기될 사업자 등록된 연락처</span>
+						</div>
+						<!-- // .box_wrap -->
+
+						<div class="box_wrap">
+							<label>팩스</label>
+							<input type="text" name="fax" value="">
+							<span class="desc">footer에 표기될 사업자 등록된 팩스번호</span>
+						</div>
+						<!-- // .box_wrap -->
+
+						<div class="box_wrap">
+							<label>이메일</label>
+							<input type="text" name="email" value="">
+							<span class="desc">footer에 표기될 사업자 등록된 이메일</span>
+						</div>
+						<!-- // .box_wrap -->
+
+						<div class="box_wrap">
+							<label>설립년도</label>
+							<input type="text" name="startYear" value="">
+							<span class="desc">footer의 coptright에 표기될 설립년도</span>
 						</div>
 						<!-- // .box_wrap -->
 					</div>
-					<!-- // .box.index -->
+					<!-- // .box -->
 
-					<button type="submit">저장</button>
+					<div class="box">
+						<h3>시작 페이지 게시글 갯수 설정</h3>
+
+						<div class="box_wrap">
+							<label>게시판 별 갯수</label>
+							<input type="text" name="indexViewCount" value="">
+							<span class="desc">index 페이지에 보여질 게시판 별 게시글 갯수</span>
+						</div>
+						<!-- // .box_wrap -->
+
+						<div class="box_wrap">
+							<label>전체 게시판 갯수</label>
+							<input type="text" name="indexViewCountTotal" value="">
+							<span class="desc">index 페이지에 보여질 전체 게시판 게시글 갯수</span>
+						</div>
+						<!-- // .box_wrap -->
+					</div>
+					<!-- // .box -->
+
+					<button>저장</button>
 				</fieldset>
 			</form>
 		</div>
-		<!-- // .box.content.base -->
+		<!-- // .box.base -->
 
-		<div class="box content boardType">
+		<div class="box boardType">
+			<h2>게시판 설정</h2>
+
 			<form action="/admin/setting/board/update" method="post">
 				<fieldset>
 					<legend class="screen_out">게시판 설정</legend>
@@ -271,285 +225,296 @@
 						<option value="0">신규 게시판 추가</option>
 					</select>
 
-					<div class="box_wrap">
-						<label for="order">순서</label>
-						<div class="variable">
-							<input type="text" id="order" name="order" value="">
+					<div class="box">
+						<h3>필수 기본 설정</h3>
+
+						<div class="box_wrap">
+							<label>순서</label>
+							<input type="text" name="order" value="">
 							<span class="desc">index 페이지 및 메뉴 표기 순서</span>
 						</div>
-						<!-- // .variable -->
-					</div>
-					<!-- // .box_wrap -->
+						<!-- // .box_wrap -->
 
-					<div class="box_wrap">
-						<label for="name">이름</label>
-						<div class="variable">
-							<input type="text" id="name" name="name" value="">
+						<div class="box_wrap">
+							<label>이름</label>
+							<input type="text" name="name" value="">
 							<span class="desc">화면에 보여지는 이름</span>
 						</div>
-						<!-- // .variable -->
-					</div>
-					<!-- // .box_wrap -->
+						<!-- // .box_wrap -->
 
-					<div class="box_wrap">
-						<label for="boardDescription">설명</label>
-						<div class="variable">
-							<input type="text" id="boardDescription" name="description" value="">
+						<div class="box_wrap">
+							<label>설명</label>
+							<input type="text" name="description" value="">
 							<span class="desc">해당 게시판의 간략한 설명</span>
 						</div>
-						<!-- // .variable -->
-					</div>
-					<!-- // .box_wrap -->
+						<!-- // .box_wrap -->
 
-					<div class="box_wrap">
-						<label for="url">URL</label>
-						<div class="variable">
-							<input type="text" id="url" name="url" value="">
+						<div class="box_wrap">
+							<label>URL</label>
+							<input type="text" name="url" value="">
 							<span class="desc">주소창에 보여질 영문주소</span>
 						</div>
-						<!-- // .variable -->
+						<!-- // .box_wrap -->
 					</div>
-					<!-- // .box_wrap -->
+					<!-- // .box -->
 
-					<div class="box_wrap">
-						<label for="use">게시판 활성화</label>
-						<div class="variable">
+					<div class="box">
+						<h3>ON/OFF 설정</h3>
+
+						<div class="box_wrap">
+							<label>게시판 활성화</label>
 							<select name="use">
 								<option value="true">활성화</option>
 								<option value="false">비활성화</option>
 							</select>
 							<span class="desc">비활성화시 접근 불가</span>
 						</div>
-						<!-- // .variable -->
-					</div>
-					<!-- // .box_wrap -->
+						<!-- // .box_wrap -->
 
-					<div class="box_wrap">
-						<label for="anonymous">글쓴이 공개</label>
-						<div class="variable">
+						<div class="box_wrap">
+							<label>글쓴이 공개</label>
 							<select name="anonymous">
 								<option value="false">공개</option>
 								<option value="true">익명</option>
 							</select>
 							<span class="desc">게시글 및 댓글 작성자 익명 여부</span>
 						</div>
-						<!-- // .variable -->
-					</div>
-					<!-- // .box_wrap -->
+						<!-- // .box_wrap -->
 
-					<div class="box_wrap">
-						<label for="secret">비밀 게시글</label>
-						<div class="variable">
+						<div class="box_wrap" data-low="useComment,useAttachFile,useWriteCode,useCommentCode,readGrade" data-on="false">
+							<label>비밀 게시글</label>
 							<select name="secret">
 								<option value="false">공개 글</option>
 								<option value="true">비밀 글</option>
 							</select>
 							<span class="desc">비밀 글은 작성자와 운영자만 열람 가능</span>
 						</div>
-						<!-- // .variable -->
-					</div>
-					<!-- // .box_wrap -->
+						<!-- // .box_wrap -->
 
-					<div class="box_wrap">
-						<label for="album">기본 보기 형식</label>
-						<div class="variable">
+						<div class="box_wrap">
+							<label>기본 보기 형식</label>
 							<select name="album">
 								<option value="false">리스트</option>
 								<option value="true">앨범</option>
 							</select>
 							<span class="desc">앨범 보기시 썸네일 이미지 표기</span>
 						</div>
-						<!-- // .variable -->
-					</div>
-					<!-- // .box_wrap -->
+						<!-- // .box_wrap -->
 
-					<div class="box_wrap">
-						<label for="useComment">댓글</label>
-						<div class="variable">
+						<div class="box_wrap" data-low="useCommentCode,commentPoint,commentGrade" data-on="true">
+							<label>댓글</label>
 							<select name="useComment">
-								<option value="true">사용</option>
 								<option value="false">미사용</option>
+								<option value="true">사용</option>
 							</select>
 							<span class="desc">미사용시 댓글 작성 불가</span>
 						</div>
-						<!-- // .variable -->
-					</div>
-					<!-- // .box_wrap -->
+						<!-- // .box_wrap -->
 
-					<div class="box_wrap">
-						<label for="useAttachFile">첨부파일</label>
-						<div class="variable">
+						<div class="box_wrap" data-low="downloadPoint,downloadGrade" data-on="true">
+							<label>첨부파일</label>
 							<select name="useAttachFile">
 								<option value="false">미사용</option>
 								<option value="true">사용</option>
 							</select>
 							<span class="desc">첨부파일 허용 여부</span>
 						</div>
-						<!-- // .variable -->
-					</div>
-					<!-- // .box_wrap -->
+						<!-- // .box_wrap -->
 
-					<div class="box_wrap">
-						<label for="useWriteCode">OCR: 글 작성</label>
-						<div class="variable">
+						<div class="box_wrap">
+							<label>OCR: 글 작성</label>
 							<select name="useWriteCode">
-								<option value="true">사용</option>
 								<option value="false">미사용</option>
+								<option value="true">사용</option>
 							</select>
 							<span class="desc">글 작성시 도배 방지 코드 적용</span>
 						</div>
-						<!-- // .variable -->
-					</div>
-					<!-- // .box_wrap -->
+						<!-- // .box_wrap -->
 
-					<div class="box_wrap">
-						<label for="useCommentCode">OCR: 댓글 작성</label>
-						<div class="variable">
+						<div class="box_wrap">
+							<label for="useCommentCode">OCR: 댓글 작성</label>
 							<select name="useCommentCode">
-								<option value="true">사용</option>
 								<option value="false">미사용</option>
+								<option value="true">사용</option>
 							</select>
 							<span class="desc">댓글 작성시 도배 방지 코드 적용</span>
 						</div>
-						<!-- // .variable -->
+						<!-- // .box_wrap -->
 					</div>
-					<!-- // .box_wrap -->
+					<!-- // .box -->
 
-					<div class="box_wrap">
-						<label for="writePoint">글 작성 포인트</label>
-						<div class="variable">
-							<input type="text" id="writePoint" name="writePoint" value="">
+					<div class="box">
+						<h3>값 설정</h3>
+
+						<div class="box_wrap">
+							<label>글 작성 포인트</label>
+							<input type="text" name="writePoint" value="">
 							<span class="desc">글 작성시 작성자에게 지급할 포인트</span>
 						</div>
-						<!-- // .variable -->
-					</div>
-					<!-- // .box_wrap -->
+						<!-- // .box_wrap -->
 
-					<div class="box_wrap">
-						<label for="downloadPoint">다운로드 소모 포인트</label>
-						<div class="variable">
-							<input type="text" id="downloadPoint" name="downloadPoint" value="">
-							<span class="desc">첨부파일 다운로드시 필요한 포인트</span>
-						</div>
-						<!-- // .variable -->
-					</div>
-					<!-- // .box_wrap -->
-
-					<div class="box_wrap">
-						<label for="commentPoint">댓글 작성 포인트</label>
-						<div class="variable">
-							<input type="text" id="commentPoint" name="commentPoint" value="">
+						<div class="box_wrap">
+							<label>댓글 작성 포인트</label>
+							<input type="text" name="commentPoint" value="">
 							<span class="desc">댓글 작성시 작성자에게 지급할 포인트</span>
 						</div>
-						<!-- // .variable -->
-					</div>
-					<!-- // .box_wrap -->
+						<!-- // .box_wrap -->
 
-					<div class="box_wrap">
-						<label for="thumbPoint">추천 포인트</label>
-						<div class="variable">
-							<input type="text" id="thumbPoint" name="thumbPoint" value="">
+						<div class="box_wrap">
+							<label>추천 포인트</label>
+							<input type="text" name="thumbPoint" value="">
 							<span class="desc">게시글 추천시 작성자에게 지급할 포인트</span>
 						</div>
-						<!-- // .variable -->
-					</div>
-					<!-- // .box_wrap -->
+						<!-- // .box_wrap -->
 
-					<div class="box_wrap">
-						<label for="popularThumb">인기글 추천 갯수</label>
-						<div class="variable">
-							<input type="text" id="popularThumb" name="popularThumb" value="">
+						<div class="box_wrap">
+							<label>다운로드 소모 포인트</label>
+							<input type="text" name="downloadPoint" value="">
+							<span class="desc">첨부파일 다운로드시 필요한 포인트</span>
+						</div>
+						<!-- // .box_wrap -->
+
+						<div class="box_wrap">
+							<label>인기글 추천 갯수</label>
+							<input type="text" name="popularThumb" value="">
 							<span class="desc">인기글이 되기위한 최소 추천 갯수</span>
 						</div>
-						<!-- // .variable -->
+						<!-- // .box_wrap -->
 					</div>
-					<!-- // .box_wrap -->
+					<!-- // .box -->
 
-					<div class="box_wrap">
-						<label for="writeGrade">글작성 등급</label>
-						<div class="variable">
-							<input type="text" id="writeGrade" name="writeGrade" value="">
+					<div class="box">
+						<h3>등급 설정</h3>
+
+						<div class="box_wrap">
+							<label>글작성 등급</label>
+							<input type="text" name="writeGrade" value="">
 							<span class="desc">글 작성이 가능한 등급</span>
 						</div>
-						<!-- // .variable -->
-					</div>
-					<!-- // .box_wrap -->
+						<!-- // .box_wrap -->
 
-					<div class="box_wrap">
-						<label for="readGrade">글읽기 등급</label>
-						<div class="variable">
-							<input type="text" id="readGrade" name="readGrade" value="">
+						<div class="box_wrap">
+							<label>글읽기 등급</label>
+							<input type="text" name="readGrade" value="">
 							<span class="desc">게시글 읽기가 가능한 등급</span>
 						</div>
-						<!-- // .variable -->
-					</div>
-					<!-- // .box_wrap -->
+						<!-- // .box_wrap -->
 
-					<div class="box_wrap">
-						<label for="commentGrade">댓글작성 등급</label>
-						<div class="variable">
-							<input type="text" id="commentGrade" name="commentGrade" value="">
+						<div class="box_wrap">
+							<label>댓글작성 등급</label>
+							<input type="text" name="commentGrade" value="">
 							<span class="desc">댓글 작성이 가능한 등급</span>
 						</div>
-						<!-- // .variable -->
-					</div>
-					<!-- // .box_wrap -->
+						<!-- // .box_wrap -->
 
-					<div class="box_wrap">
-						<label for="downloadGrade">다운로드 등급</label>
-						<div class="variable">
-							<input type="text" id="downloadGrade" name="downloadGrade" value="">
+						<div class="box_wrap">
+							<label>다운로드 등급</label>
+							<input type="text" name="downloadGrade" value="">
 							<span class="desc">첨부파일 다운로드가 가능한 등급</span>
 						</div>
-						<!-- // .variable -->
-					</div>
-					<!-- // .box_wrap -->
+						<!-- // .box_wrap -->
 
-					<div class="box_wrap">
-						<label for="adminGrade">관리자 등급</label>
-						<div class="variable">
-							<input type="text" id="adminGrade" name="adminGrade" value="">
+						<div class="box_wrap">
+							<label>관리자 등급</label>
+							<input type="text" name="adminGrade" value="">
 							<span class="desc">게시판 관리자 등급(수정/삭제 가능)</span>
 						</div>
-						<!-- // .variable -->
+						<!-- // .box_wrap -->
 					</div>
-					<!-- // .box_wrap -->
+					<!-- // .box -->
 
 					<button type="submit">저장</button>
 				</fieldset>
 			</form>
 		</div>
-		<!-- // .box.content.board -->
+		<!-- // .box.boardType -->
 
-		<div class="box content board"></div>
-		<!-- // .box.content.board -->
+		<div class="box nav">
+			<h2>메뉴 설정</h2>
+		</div>
+		<!-- // .box.nav -->
 
-		<div class="box content comment"></div>
-		<!-- // .box.content.comment -->
+		<div class="box board">
+			<h2>게시글 관리</h2>
+		</div>
+		<!-- // .box.board -->
+
+		<div class="box comment">
+			<h2>댓글 관리</h2>
+		</div>
+		<!-- // .box.comment -->
 	</section>
-	<%-- // main article --%>
 
-	<%-- footer Template --%>
-	<c:import url="template/footer.jsp"></c:import>
+	<!-- script load -->
+	<script src="/resources/js/jquery.min.js"></script>
+	<script src="/resources/js/underscore-min.js"></script>
+	<script src="/resources/js/moment.min.js"></script>
+	<script src="/resources/js/moment-with-locales.min.js"></script>
+	<script src="/resources/js/gtboard.js?ver=0001"></script>
+	<script src="/resources/js/common.js?ver=0001"></script>
+	<script src="/resources/js/fix.js?ver=0001"></script>
+	<script src="/resources/js/board.js?ver=0001"></script>
+	<script src="/resources/js/comment.js?ver=0001"></script>
+	<script src="/resources/js/paginate.js?ver=0001"></script>
+
+	<!-- underscore setting -->
+	<script>
+		_.templateSettings = {
+			interpolate: /\<\@\=(.+?)\@\>/gim,
+			evaluate: /\<\@(.+?)\@\>/gim,
+			escape: /\<\@\-(.+?)\@\>/gim
+		};
+	</script>
 
 	<!-- 공통 -->
 	<script>
+		var $menu = $(".menu");
+		var $content = $(".content");
+		var $loader = $("body>.loading");
+
 		$(window).load(function() {
-			if ($(".box.content.base").hasClass("on")) {
+			if ($(".content .box.base").hasClass("on")) {
 				getBaseInfo();
-			} else if ($(".box.content.boardType").hasClass("on")) {
+			} else if ($(".content .box.boardType").hasClass("on")) {
 				getBoardTypeInfo();
 			}
 		});
 
-		// menu 변경
-		$(".box.menu li").click(function() {
-			$(".box.menu li").removeClass("on");
-			$(".content.box").removeClass("on");
+		// 메뉴 펼침/닫힘
+		$(".menu button").click(function() {
+			var $btn = $(this);
+			$btn.toggleClass("on");
+			var $icon = $btn.find(".fa");
+
+			if ($btn.hasClass("on")) {
+				$icon.removeClass("fa-caret-right");
+				$icon.addClass("fa-caret-left");
+				$menu.animate({
+					left: 0
+				}, 200);
+				$content.animate({
+					left: 150
+				}, 200);
+			} else {
+				$icon.removeClass("fa-caret-left");
+				$icon.addClass("fa-caret-right");
+				$menu.animate({
+					left: -150
+				}, 200);
+				$content.animate({
+					left: 0
+				}, 200);
+			}
+		});
+
+		// 메뉴 변경
+		$(".menu li").click(function() {
+			$(".menu li").removeClass("on");
+			$(".content .box").removeClass("on");
 
 			var className = $(this).attr("class");
 			$(this).addClass("on");
-			$(".content.box." + className).addClass("on");
+			$(".content .box." + className).addClass("on");
 
 			if (className == "base") {
 				getBaseInfo();
@@ -576,30 +541,99 @@
 		function getBaseInfo() {
 			$.ajax("/admin/setting/base", {
 				type: "GET",
-				dataType: "json"
+				dataType: "json",
+				beforeSend: function() {
+					$loader.show();
+				}
+			}).always(function() {
+				$loader.fadeOut(200);
 			}).fail(function(xhr, error, code) {
 				alert(error + " : " + code);
 				console.log(xhr.status + " : " + code + "\n" + xhr.responseText);
 			}).done(function(info) {
-				setValue($(".box.content.base form"), info);
+				setValue($(".content .box.base form"), info);
 			});
 		}
 	</script>
 
 	<!-- 게시판 설정 -->
 	<script>
-		$(".box.content.boardType select[name='no']").change(function() {
+		$(".content .box.boardType select[name='no']").change(function() {
 			if ($(this).val() == 0) {
-				$(".box.content.boardType input[name!='CSRFToken']").val("");
-				$(".box.content.boardType select").val("false");
+				$(".content .box.boardType input[name!='CSRFToken']").val("");
+				$(".content .box.boardType select").val("true");
 				$(this).val(0);
+
+				$(".content .box.boardType [name='anonymous']").val("false");
+				$(".content .box.boardType [name='secret']").val("false");
+				$(".content .box.boardType [name='album']").val("false");
+				$(".content .box.boardType [name='writePoint']").val("0");
+				$(".content .box.boardType [name='commentPoint']").val("0");
+				$(".content .box.boardType [name='thumbPoint']").val("0");
+				$(".content .box.boardType [name='downloadPoint']").val("0");
+				$(".content .box.boardType [name='popularThumb']").val("0");
+				$(".content .box.boardType [name='writeGrade']").val("1");
+				$(".content .box.boardType [name='readGrade']").val("0");
+				$(".content .box.boardType [name='commentGrade']").val("1");
+				$(".content .box.boardType [name='downloadGrade']").val("1");
+				$(".content .box.boardType [name='adminGrade']").val("9999");
+				
+				$(".content .box.boardType select[name!='no']").each(function() {
+					var lows = $(this).parents(".box_wrap").attr("data-low");
+					var value = $(this).parents(".box_wrap").attr("data-on");
+					if (!lows || !value) {
+						return;
+					}
+
+					var show = $(this).val() == value;
+					lows = lows.split(",");
+					toggleLows(show, lows);
+				});
 			} else {
 				getBoardTypeInfo();
 			}
 		});
 
+		$(".content .box.boardType select[name!='no']").change(function() {
+			var lows = $(this).parents(".box_wrap").attr("data-low");
+			var value = $(this).parents(".box_wrap").attr("data-on");
+			if (!lows || !value) {
+				return;
+			}
+
+			var show = $(this).val() == value;
+			lows = lows.split(",");
+			toggleLows(show, lows);
+		});
+
+		// 하위 항목 ON/OFF
+		function toggleLows(show, lows) {
+			for (var i = 0, length = lows.length; i < length; i++) {
+				var name = lows[i];
+				var children = $(".content .box.boardType [name='" + name + "']");
+				if (show) {
+					children.parents(".box_wrap").show();
+				} else {
+					children.parents(".box_wrap").hide();
+				}
+
+				// 대상의 하위항목이 있을시 추가 ON/OFF
+				var lowers = children.parents(".box_wrap").attr("data-low");
+				var value = children.parents(".box_wrap").attr("data-on");
+				if (lowers && value) {
+					lowers = lowers.split(",");
+					if (show) {
+						var lowerShow = children.val() == value;
+						toggleLows(lowerShow, lowers);
+					} else {
+						toggleLows(show, lowers);
+					}
+				}
+			}
+		}
+
 		function getBoardTypeInfo() {
-			var no = $(".box.content.boardType select[name=no]").val();
+			var no = $(".content .box.boardType select[name=no]").val();
 			if (no == 0) {
 				return;
 			}
@@ -608,12 +642,29 @@
 				dataType: "json",
 				data: {
 					no: no
+				},
+				beforeSend: function() {
+					$loader.show();
 				}
+			}).always(function() {
+				$loader.fadeOut(200);
 			}).fail(function(xhr, error, code) {
 				alert(error + " : " + code);
 				console.log(xhr.status + " : " + code + "\n" + xhr.responseText);
 			}).done(function(info) {
-				setValue($(".box.content.boardType form"), info);
+				setValue($(".content .box.boardType form"), info);
+				
+				$(".content .box.boardType select[name!='no']").each(function() {
+					var lows = $(this).parents(".box_wrap").attr("data-low");
+					var value = $(this).parents(".box_wrap").attr("data-on");
+					if (!lows || !value) {
+						return;
+					}
+
+					var show = $(this).val() == value;
+					lows = lows.split(",");
+					toggleLows(show, lows);
+				});
 			});
 		}
 	</script>

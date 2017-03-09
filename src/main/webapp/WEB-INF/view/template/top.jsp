@@ -36,7 +36,7 @@
             		<%-- 최고 관리자로 로그인된 상태 --%>
             		<c:when test="${loginUser.admin}">
 		                <li>
-		                    <a href="/admin" title="사이트 관리"><i class="fa fa-gear"></i></a>
+		                    <a href="/admin" title="사이트 관리" target="_blank"><i class="fa fa-gear"></i></a>
 		                </li>
 		                <li>
 		                    <a href="/user/${loginUser.no}" title="내정보"><i class="fa fa-user"></i></a>
