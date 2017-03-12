@@ -9,53 +9,22 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "BaseSetting")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class BaseSetting {
-    @XmlElement(name = "Title")
-    private String title; // 사이트 이름: title, meta, footer
-    
-    @XmlElement(name = "Logo")
-    private String logo; // 로고 이미지 경로
-
-    @XmlElement(name = "Author")
-    private String author; // 사이트 제작자: meta
-
-    @XmlElement(name = "Reply")
-    private String reply; // 사이트 제작자 이메일: meta
-
-    @XmlElement(name = "Keyword")
-    private String keyword; // 사이트 키워드: meta
-
-    @XmlElement(name = "Description")
-    private String description; // 사이트 설명: meta
-
-    @XmlElement(name = "BusinessName")
-    private String businessName; // 회사명(상호명): footer
-
-    @XmlElement(name = "BusinessNumber")
-    private String businessNumber; // 사업자 등록 번호: footer
-
-    @XmlElement(name = "Ceo")
-    private String ceo; // 대표자 성명: footer
-
-    @XmlElement(name = "Address")
-    private String address; // 사업지 주소: footer
-
-    @XmlElement(name = "Tel")
-    private String tel; // 연락처: footer
-
-    @XmlElement(name = "Fax")
-    private String fax; // 팩스: footer
-
-    @XmlElement(name = "Email")
-    private String email; // 이메일: footer
-
-    @XmlElement(name = "StartYear")
-    private String startYear; // 설립년도: footer
-
-    @XmlElement(name = "IndexViewCount")
-    private int indexViewCount; // index 페이지에 보여질 공지사항, 각 게시판별 최신글 갯수
-
-    @XmlElement(name = "IndexViewCountTotal")
-    private int indexViewCountTotal; // index 페이지에 보여질 전체 게시판 최신글 갯수
+    @XmlElement(name = "Title") private String title; // 사이트 이름: title, meta, footer
+    @XmlElement(name = "Logo") private String logo; // 로고 이미지 경로
+    @XmlElement(name = "Author") private String author; // 사이트 제작자: meta
+    @XmlElement(name = "Reply") private String reply; // 사이트 제작자 이메일: meta
+    @XmlElement(name = "Keyword") private String keyword; // 사이트 키워드: meta
+    @XmlElement(name = "Description") private String description; // 사이트 설명: meta
+    @XmlElement(name = "BusinessName") private String businessName; // 회사명(상호명): footer
+    @XmlElement(name = "BusinessNumber") private String businessNumber; // 사업자 등록 번호: footer
+    @XmlElement(name = "Ceo") private String ceo; // 대표자 성명: footer
+    @XmlElement(name = "Address") private String address; // 사업지 주소: footer
+    @XmlElement(name = "Tel") private String tel; // 연락처: footer
+    @XmlElement(name = "Fax") private String fax; // 팩스: footer
+    @XmlElement(name = "Email") private String email; // 이메일: footer
+    @XmlElement(name = "StartYear") private String startYear; // 설립년도: footer
+    @XmlElement(name = "IndexViewCount") private int indexViewCount; // index 페이지에 보여질 공지사항, 각 게시판별 최신글 갯수
+    @XmlElement(name = "IndexViewCountTotal") private int indexViewCountTotal; // index 페이지에 보여질 전체 게시판 최신글 갯수
 
     public String getTitle() {
         return title;

@@ -3,6 +3,7 @@ package com.gt.board.config;
 public class SessionAttribute {
     public static final String SETTING_BASE = "baseSetting"; // 기본 설정
     public static final String SETTING_BOARD = "boardSetting"; // 게시판 설정
+    public static final String SETTING_MENU = "menuSetting"; // 게시판 설정
 
     public static final String USER = "loginUser"; // 로그인 된 유저
     public static final String ATTACH_FILES = "uploadedAttachFiles"; // 첨부파일 목록

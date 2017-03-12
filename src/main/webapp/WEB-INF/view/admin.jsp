@@ -46,7 +46,7 @@
 
 		<ul>
 			<li class="base on">기본 정보 설정</li>
-            <li class="nav">메뉴 설정</li>
+			<li class="menuType">메뉴 설정</li>
 			<li class="boardType">게시판 설정</li>
 			<li class="board">게시글 관리</li>
 			<li class="comment">댓글 관리</li>
@@ -65,374 +65,19 @@
 		<br />
 
 		<div class="box base on">
-			<h2>기본 정보 설정</h2>
-
-			<form action="/admin/setting/base/update" method="post">
-				<fieldset>
-					<legend class="screen_out">기본 정보 설정</legend>
-					<input type="hidden" name="CSRFToken" value="${CSRFToken}" />
-
-					<div class="box">
-						<h3>기본 설정</h3>
-
-						<div class="box_wrap">
-							<label>Title</label>
-							<input type="text" name="title" value="">
-							<span class="desc">브라우저 및 meta 태그의 타이틀</span>
-						</div>
-						<!-- // .box_wrap -->
-
-						<div class="box_wrap">
-							<label>Logo</label>
-							<input type="text" name="logo" value="">
-							<span class="desc">로고 이미지 경로 (미지정시 Title 표기)</span>
-						</div>
-						<!-- // .box_wrap -->
-					</div>
-					<!-- // .box -->
-
-					<div class="box">
-						<h3>meta 태그 설정</h3>
-
-						<div class="box_wrap">
-							<label for="athor">Author</label>
-							<input type="text" id="athor" name="athor" value="">
-							<span class="desc">해당 페이지 소유주</span>
-						</div>
-						<!-- // .box_wrap -->
-
-						<div class="box_wrap">
-							<label>Reply</label>
-							<input type="text" name="reply" value="">
-							<span class="desc">해당 페이지 소유주의 이메일</span>
-						</div>
-						<!-- // .box_wrap -->
-
-						<div class="box_wrap">
-							<label>Keyword</label>
-							<input type="text" name="keyword" value="">
-							<span class="desc">검색 엔진에 노출될 해당 페이지 키워드</span>
-						</div>
-						<!-- // .box_wrap -->
-
-						<div class="box_wrap">
-							<label>Description</label>
-							<input type="text" name="description" value="">
-							<span class="desc">검색 엔진에 노출될 해당 페이지 설명</span>
-						</div>
-						<!-- // .box_wrap -->
-					</div>
-					<!-- // .box -->
-
-					<div class="box">
-						<h3>하단 정보 설정</h3>
-
-						<div class="box_wrap">
-							<label>상호명</label>
-							<input type="text" name="businessName" value="">
-							<span class="desc">footer에 표기될 사업자 등록된 상호명</span>
-						</div>
-						<!-- // .box_wrap -->
-
-						<div class="box_wrap">
-							<label>사업자번호</label>
-							<input type="text" name="businessNumber" value="">
-							<span class="desc">footer에 표기될 사업자 번호</span>
-						</div>
-						<!-- // .box_wrap -->
-
-						<div class="box_wrap">
-							<label>대표</label>
-							<input type="text" name="ceo" value="">
-							<span class="desc">footer에 표기될 사업자 등록된 대표명</span>
-						</div>
-						<!-- // .box_wrap -->
-
-						<div class="box_wrap">
-							<label>주소</label>
-							<input type="text" name="address" value="">
-							<span class="desc">footer에 표기될 사업자 등록된 주소</span>
-						</div>
-						<!-- // .box_wrap -->
-
-						<div class="box_wrap">
-							<label>연락처</label>
-							<input type="text" name="tel" value="">
-							<span class="desc">footer에 표기될 사업자 등록된 연락처</span>
-						</div>
-						<!-- // .box_wrap -->
-
-						<div class="box_wrap">
-							<label>팩스</label>
-							<input type="text" name="fax" value="">
-							<span class="desc">footer에 표기될 사업자 등록된 팩스번호</span>
-						</div>
-						<!-- // .box_wrap -->
-
-						<div class="box_wrap">
-							<label>이메일</label>
-							<input type="text" name="email" value="">
-							<span class="desc">footer에 표기될 사업자 등록된 이메일</span>
-						</div>
-						<!-- // .box_wrap -->
-
-						<div class="box_wrap">
-							<label>설립년도</label>
-							<input type="text" name="startYear" value="">
-							<span class="desc">footer의 coptright에 표기될 설립년도</span>
-						</div>
-						<!-- // .box_wrap -->
-					</div>
-					<!-- // .box -->
-
-					<div class="box">
-						<h3>시작 페이지 게시글 갯수 설정</h3>
-
-						<div class="box_wrap">
-							<label>게시판 별 갯수</label>
-							<input type="text" name="indexViewCount" value="">
-							<span class="desc">index 페이지에 보여질 게시판 별 게시글 갯수</span>
-						</div>
-						<!-- // .box_wrap -->
-
-						<div class="box_wrap">
-							<label>전체 게시판 갯수</label>
-							<input type="text" name="indexViewCountTotal" value="">
-							<span class="desc">index 페이지에 보여질 전체 게시판 게시글 갯수</span>
-						</div>
-						<!-- // .box_wrap -->
-					</div>
-					<!-- // .box -->
-
-					<button>저장</button>
-				</fieldset>
-			</form>
+			<c:import url="template/admin/base.jsp" />
 		</div>
 		<!-- // .box.base -->
 
+		<div class="box menuType">
+			<c:import url="template/admin/menuType.jsp" />
+		</div>
+		<!-- // .box.menuType -->
+
 		<div class="box boardType">
-			<h2>게시판 설정</h2>
-
-			<form action="/admin/setting/board/update" method="post">
-				<fieldset>
-					<legend class="screen_out">게시판 설정</legend>
-					<input type="hidden" name="CSRFToken" value="${CSRFToken}" />
-
-					<select name="no">
-						<c:forEach items="${boardSetting.boardTypeList}" var="boardType">
-							<option value="${boardType.no}">${boardType.name}</option>
-						</c:forEach>
-						<option value="0">신규 게시판 추가</option>
-					</select>
-
-					<div class="box">
-						<h3>필수 기본 설정</h3>
-
-						<div class="box_wrap">
-							<label>순서</label>
-							<input type="text" name="order" value="">
-							<span class="desc">index 페이지 및 메뉴 표기 순서</span>
-						</div>
-						<!-- // .box_wrap -->
-
-						<div class="box_wrap">
-							<label>이름</label>
-							<input type="text" name="name" value="">
-							<span class="desc">화면에 보여지는 이름</span>
-						</div>
-						<!-- // .box_wrap -->
-
-						<div class="box_wrap">
-							<label>설명</label>
-							<input type="text" name="description" value="">
-							<span class="desc">해당 게시판의 간략한 설명</span>
-						</div>
-						<!-- // .box_wrap -->
-
-						<div class="box_wrap">
-							<label>URL</label>
-							<input type="text" name="url" value="">
-							<span class="desc">주소창에 보여질 영문주소</span>
-						</div>
-						<!-- // .box_wrap -->
-					</div>
-					<!-- // .box -->
-
-					<div class="box">
-						<h3>ON/OFF 설정</h3>
-
-						<div class="box_wrap">
-							<label>게시판 활성화</label>
-							<select name="use">
-								<option value="true">활성화</option>
-								<option value="false">비활성화</option>
-							</select>
-							<span class="desc">비활성화시 접근 불가</span>
-						</div>
-						<!-- // .box_wrap -->
-
-						<div class="box_wrap">
-							<label>글쓴이 공개</label>
-							<select name="anonymous">
-								<option value="false">공개</option>
-								<option value="true">익명</option>
-							</select>
-							<span class="desc">게시글 및 댓글 작성자 익명 여부</span>
-						</div>
-						<!-- // .box_wrap -->
-
-						<div class="box_wrap" data-low="useComment,useAttachFile,useWriteCode,useCommentCode,readGrade" data-on="false">
-							<label>비밀 게시글</label>
-							<select name="secret">
-								<option value="false">공개 글</option>
-								<option value="true">비밀 글</option>
-							</select>
-							<span class="desc">비밀 글은 작성자와 운영자만 열람 가능</span>
-						</div>
-						<!-- // .box_wrap -->
-
-						<div class="box_wrap">
-							<label>기본 보기 형식</label>
-							<select name="album">
-								<option value="false">리스트</option>
-								<option value="true">앨범</option>
-							</select>
-							<span class="desc">앨범 보기시 썸네일 이미지 표기</span>
-						</div>
-						<!-- // .box_wrap -->
-
-						<div class="box_wrap" data-low="useCommentCode,commentPoint,commentGrade" data-on="true">
-							<label>댓글</label>
-							<select name="useComment">
-								<option value="false">미사용</option>
-								<option value="true">사용</option>
-							</select>
-							<span class="desc">미사용시 댓글 작성 불가</span>
-						</div>
-						<!-- // .box_wrap -->
-
-						<div class="box_wrap" data-low="downloadPoint,downloadGrade" data-on="true">
-							<label>첨부파일</label>
-							<select name="useAttachFile">
-								<option value="false">미사용</option>
-								<option value="true">사용</option>
-							</select>
-							<span class="desc">첨부파일 허용 여부</span>
-						</div>
-						<!-- // .box_wrap -->
-
-						<div class="box_wrap">
-							<label>OCR: 글 작성</label>
-							<select name="useWriteCode">
-								<option value="false">미사용</option>
-								<option value="true">사용</option>
-							</select>
-							<span class="desc">글 작성시 도배 방지 코드 적용</span>
-						</div>
-						<!-- // .box_wrap -->
-
-						<div class="box_wrap">
-							<label for="useCommentCode">OCR: 댓글 작성</label>
-							<select name="useCommentCode">
-								<option value="false">미사용</option>
-								<option value="true">사용</option>
-							</select>
-							<span class="desc">댓글 작성시 도배 방지 코드 적용</span>
-						</div>
-						<!-- // .box_wrap -->
-					</div>
-					<!-- // .box -->
-
-					<div class="box">
-						<h3>값 설정</h3>
-
-						<div class="box_wrap">
-							<label>글 작성 포인트</label>
-							<input type="text" name="writePoint" value="">
-							<span class="desc">글 작성시 작성자에게 지급할 포인트</span>
-						</div>
-						<!-- // .box_wrap -->
-
-						<div class="box_wrap">
-							<label>댓글 작성 포인트</label>
-							<input type="text" name="commentPoint" value="">
-							<span class="desc">댓글 작성시 작성자에게 지급할 포인트</span>
-						</div>
-						<!-- // .box_wrap -->
-
-						<div class="box_wrap">
-							<label>추천 포인트</label>
-							<input type="text" name="thumbPoint" value="">
-							<span class="desc">게시글 추천시 작성자에게 지급할 포인트</span>
-						</div>
-						<!-- // .box_wrap -->
-
-						<div class="box_wrap">
-							<label>다운로드 소모 포인트</label>
-							<input type="text" name="downloadPoint" value="">
-							<span class="desc">첨부파일 다운로드시 필요한 포인트</span>
-						</div>
-						<!-- // .box_wrap -->
-
-						<div class="box_wrap">
-							<label>인기글 추천 갯수</label>
-							<input type="text" name="popularThumb" value="">
-							<span class="desc">인기글이 되기위한 최소 추천 갯수</span>
-						</div>
-						<!-- // .box_wrap -->
-					</div>
-					<!-- // .box -->
-
-					<div class="box">
-						<h3>등급 설정</h3>
-
-						<div class="box_wrap">
-							<label>글작성 등급</label>
-							<input type="text" name="writeGrade" value="">
-							<span class="desc">글 작성이 가능한 등급</span>
-						</div>
-						<!-- // .box_wrap -->
-
-						<div class="box_wrap">
-							<label>글읽기 등급</label>
-							<input type="text" name="readGrade" value="">
-							<span class="desc">게시글 읽기가 가능한 등급</span>
-						</div>
-						<!-- // .box_wrap -->
-
-						<div class="box_wrap">
-							<label>댓글작성 등급</label>
-							<input type="text" name="commentGrade" value="">
-							<span class="desc">댓글 작성이 가능한 등급</span>
-						</div>
-						<!-- // .box_wrap -->
-
-						<div class="box_wrap">
-							<label>다운로드 등급</label>
-							<input type="text" name="downloadGrade" value="">
-							<span class="desc">첨부파일 다운로드가 가능한 등급</span>
-						</div>
-						<!-- // .box_wrap -->
-
-						<div class="box_wrap">
-							<label>관리자 등급</label>
-							<input type="text" name="adminGrade" value="">
-							<span class="desc">게시판 관리자 등급(수정/삭제 가능)</span>
-						</div>
-						<!-- // .box_wrap -->
-					</div>
-					<!-- // .box -->
-
-					<button type="submit">저장</button>
-				</fieldset>
-			</form>
+			<c:import url="template/admin/boardType.jsp" />
 		</div>
 		<!-- // .box.boardType -->
-
-		<div class="box nav">
-			<h2>메뉴 설정</h2>
-		</div>
-		<!-- // .box.nav -->
 
 		<div class="box board">
 			<h2>게시글 관리</h2>
@@ -475,6 +120,8 @@
 		$(window).load(function() {
 			if ($(".content .box.base").hasClass("on")) {
 				getBaseInfo();
+			} else if ($(".content .box.menuType").hasClass("on")) {
+				getMenuTypeInfo();
 			} else if ($(".content .box.boardType").hasClass("on")) {
 				getBoardTypeInfo();
 			}
@@ -518,11 +165,21 @@
 
 			if (className == "base") {
 				getBaseInfo();
+			} else if (className == "menuType") {
+				getMenuTypeInfo();
 			} else if (className == "boardType") {
 				getBoardTypeInfo();
 			}
 		});
 
+		// form 전송 전 confirm
+		$(".content .box .form_update").submit(function() {
+			if (!confirm("저장 하시겠습니까?")) {
+				return false;
+			}
+		});
+
+		// form에 정보 입력
 		function setValue($form, infoObj) {
 			for (attr in infoObj) {
 				if (typeof infoObj[attr] === "boolean") {
@@ -538,6 +195,7 @@
 
 	<!-- 기본 정보 설정 -->
 	<script>
+		// 기본 정보 취득
 		function getBaseInfo() {
 			$.ajax("/admin/setting/base", {
 				type: "GET",
@@ -551,13 +209,139 @@
 				alert(error + " : " + code);
 				console.log(xhr.status + " : " + code + "\n" + xhr.responseText);
 			}).done(function(info) {
-				setValue($(".content .box.base form"), info);
+				setValue($(".content .box.base .form_update"), info);
+			});
+		}
+	</script>
+
+	<!-- 메뉴 설정 -->
+	<script type="text/template" id="subMenuTmp">
+	<@ _.each(list, function(subMenu) { @>
+		<div class="box_wrap">
+			<span class="delete sub">
+				<i class="fa fa-trash"></i> 삭제
+			</span>
+			<label>순서</label>
+			<input required type="text" name="order" value="<@=subMenu.order@>">
+			<label>이름</label>
+			<input required type="text" name="name" value="<@=subMenu.name@>">
+			<label>URL</label>
+			<input required type="text" name="url" value="<@=subMenu.url@>">
+		</div>
+	<@ }) @>
+	</script>
+
+	<script>
+		var $items = $(".content .box.menuType .items");
+		var subMenuTmpFunc = _.template($("#subMenuTmp").html());
+
+		// 신규 메뉴 추가
+		$(".content .box.menuType select[name='no']").change(function() {
+			if ($(this).val() == 0) {
+				$items.html("");
+				$(".content .box.menuType input[name!='CSRFToken']").val("");
+				$(".content .box.menuType select").val("true");
+				$(this).val(0);
+				$(".content .box.menuType .delete.main").hide();
+			} else {
+				getMenuTypeInfo();
+				$(".content .box.menuType .delete.main").show();
+			}
+		});
+
+		// 신규 서브 메뉴 추가
+		$(".content .box.menuType .add").click(function() {
+			if (!confirm("신규 서브 메뉴를 추가 하시겠습니까?")) {
+				return false;
+			}
+			var item = {
+				order: "",
+				name: "",
+				url: ""
+			}
+			var code = subMenuTmpFunc({
+				list: [ item ]
+			});
+			$items.append(code);
+		});
+
+		// 서브 메뉴 삭제
+		$(".content .box.menuType .items").on("click", ".delete.sub", function() {
+			if (!confirm("해당 서브 메뉴를 삭제 하시겠습니까?")) {
+				return false;
+			}
+
+			$(this).parents(".box_wrap").remove();
+		});
+
+		// form_update 전송
+		$(".content .box.menuType .form_update").submit(function() {
+			var no = $(this).find("select[name='no']").val();
+			var method = (no == 0) ? "POST" : "PUT";
+
+			// url, mehotd 지정
+			$(this).attr("action", "/admin/setting/menuType/" + no);
+			$(this).find("input[name='_method']").val(method);
+
+			// subMenuList 구성
+			var items = $(this).find(".items .box_wrap");
+			items.each(function(idx) {
+				var inputs = $(this).find("input");
+				inputs.each(function() {
+					var attr = $(this).attr("name");
+					$(this).attr("name", "subMenuList[" + idx + "]." + attr);
+				});
+			});
+		});
+
+		// 삭제
+		$(".content .box.menuType .delete.main").click(function() {
+			if (!confirm("해당 메뉴를 정말 삭제 하시겠습니까?")) {
+				return false;
+			}
+
+			var no = $(this).parents(".form_update").find("select[name='no']").val();
+			if (no == 0) {
+				return false;
+			}
+			var $deleteForm = $(this).parents(".box").find(".form_delete");
+			$deleteForm.attr("action", "/admin/setting/menuType/" + no);
+			$deleteForm.submit();
+		});
+
+		// 메뉴 정보 취득
+		function getMenuTypeInfo() {
+			var no = $(".content .box.menuType select[name='no']").val();
+			if (no == 0) {
+				return;
+			}
+			$.ajax("/admin/setting/menuType/" + no, {
+				type: "GET",
+				dataType: "json",
+				data: {
+					no: no
+				},
+				beforeSend: function() {
+					$loader.show();
+				}
+			}).always(function() {
+				$loader.fadeOut(200);
+			}).fail(function(xhr, error, code) {
+				alert(error + " : " + code);
+				console.log(xhr.status + " : " + code + "\n" + xhr.responseText);
+			}).done(function(info) {
+				setValue($(".content .box.menuType .form_update"), info);
+				var code = subMenuTmpFunc({
+					list: info.subMenuList
+				});
+				$items.html(code);
 			});
 		}
 	</script>
 
 	<!-- 게시판 설정 -->
 	<script>
+		// 신규 게시판 추가
 		$(".content .box.boardType select[name='no']").change(function() {
 			if ($(this).val() == 0) {
 				$(".content .box.boardType input[name!='CSRFToken']").val("");
@@ -577,7 +361,7 @@
 				$(".content .box.boardType [name='commentGrade']").val("1");
 				$(".content .box.boardType [name='downloadGrade']").val("1");
 				$(".content .box.boardType [name='adminGrade']").val("9999");
-				
+
 				$(".content .box.boardType select[name!='no']").each(function() {
 					var lows = $(this).parents(".box_wrap").attr("data-low");
 					var value = $(this).parents(".box_wrap").attr("data-on");
@@ -589,11 +373,14 @@
 					lows = lows.split(",");
 					toggleLows(show, lows);
 				});
+				$(".content .box.boardType .delete.main").hide();
 			} else {
 				getBoardTypeInfo();
+				$(".content .box.boardType .delete.main").show();
 			}
 		});
 
+		// ON/OFF 설정
 		$(".content .box.boardType select[name!='no']").change(function() {
 			var lows = $(this).parents(".box_wrap").attr("data-low");
 			var value = $(this).parents(".box_wrap").attr("data-on");
@@ -632,12 +419,41 @@
 			}
 		}
 
+		// form_update 전송
+		$(".content .box.boardType .form_update").submit(function() {
+			var no = $(this).find("select[name='no']").val();
+			var method = (no == 0) ? "POST" : "PUT";
+
+			// url, mehotd 지정
+			$(this).attr("action", "/admin/setting/boardType/" + no);
+			$(this).find("input[name='_method']").val(method);
+		});
+
+		// 삭제
+		$(".content .box.boardType .delete.main").click(function() {
+			if (!confirm("해당 게시판을 정말 삭제 하시겠습니까?")) {
+				return false;
+			}
+			if (!confirm("게시글/댓글/첨부파일등 게시판의 모든 하위 데이터가 삭제 됩니다.\r정말 삭제 하시겠습니까?")) {
+				return false;
+			}
+
+			var no = $(this).parents(".form_update").find("select[name='no']").val();
+			if (no == 0) {
+				return false;
+			}
+			var $deleteForm = $(this).parents(".box").find(".form_delete");
+			$deleteForm.attr("action", "/admin/setting/boardType/" + no);
+			$deleteForm.submit();
+		});
+
+		// 게시판 정보 취득
 		function getBoardTypeInfo() {
-			var no = $(".content .box.boardType select[name=no]").val();
+			var no = $(".content .box.boardType select[name='no']").val();
 			if (no == 0) {
 				return;
 			}
-			$.ajax("/admin/setting/board", {
+			$.ajax("/admin/setting/boardType/" + no, {
 				type: "GET",
 				dataType: "json",
 				data: {
@@ -652,8 +468,8 @@
 				alert(error + " : " + code);
 				console.log(xhr.status + " : " + code + "\n" + xhr.responseText);
 			}).done(function(info) {
-				setValue($(".content .box.boardType form"), info);
-				
+				setValue($(".content .box.boardType .form_update"), info);
+
 				$(".content .box.boardType select[name!='no']").each(function() {
 					var lows = $(this).parents(".box_wrap").attr("data-low");
 					var value = $(this).parents(".box_wrap").attr("data-on");

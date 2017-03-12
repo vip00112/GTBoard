@@ -3,13 +3,6 @@
     margin-top: 41px;
 }
 
-.wrap.header .gnav:after,
-.wrap.header .gnav .menu:after {
-    display: block;
-    content: "";
-    clear: both;
-}
-
 .wrap.header .gnav>.menu li a {
     display: block;
     height: 0;
@@ -45,12 +38,17 @@
     .wrap.header {
         border-bottom: 1px solid #aaa;
     }
-    .wrap.header .gnav>.menu li {
-        background-color: transparent;
+    .wrap.header .gnav>.menu {
+        width: 100%;
+        display: table;
+        table-layout: fixed;
     }
     .wrap.header .gnav>.menu>li {
-        width: 20%;
-        float: left;
+        width: 100%;
+        display: table-cell;
+    }
+    .wrap.header .gnav>.menu li {
+        background-color: transparent;
     }
     .wrap.header .gnav>.menu li a {
         padding: 0;

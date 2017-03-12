@@ -9,11 +9,14 @@ import com.gt.board.util.XMLUtil;
 import com.gt.board.vo.xml.BaseSetting;
 import com.gt.board.vo.xml.BoardSetting;
 import com.gt.board.vo.xml.BoardType;
+import com.gt.board.vo.xml.MenuSetting;
+import com.gt.board.vo.xml.MenuType;
 
 @Service
 public class SettingServiceImpl implements SettingService {
     private BaseSetting baseSetting; // 사이트 기본 정보 설정
     private BoardSetting boardSetting; // 게시판 설정
+    private MenuSetting menuSetting; // 메뉴 설정
 
     private XMLUtil xmlUtil;
 
@@ -32,6 +35,9 @@ public class SettingServiceImpl implements SettingService {
             case BOARD: // 게시판 설정 객체
                 boardSetting = (BoardSetting) xmlUtil.getUnmarshalObject(BoardSetting.class, path);
                 break;
+            case MENU: // 메뉴 설정 객체
+                menuSetting = (MenuSetting) xmlUtil.getUnmarshalObject(MenuSetting.class, path);
+                break;
             }
         }
     }
@@ -45,6 +51,9 @@ public class SettingServiceImpl implements SettingService {
             break;
         case BOARD: // 게시판 설정 객체
             xmlUtil.setMarshalObject(BoardSetting.class, boardSetting, path);
+            break;
+        case MENU: // 메뉴 설정 객체
+            xmlUtil.setMarshalObject(MenuSetting.class, menuSetting, path);
             break;
         }
     }
@@ -60,6 +69,21 @@ public class SettingServiceImpl implements SettingService {
     }
 
     @Override
+    public MenuSetting getMenuSetting() {
+        return menuSetting;
+    }
+
+    @Override
+    public void setMenuSetting(MenuType menuType) {
+        menuSetting.setMenuType(menuType);
+    }
+
+    @Override
+    public void removeMenuSetting(int no) {
+        menuSetting.removeItem(no);
+    }
+
+    @Override
     public BoardSetting getBoardSetting() {
         return boardSetting;
     }
@@ -67,5 +91,10 @@ public class SettingServiceImpl implements SettingService {
     @Override
     public void setBoardSetting(BoardType boardType) {
         boardSetting.setBoardType(boardType);
+    }
+
+    @Override
+    public void removeBoardSetting(int no) {
+        boardSetting.removeItem(no);
     }
 }

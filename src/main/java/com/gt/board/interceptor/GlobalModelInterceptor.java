@@ -58,11 +58,10 @@ public class GlobalModelInterceptor extends HandlerInterceptorAdapter {
             if ((isHasView && !isRedirectView) || (!isHasView && !isRedirectViewByName)) {
                 HttpSession session = request.getSession();
 
-                // 사이트 기본 정보 설정
+                // xml 설정
                 session.setAttribute(SessionAttribute.SETTING_BASE, settingService.getBaseSetting());
-
-                // 게시판 설정
                 session.setAttribute(SessionAttribute.SETTING_BOARD, settingService.getBoardSetting());
+                session.setAttribute(SessionAttribute.SETTING_MENU, settingService.getMenuSetting());
 
                 // 이미지/첨부파일 업로드 임시 파일 삭제
                 @SuppressWarnings("unchecked")

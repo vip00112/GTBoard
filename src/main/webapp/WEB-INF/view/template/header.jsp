@@ -1,11 +1,27 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
     <div class="wrap header">
         <header class="container">
             <nav class="gnav">
                 <ul class="menu">
-                    <li>
+                	<c:forEach items="${menuSetting.menuTypeList}" var="menuType">
+                		<li>
+                			<a href="${menuType.url}">${menuType.name}</a>
+                			
+                			<c:if test="${fn:length(menuType.subMenuList) > 0}">
+                				<ul class="menu sub">
+		                			<c:forEach items="${menuType.subMenuList}" var="subMenu">
+		                				<li>
+		                					<a href="${subMenu.url}">${subMenu.name}</a>
+		                				</li>
+		                			</c:forEach>
+                				</ul>
+                			</c:if>
+                		</li>
+                	</c:forEach>
+                    <%-- <li>
                         <a href="/notice"><i class="fa fa-bolt fa-fw"></i> 공지사항</a>
                     </li>
                     <li>
@@ -42,7 +58,7 @@
 
                         <ul class="menu sub">
 			            	<c:choose>
-			            		<%-- 로그인되지 않은 상태 --%>
+			            		로그인되지 않은 상태
 			            		<c:when test="${loginUser == null}">
 					                <li>
 					                    <a href="/login" title="로그인">로그인</a>
@@ -52,7 +68,7 @@
 					                </li>
 			            		</c:when>
 			            		
-			            		<%-- 최고 관리자로 로그인된 상태 --%>
+			            		최고 관리자로 로그인된 상태
 			            		<c:when test="${loginUser.admin}">
 					                <li>
 					                    <a href="/admin" title="사이트 관리" target="_blank">사이트 관리</a>
@@ -65,7 +81,7 @@
 					                </li>
 			            		</c:when>
 			            		
-			            		<%-- 그 외: 일반 유저로 로그인된 상태 --%>
+			            		그 외: 일반 유저로 로그인된 상태
 			            		<c:otherwise>
 					                <li>
 					                    <a href="/user/${loginUser.no}" title="내정보">내정보</a>
@@ -76,7 +92,7 @@
 			            		</c:otherwise>
 			            	</c:choose>
                         </ul>
-                    </li>
+                    </li> --%>
                 </ul>
             </nav>
             

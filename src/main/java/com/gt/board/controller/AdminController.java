@@ -5,9 +5,9 @@ import java.io.File;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.gt.board.enums.Path;
@@ -16,6 +16,8 @@ import com.gt.board.service.other.SettingService;
 import com.gt.board.vo.xml.BaseSetting;
 import com.gt.board.vo.xml.BoardSetting;
 import com.gt.board.vo.xml.BoardType;
+import com.gt.board.vo.xml.MenuSetting;
+import com.gt.board.vo.xml.MenuType;
 
 @Controller
 public class AdminController {
@@ -39,7 +41,7 @@ public class AdminController {
     }
 
     // baseSetting 정보 수정
-    @RequestMapping(value = "/admin/setting/base/update", method = RequestMethod.POST)
+    @RequestMapping(value = "/admin/setting/base", method = RequestMethod.PUT)
     public String baseSettingUpdate(HttpSession session, BaseSetting baseSetting) {
         String path = session.getServletContext().getRealPath(Path.SETTING.getPath());
         settingService.setBaseSetting(baseSetting);
@@ -53,19 +55,80 @@ public class AdminController {
         return "redirect:/admin";
     }
 
-    // boardSetting 정보 요청 json 반환
-    @RequestMapping(value = "/admin/setting/board", method = RequestMethod.GET, produces = "application/json")
+    // menuSetting 정보 요청 json 반환
+    @RequestMapping(value = "/admin/setting/menuType/{no:[0-9]+}", method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
-    public BoardType boardSetting(HttpSession session, @RequestParam int no) {
+    public MenuType menuSetting(HttpSession session, @PathVariable int no) {
+        MenuSetting menuSetting = settingService.getMenuSetting();
+        return menuSetting.getMenuType(no);
+    }
+
+    // menuSetting 정보 추가/수정
+    @RequestMapping(value = "/admin/setting/menuType/{no:[0-9]+}", method = { RequestMethod.POST, RequestMethod.PUT })
+    public String menuSettingUpdate(HttpSession session, @PathVariable int no, MenuType menuType) {
+        if (no != menuType.getNo()) {
+            return "redirect:/error";
+        }
+
+        String path = session.getServletContext().getRealPath(Path.SETTING.getPath());
+        settingService.setMenuSetting(menuType);
+        settingService.writeSettingXML(path, SettingFile.MENU);
+
+        // 실제 프로젝트 폴더 절대 경로
+        path = Path.SETTING.getLocalPath();
+        if (new File(path).exists()) {
+            settingService.writeSettingXML(path, SettingFile.MENU);
+        }
+        return "redirect:/admin";
+    }
+
+    // menuSetting 정보 삭제
+    @RequestMapping(value = "/admin/setting/menuType/{no:[0-9]+}", method = RequestMethod.DELETE)
+    public String menuSettingDelete(HttpSession session, @PathVariable int no) {
+        String path = session.getServletContext().getRealPath(Path.SETTING.getPath());
+        settingService.removeMenuSetting(no);
+        settingService.writeSettingXML(path, SettingFile.MENU);
+
+        // 실제 프로젝트 폴더 절대 경로
+        path = Path.SETTING.getLocalPath();
+        if (new File(path).exists()) {
+            settingService.writeSettingXML(path, SettingFile.MENU);
+        }
+        return "redirect:/admin";
+    }
+
+    // boardSetting 정보 요청 json 반환
+    @RequestMapping(value = "/admin/setting/boardType/{no:[0-9]+}", method = RequestMethod.GET, produces = "application/json")
+    @ResponseBody
+    public BoardType boardSetting(HttpSession session, @PathVariable int no) {
         BoardSetting boardSetting = settingService.getBoardSetting();
         return boardSetting.getBoardType(no);
     }
 
-    // baseSetting 정보 수정
-    @RequestMapping(value = "/admin/setting/board/update", method = RequestMethod.POST)
-    public String boardSettingUpdate(HttpSession session, @RequestParam int no, BoardType boardSetting) {
+    // baseSetting 정보 추가/수정
+    @RequestMapping(value = "/admin/setting/boardType/{no:[0-9]+}", method = { RequestMethod.POST, RequestMethod.PUT })
+    public String boardSettingUpdate(HttpSession session, @PathVariable int no, BoardType boardType) {
+        if (no != boardType.getNo()) {
+            return "redirect:/error";
+        }
+
         String path = session.getServletContext().getRealPath(Path.SETTING.getPath());
-        settingService.setBoardSetting(boardSetting);
+        settingService.setBoardSetting(boardType);
+        settingService.writeSettingXML(path, SettingFile.BOARD);
+
+        // 실제 프로젝트 폴더 절대 경로
+        path = Path.SETTING.getLocalPath();
+        if (new File(path).exists()) {
+            settingService.writeSettingXML(path, SettingFile.BOARD);
+        }
+        return "redirect:/admin";
+    }
+
+    // baseSetting 정보 삭제
+    @RequestMapping(value = "/admin/setting/boardType/{no:[0-9]+}", method = RequestMethod.DELETE)
+    public String boardSettingDelete(HttpSession session, @PathVariable int no) {
+        String path = session.getServletContext().getRealPath(Path.SETTING.getPath());
+        settingService.removeBoardSetting(no);
         settingService.writeSettingXML(path, SettingFile.BOARD);
 
         // 실제 프로젝트 폴더 절대 경로

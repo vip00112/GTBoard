@@ -13,37 +13,24 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "BoardSetting")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class BoardSetting {
-    @XmlElement(name = "BoardType")
-    private List<BoardType> boardTypeList;
+    @XmlElement(name = "BoardType") private List<BoardType> boardTypeList;
 
     public List<BoardType> getBoardTypeList() {
         return boardTypeList;
     }
 
     public void setBoardTypeList(List<BoardType> boardTypeList) {
-        this.boardTypeList = boardTypeList;
         Collections.sort(boardTypeList, new AscCompare());
+        this.boardTypeList = boardTypeList;
     }
 
     /** 해당 boardType 추가/수정
      *  @param boardType 게시판 정보 **/
     public void setBoardType(BoardType boardType) {
         if (boardType.getNo() == 0) { // 추가
-            int maxNo = 0;
-            for (BoardType old : boardTypeList) {
-                if (old.getNo() > maxNo) {
-                    maxNo = old.getNo();
-                }
-            }
-            maxNo += 1;
-            boardType.setNo(maxNo);
+            boardType.setNo(getNewNo());
         } else { // 수정
-            for (BoardType old : boardTypeList) {
-                if (old.getNo() == boardType.getNo()) {
-                    boardTypeList.remove(old);
-                    break;
-                }
-            }
+            removeItem(boardType.getNo());
         }
         boardTypeList.add(boardType);
         Collections.sort(boardTypeList, new AscCompare());
@@ -69,6 +56,28 @@ public class BoardSetting {
             }
         }
         return null;
+    }
+
+    /** 해당 no의 기존 아이템 삭제
+     *  @param no 게시판 no **/
+    public void removeItem(int no) {
+        for (BoardType boardType : boardTypeList) {
+            if (boardType.getNo() == no) {
+                boardTypeList.remove(boardType);
+                break;
+            }
+        }
+    }
+
+    // 새로운 no 취득
+    private int getNewNo() {
+        int maxNo = 0;
+        for (BoardType boardType : boardTypeList) {
+            if (boardType.getNo() > maxNo) {
+                maxNo = boardType.getNo();
+            }
+        }
+        return maxNo += 1;
     }
 
     // BoardType의 order값 오름차순 정렬
