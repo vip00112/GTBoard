@@ -45,7 +45,10 @@ import com.gt.board.vo.Board;
 import com.gt.board.vo.Comment;
 import com.gt.board.vo.Thumb;
 import com.gt.board.vo.User;
+import com.gt.board.vo.xml.BoardSetting;
 import com.gt.board.vo.xml.BoardType;
+import com.gt.board.vo.xml.MenuType;
+import com.gt.board.vo.xml.MenuTypeSub;
 
 @Controller
 public class BoardController {
@@ -95,6 +98,53 @@ public class BoardController {
 
     public void setFileUtil(FileUtil fileUtil) {
         this.fileUtil = fileUtil;
+    }
+
+    // 메뉴 별 게시판 전체보기 목록 페이지 진입
+    @RequestMapping(value = "/board/all/{menuNo:[0-9]+}", method = RequestMethod.GET)
+    public String boardList(@PathVariable int menuNo, Model model,
+            @RequestParam(defaultValue = "title") String searchType,
+            @RequestParam(defaultValue = "") String search,
+            @RequestParam(defaultValue = "1") int pageNo,
+            @RequestParam(defaultValue = "30") int numPage,
+            @RequestParam(defaultValue = "regdate_DESC") String order,
+            @RequestParam(defaultValue = "0") int popularThumb) {
+
+        // 유효한 정렬 방식 확인: 입력 값 그대로 쿼리로 들어가기 때문
+        if (!order.equals("regdate_DESC") && !order.equals("hit_DESC") && !order.equals("thumb_DESC") && !order.equals("commentCount_DESC")) {
+            order = "regdate_DESC";
+        }
+
+        // 유효한 메뉴 확인
+        MenuType menu = settingService.getMenuSetting().getMenuType(menuNo);
+        if (menu == null || menu.getSubMenuList() == null || menu.getSubMenuList().size() == 0) {
+            return "redirect:/error";
+        }
+
+        // 하위 메뉴중 게시판 typeNo 취득
+        List<Integer> typeNoList = new ArrayList<Integer>();
+        BoardSetting boardSetting = settingService.getBoardSetting();
+        for (MenuTypeSub subMenu : menu.getSubMenuList()) {
+            if (subMenu.getUrl().startsWith("/board/")) {
+                String url = subMenu.getUrl().substring(7);
+                BoardType boardType = boardSetting.getBoardType(url);
+                if (boardType != null && boardType.isUse()) {
+                    typeNoList.add(boardType.getNo());
+                }
+            }
+        }
+
+        // 하위 메뉴중 게시판이 없을 경우 처리
+        if (typeNoList.size() == 0) {
+            return "redirect:/error";
+        }
+
+        String name = menu.getName().replaceAll("<(/)?([a-zA-Z]*)(\\s[a-zA-Z]*=[^>]*)?(\\s)*(/)?>", "");
+        model.addAttribute("boardType", new BoardType(0, name, "'" + name + "' 메뉴의 모든 게시글을 볼 수 있는 공간 입니다.", "all/" + menuNo));
+
+        // 일반 게시글 리스트
+        model.addAllAttributes(boardService.getBoardList(typeNoList, "all/" + menuNo, searchType, search, pageNo, numPage, order, popularThumb));
+        return "boardList";
     }
 
     // 게시판 목록 페이지 진입
@@ -189,6 +239,7 @@ public class BoardController {
 
             model.addAttribute("boardType", new BoardType(0, "전체 보기", "모든 게시판의 글을 볼 수 있는 공간 입니다.", "all"));
         } else { // 게시판 분류에 맞는 목록
+            url = board.getBoardType().getUrl();
             typeNoList.add(board.getBoardType().getNo());
 
             model.addAttribute("boardType", board.getBoardType());

@@ -62,6 +62,11 @@ public class BoardsDAOImpl implements BoardsDAO {
     }
 
     @Override
+    public List<Board> selectListByBoardType(int typeNo) {
+        return session.selectList("boards.selectListByBoardType", typeNo);
+    }
+
+    @Override
     public int selectCount(Map<String, Object> map) {
         return session.selectOne("boards.selectCount", map);
     }

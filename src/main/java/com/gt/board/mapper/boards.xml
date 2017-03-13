@@ -71,6 +71,13 @@
 		LIMIT #{max}
 	</select>
 
+	<!-- 해당 게시판 분류의 전체 게시글 목록 -->
+	<select id="selectListByBoardType" parameterType="int" resultType="Board">
+		SELECT no, typeNo, userNo, nickname, title, content, ip, commentCount, hit, thumb, groupName, regdate, lastUpdate
+		FROM boards
+		WHERE typeNo=#{typeNo}
+	</select>
+
 	<!-- 조건에 맞는 일반 게시글 갯수 -->
 	<select id="selectCount" parameterType="hashMap" resultType="int">
 		SELECT count(*)

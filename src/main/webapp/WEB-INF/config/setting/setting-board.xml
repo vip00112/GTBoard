@@ -2,11 +2,11 @@
 <BoardSetting>
     <BoardType>
         <No>1</No>
-        <Order>1</Order>
         <Name>자유 게시판</Name>
         <Description>주제와 상관 없는 자유로운 글을 작성할 수 있는 게시판 입니다.</Description>
         <Url>free</Url>
         <IsUse>true</IsUse>
+        <IsViewMain>true</IsViewMain>
         <IsAnonymous>false</IsAnonymous>
         <IsSecret>false</IsSecret>
         <IsAlbum>false</IsAlbum>
@@ -14,31 +14,7 @@
         <IsUseWriteCode>false</IsUseWriteCode>
         <IsUseCommentCode>false</IsUseCommentCode>
         <IsUseAttachFile>false</IsUseAttachFile>
-        <WritePoint>2</WritePoint>
-        <CommentPoint>1</CommentPoint>
-        <ThumbPoint>5</ThumbPoint>
-        <DownloadPoint>0</DownloadPoint>
-        <PopularThumb>10</PopularThumb>
-        <WriteGrade>1</WriteGrade>
-        <ReadGrade>0</ReadGrade>
-        <CommentGrade>1</CommentGrade>
-        <DownloadGrade>1</DownloadGrade>
-        <AdminGrade>9999</AdminGrade>
-    </BoardType>
-    <BoardType>
-        <No>2</No>
-        <Order>2</Order>
-        <Name>사진 게시판</Name>
-        <Description>재미있는 사진 또는 글을 작성할 수 있는 게시판 입니다.</Description>
-        <Url>humor</Url>
-        <IsUse>true</IsUse>
-        <IsAnonymous>false</IsAnonymous>
-        <IsSecret>false</IsSecret>
-        <IsAlbum>true</IsAlbum>
-        <IsUseComment>true</IsUseComment>
-        <IsUseWriteCode>false</IsUseWriteCode>
-        <IsUseCommentCode>false</IsUseCommentCode>
-        <IsUseAttachFile>false</IsUseAttachFile>
+        <MainOrder>1</MainOrder>
         <WritePoint>2</WritePoint>
         <CommentPoint>1</CommentPoint>
         <ThumbPoint>5</ThumbPoint>
@@ -52,11 +28,11 @@
     </BoardType>
     <BoardType>
         <No>3</No>
-        <Order>3</Order>
         <Name>익명 게시판</Name>
         <Description>다양한 이슈에 대한 글을 작성할 수 있는 게시판 입니다.</Description>
         <Url>issue</Url>
         <IsUse>true</IsUse>
+        <IsViewMain>true</IsViewMain>
         <IsAnonymous>true</IsAnonymous>
         <IsSecret>false</IsSecret>
         <IsAlbum>false</IsAlbum>
@@ -64,6 +40,7 @@
         <IsUseWriteCode>true</IsUseWriteCode>
         <IsUseCommentCode>true</IsUseCommentCode>
         <IsUseAttachFile>false</IsUseAttachFile>
+        <MainOrder>2</MainOrder>
         <WritePoint>2</WritePoint>
         <CommentPoint>1</CommentPoint>
         <ThumbPoint>5</ThumbPoint>
@@ -77,11 +54,11 @@
     </BoardType>
     <BoardType>
         <No>5</No>
-        <Order>4</Order>
         <Name>비밀 게시판</Name>
         <Description>게시글 작성자만 볼 수 있는 게시판 입니다.</Description>
         <Url>secret</Url>
         <IsUse>true</IsUse>
+        <IsViewMain>true</IsViewMain>
         <IsAnonymous>false</IsAnonymous>
         <IsSecret>true</IsSecret>
         <IsAlbum>false</IsAlbum>
@@ -89,6 +66,7 @@
         <IsUseWriteCode>false</IsUseWriteCode>
         <IsUseCommentCode>false</IsUseCommentCode>
         <IsUseAttachFile>false</IsUseAttachFile>
+        <MainOrder>3</MainOrder>
         <WritePoint>0</WritePoint>
         <CommentPoint>0</CommentPoint>
         <ThumbPoint>0</ThumbPoint>
@@ -102,11 +80,11 @@
     </BoardType>
     <BoardType>
         <No>4</No>
-        <Order>5</Order>
         <Name>유틸 자료실</Name>
         <Description>파일을 첨부 및 다운로드가 가능한 게시판</Description>
         <Url>utility</Url>
         <IsUse>true</IsUse>
+        <IsViewMain>true</IsViewMain>
         <IsAnonymous>false</IsAnonymous>
         <IsSecret>false</IsSecret>
         <IsAlbum>false</IsAlbum>
@@ -114,6 +92,59 @@
         <IsUseWriteCode>true</IsUseWriteCode>
         <IsUseCommentCode>false</IsUseCommentCode>
         <IsUseAttachFile>true</IsUseAttachFile>
+        <MainOrder>4</MainOrder>
+        <WritePoint>2</WritePoint>
+        <CommentPoint>1</CommentPoint>
+        <ThumbPoint>5</ThumbPoint>
+        <DownloadPoint>0</DownloadPoint>
+        <PopularThumb>10</PopularThumb>
+        <WriteGrade>1</WriteGrade>
+        <ReadGrade>0</ReadGrade>
+        <CommentGrade>1</CommentGrade>
+        <DownloadGrade>1</DownloadGrade>
+        <AdminGrade>9999</AdminGrade>
+    </BoardType>
+    <BoardType>
+        <No>2</No>
+        <Name>웃긴 사진</Name>
+        <Description>재미있는 사진을 작성할 수 있는 게시판 입니다.</Description>
+        <Url>humor</Url>
+        <IsUse>true</IsUse>
+        <IsViewMain>true</IsViewMain>
+        <IsAnonymous>false</IsAnonymous>
+        <IsSecret>false</IsSecret>
+        <IsAlbum>true</IsAlbum>
+        <IsUseComment>true</IsUseComment>
+        <IsUseWriteCode>true</IsUseWriteCode>
+        <IsUseCommentCode>false</IsUseCommentCode>
+        <IsUseAttachFile>false</IsUseAttachFile>
+        <MainOrder>5</MainOrder>
+        <WritePoint>2</WritePoint>
+        <CommentPoint>1</CommentPoint>
+        <ThumbPoint>5</ThumbPoint>
+        <DownloadPoint>0</DownloadPoint>
+        <PopularThumb>10</PopularThumb>
+        <WriteGrade>1</WriteGrade>
+        <ReadGrade>0</ReadGrade>
+        <CommentGrade>1</CommentGrade>
+        <DownloadGrade>1</DownloadGrade>
+        <AdminGrade>9999</AdminGrade>
+    </BoardType>
+    <BoardType>
+        <No>6</No>
+        <Name>멋진 사진</Name>
+        <Description>멋진 사진을 작성할 수 있는 게시판 입니다.</Description>
+        <Url>nice</Url>
+        <IsUse>true</IsUse>
+        <IsViewMain>true</IsViewMain>
+        <IsAnonymous>false</IsAnonymous>
+        <IsSecret>false</IsSecret>
+        <IsAlbum>true</IsAlbum>
+        <IsUseComment>true</IsUseComment>
+        <IsUseWriteCode>true</IsUseWriteCode>
+        <IsUseCommentCode>false</IsUseCommentCode>
+        <IsUseAttachFile>false</IsUseAttachFile>
+        <MainOrder>6</MainOrder>
         <WritePoint>2</WritePoint>
         <CommentPoint>1</CommentPoint>
         <ThumbPoint>5</ThumbPoint>

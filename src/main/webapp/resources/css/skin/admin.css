@@ -42,7 +42,7 @@
     border: 1px solid #f83938;
 }
 
-.box .box_wrap .delete {
+.box .box_wrap .delete.sub {
     display: block;
     position: absolute;
     top: 0;
@@ -56,7 +56,7 @@
     color: #424242;
 }
 
-.box .box_wrap .delete:hover {
+.box .box_wrap .delete.sub:hover {
     color: red;
 }
 
@@ -81,6 +81,18 @@
     position: absolute;
     top: 0;
     right: -41px;
+}
+
+.menu a {
+    display: block;
+    width: 100%;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    text-decoration: none;
+    background-color: #f83938;
+    color: #fff;
+    font-weight: bold;
 }
 
 .menu li {
@@ -173,7 +185,7 @@
     font-weight: bold;
     color: #f83938;
     border: 1px solid #f83938;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
 }
 
 .content>.box form label {

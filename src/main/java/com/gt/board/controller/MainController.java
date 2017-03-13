@@ -71,7 +71,7 @@ public class MainController {
         List<Integer> typeNoList = new ArrayList<Integer>();
 
         for (BoardType boardType : boardTypeList) {
-            if (boardType.isUse()) {
+            if (boardType.isUse() && boardType.isViewMain()) {
                 int typeNo = boardType.getNo();
                 boardList.put(String.valueOf(typeNo), boardService.getRecentList(typeNo, indexViewCount));
                 useableBoardTypeList.add(boardType);

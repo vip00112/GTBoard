@@ -43,6 +43,10 @@ public interface BoardsDAO {
      *  @param map typeNo, max **/
     public List<Board> selectListByRecent(Map<String, Object> map);
 
+    /** 해당 게시판 분류의 전체 게시글 목록
+     *  @param typeNot BoardType.no **/
+    public List<Board> selectListByBoardType(int typeNo);
+
     /** 조건에 맞는 게시글 갯수
      *  @param map typeNoList, searchType, search **/
     public int selectCount(Map<String, Object> map);

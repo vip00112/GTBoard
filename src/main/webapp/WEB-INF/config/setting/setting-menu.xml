@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <MenuSetting>
     <MenuType Name="&lt;i class='fa fa-bolt fa-fw'&gt;&lt;/i&gt; 공지사항" No="5" Order="1" Url="/notice"/>
-    <MenuType Name="&lt;i class='fa fa-bars fa-fw'&gt;&lt;/i&gt; 게시판" No="2" Order="2" Url="/board/all">
+    <MenuType Name="&lt;i class='fa fa-bars fa-fw'&gt;&lt;/i&gt; 게시판" No="2" Order="2" Url="/board/all/2">
         <SubMenu>
             <Order>1</Order>
             <Name>자유 게시판</Name>
@@ -9,28 +9,35 @@
         </SubMenu>
         <SubMenu>
             <Order>2</Order>
-            <Name>사진 게시판</Name>
-            <Url>/board/humor</Url>
-        </SubMenu>
-        <SubMenu>
-            <Order>3</Order>
             <Name>익명 게시판</Name>
             <Url>/board/issue</Url>
         </SubMenu>
         <SubMenu>
-            <Order>4</Order>
+            <Order>3</Order>
             <Name>비밀 게시판</Name>
             <Url>/board/secret</Url>
         </SubMenu>
     </MenuType>
-    <MenuType Name="&lt;i class='fa fa-download fa-fw'&gt;&lt;/i&gt; 자료실" No="3" Order="3" Url="#">
+    <MenuType Name="&lt;i class='fa fa-download fa-fw'&gt;&lt;/i&gt; 자료실" No="3" Order="3" Url="/board/all/3">
         <SubMenu>
             <Order>1</Order>
             <Name>유틸 자료실</Name>
             <Url>/board/utility</Url>
         </SubMenu>
     </MenuType>
-    <MenuType Name="&lt;i class='fa fa-question-circle'&gt;&lt;/i&gt; 고객센터" No="1" Order="4" Url="#">
+    <MenuType Name="&lt;i class='fa fa-camera-retro fa-fw'&gt;&lt;/i&gt; 사진첩" No="6" Order="4" Url="/board/all/6">
+        <SubMenu>
+            <Order>1</Order>
+            <Name>웃긴 사진</Name>
+            <Url>/board/humor</Url>
+        </SubMenu>
+        <SubMenu>
+            <Order>2</Order>
+            <Name>멋진 사진</Name>
+            <Url>/board/nice</Url>
+        </SubMenu>
+    </MenuType>
+    <MenuType Name="&lt;i class='fa fa-question-circle'&gt;&lt;/i&gt; 고객센터" No="1" Order="5" Url="#">
         <SubMenu>
             <Order>1</Order>
             <Name>1:1 문의</Name>
@@ -41,16 +48,9 @@
             <Name>신고</Name>
             <Url>#</Url>
         </SubMenu>
-    </MenuType>
-    <MenuType Name="&lt;i class='fa fa-smile-o fa-fw'&gt;&lt;/i&gt; 광고센터" No="4" Order="5" Url="#">
         <SubMenu>
-            <Order>1</Order>
-            <Name>전체 보기</Name>
-            <Url>#</Url>
-        </SubMenu>
-        <SubMenu>
-            <Order>2</Order>
-            <Name>문의</Name>
+            <Order>3</Order>
+            <Name>광고 문의</Name>
             <Url>#</Url>
         </SubMenu>
     </MenuType>

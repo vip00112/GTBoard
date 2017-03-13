@@ -84,8 +84,8 @@ public class BoardSetting {
     private class AscCompare implements Comparator<BoardType> {
         @Override
         public int compare(BoardType value1, BoardType value2) {
-            int one = value1.getOrder();
-            int two = value2.getOrder();
+            int one = value1.getMainOrder();
+            int two = value2.getMainOrder();
             return one < two ? -1 : one > two ? 1 : 0;
         }
     }

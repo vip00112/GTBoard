@@ -59,6 +59,7 @@
 	<!-- Spring Web MVC에 대한 설정 (Controller) -->
 	<bean class="com.gt.board.controller.AdminController">
 		<property name="settingService" ref="settingService" />
+		<property name="boardService" ref="boardService" />
 	</bean>
 	<bean class="com.gt.board.controller.BoardController">
 		<property name="boardService" ref="boardService" />

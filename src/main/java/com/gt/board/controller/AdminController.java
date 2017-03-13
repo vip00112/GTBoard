@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.gt.board.enums.Path;
 import com.gt.board.enums.SettingFile;
+import com.gt.board.service.BoardService;
 import com.gt.board.service.other.SettingService;
 import com.gt.board.vo.xml.BaseSetting;
 import com.gt.board.vo.xml.BoardSetting;
@@ -22,9 +23,14 @@ import com.gt.board.vo.xml.MenuType;
 @Controller
 public class AdminController {
     private SettingService settingService;
+    private BoardService boardService;
 
     public void setSettingService(SettingService settingService) {
         this.settingService = settingService;
+    }
+
+    public void setBoardService(BoardService boardService) {
+        this.boardService = boardService;
     }
 
     // admin 페이지 진입
@@ -105,7 +111,7 @@ public class AdminController {
         return boardSetting.getBoardType(no);
     }
 
-    // baseSetting 정보 추가/수정
+    // boardSetting 정보 추가/수정
     @RequestMapping(value = "/admin/setting/boardType/{no:[0-9]+}", method = { RequestMethod.POST, RequestMethod.PUT })
     public String boardSettingUpdate(HttpSession session, @PathVariable int no, BoardType boardType) {
         if (no != boardType.getNo()) {
@@ -124,10 +130,11 @@ public class AdminController {
         return "redirect:/admin";
     }
 
-    // baseSetting 정보 삭제
+    // boardSetting 정보 삭제
     @RequestMapping(value = "/admin/setting/boardType/{no:[0-9]+}", method = RequestMethod.DELETE)
     public String boardSettingDelete(HttpSession session, @PathVariable int no) {
         String path = session.getServletContext().getRealPath(Path.SETTING.getPath());
+        boardService.deleteBoardTX(no);
         settingService.removeBoardSetting(no);
         settingService.writeSettingXML(path, SettingFile.BOARD);
 

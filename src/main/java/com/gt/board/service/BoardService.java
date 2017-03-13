@@ -15,6 +15,10 @@ public interface BoardService {
      *  @param board 게시글 **/
     public boolean deleteBoardTX(Board board);
 
+    /** 해당 게시판 분류의 전체 게시글 삭제
+     *  @param typeNo BoardType.no **/
+    public boolean deleteBoardTX(int typeNo);
+
     /** 게시글 수정
      *  @param board typeNo, title, content, group **/
     public boolean updateBoard(Board board);

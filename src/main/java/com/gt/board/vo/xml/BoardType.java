@@ -12,11 +12,11 @@ import com.gt.board.vo.User;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class BoardType {
     @XmlElement(name = "No") private int no; // 고유 번호
-    @XmlElement(name = "Order") private int order; // 순서
     @XmlElement(name = "Name") private String name; // 게시판 이름
     @XmlElement(name = "Description") private String description; // 게시판 설명(생략 가능)
     @XmlElement(name = "Url") private String url; // 브라우저 주소창에 표기/구분 될 URL
     @XmlElement(name = "IsUse") private boolean isUse; // 게시판 사용 여부
+    @XmlElement(name = "IsViewMain") private boolean isViewMain; // 메인 페이지 표기 여부
     @XmlElement(name = "IsAnonymous") private boolean isAnonymous; // 익명 여부
     @XmlElement(name = "IsSecret") private boolean isSecret; // 비밀글 여부
     @XmlElement(name = "IsAlbum") private boolean isAlbum; // 앨범 형식 여부
@@ -24,6 +24,7 @@ public class BoardType {
     @XmlElement(name = "IsUseWriteCode") private boolean isUseWriteCode; // 글 작성시 자동 방지 코드 사용 여부
     @XmlElement(name = "IsUseCommentCode") private boolean isUseCommentCode; // 댓글 작성시 자동 방지 코드 사용 여부
     @XmlElement(name = "IsUseAttachFile") private boolean isUseAttachFile; // 첨부파일 사용 여부
+    @XmlElement(name = "MainOrder") private int mainOrder; // 메인 페이지 표기 순서
     @XmlElement(name = "WritePoint") private int writePoint; // 글 작성시 지급 포인트
     @XmlElement(name = "CommentPoint") private int commentPoint; // 댓글 작성시 지급 포인트
     @XmlElement(name = "ThumbPoint") private int thumbPoint; // 추천 받을시 지급 포인트
@@ -51,14 +52,6 @@ public class BoardType {
 
     public void setNo(int no) {
         this.no = no;
-    }
-
-    public int getOrder() {
-        return order;
-    }
-
-    public void setOrder(int order) {
-        this.order = order;
     }
 
     public String getName() {
@@ -91,6 +84,14 @@ public class BoardType {
 
     public void setUse(boolean isUse) {
         this.isUse = isUse;
+    }
+
+    public boolean isViewMain() {
+        return isViewMain;
+    }
+
+    public void setViewMain(boolean isViewMain) {
+        this.isViewMain = isViewMain;
     }
 
     public boolean isAnonymous() {
@@ -147,6 +148,14 @@ public class BoardType {
 
     public void setUseAttachFile(boolean isUseAttachFile) {
         this.isUseAttachFile = isUseAttachFile;
+    }
+
+    public int getMainOrder() {
+        return mainOrder;
+    }
+
+    public void setMainOrder(int mainOrder) {
+        this.mainOrder = mainOrder;
     }
 
     public int getWritePoint() {

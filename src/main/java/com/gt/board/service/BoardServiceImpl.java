@@ -83,6 +83,18 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
+    public boolean deleteBoardTX(int typeNo) {
+        List<Board> boardList = boardsDAO.selectListByBoardType(typeNo);
+        BoardSetting setting = settingService.getBoardSetting();
+        BoardType boardType = setting.getBoardType(typeNo);
+        for (Board board : boardList) {
+            board.setBoardType(boardType);
+            deleteBoardTX(board);
+        }
+        return false;
+    }
+
+    @Override
     public boolean updateBoard(Board board) {
         return boardsDAO.update(board) == 1;
     }
