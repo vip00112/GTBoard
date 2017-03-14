@@ -112,6 +112,21 @@
 		}
 	});
 
+	// 삭제
+	$(".content .box.menuType .delete.main").click(function() {
+		if (!confirm("해당 메뉴를 정말 삭제 하시겠습니까?")) {
+			return false;
+		}
+
+		var no = $(this).parents(".form_update").find("select[name='no']").val();
+		if (no == 0) {
+			return false;
+		}
+		var $deleteForm = $(this).parents(".box").find(".form_delete");
+		$deleteForm.attr("action", "/admin/setting/menuType/" + no);
+		$deleteForm.submit();
+	});
+
 	// 신규 서브 메뉴 추가
 	$(".content .box.menuType .add").click(function() {
 		if (!confirm("신규 서브 메뉴를 추가 하시겠습니까?")) {
@@ -155,21 +170,6 @@
 				$(this).attr("name", "subMenuList[" + idx + "]." + attr);
 			});
 		});
-	});
-
-	// 삭제
-	$(".content .box.menuType .delete.main").click(function() {
-		if (!confirm("해당 메뉴를 정말 삭제 하시겠습니까?")) {
-			return false;
-		}
-
-		var no = $(this).parents(".form_update").find("select[name='no']").val();
-		if (no == 0) {
-			return false;
-		}
-		var $deleteForm = $(this).parents(".box").find(".form_delete");
-		$deleteForm.attr("action", "/admin/setting/menuType/" + no);
-		$deleteForm.submit();
 	});
 
 	// 메뉴 정보 취득

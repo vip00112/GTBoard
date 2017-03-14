@@ -140,6 +140,7 @@ public class BoardController {
         }
 
         String name = menu.getName().replaceAll("<(/)?([a-zA-Z]*)(\\s[a-zA-Z]*=[^>]*)?(\\s)*(/)?>", "");
+        name = name.trim();
         model.addAttribute("boardType", new BoardType(0, name, "'" + name + "' 메뉴의 모든 게시글을 볼 수 있는 공간 입니다.", "all/" + menuNo));
 
         // 일반 게시글 리스트

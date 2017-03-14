@@ -26,6 +26,10 @@
 				<option value="0">신규 게시판 추가</option>
 			</select>
 
+			<button type="button" class="copy">
+				<i class="fa fa-clone"></i>
+				설정 복사
+			</button>
 			<button type="button" class="delete main">
 				<i class="fa fa-trash"></i>
 				게시판 삭제
@@ -280,11 +284,44 @@
 				lows = lows.split(",");
 				toggleLows(show, lows);
 			});
+			$(".content .box.boardType .copy").hide();
 			$(".content .box.boardType .delete.main").hide();
 		} else {
 			getBoardTypeInfo();
+			$(".content .box.boardType .copy").show();
 			$(".content .box.boardType .delete.main").show();
 		}
+	});
+	
+	// 복사
+	$(".content .box.boardType .copy").click(function() {
+		if (!confirm("현재 게시판의 설정을 복사 하시겠습니까?")) {
+			return false;
+		}
+		
+		$(".content .box.boardType select[name='no']").val(0);
+		$(".content .box.boardType [name='name']").val("");
+		$(".content .box.boardType [name='description']").val("");
+		$(".content .box.boardType [name='url']").val("");
+		$(".content .box.boardType [name='name']").focus();
+	});
+
+	// 삭제
+	$(".content .box.boardType .delete.main").click(function() {
+		if (!confirm("해당 게시판을 정말 삭제 하시겠습니까?")) {
+			return false;
+		}
+		if (!confirm("게시글/댓글/첨부파일등 게시판의 모든 하위 데이터가 삭제 됩니다.\r정말 삭제 하시겠습니까?")) {
+			return false;
+		}
+
+		var no = $(this).parents(".form_update").find("select[name='no']").val();
+		if (no == 0) {
+			return false;
+		}
+		var $deleteForm = $(this).parents(".box").find(".form_delete");
+		$deleteForm.attr("action", "/admin/setting/boardType/" + no);
+		$deleteForm.submit();
 	});
 
 	// ON/OFF 설정
@@ -334,24 +371,6 @@
 		// url, mehotd 지정
 		$(this).attr("action", "/admin/setting/boardType/" + no);
 		$(this).find("input[name='_method']").val(method);
-	});
-
-	// 삭제
-	$(".content .box.boardType .delete.main").click(function() {
-		if (!confirm("해당 게시판을 정말 삭제 하시겠습니까?")) {
-			return false;
-		}
-		if (!confirm("게시글/댓글/첨부파일등 게시판의 모든 하위 데이터가 삭제 됩니다.\r정말 삭제 하시겠습니까?")) {
-			return false;
-		}
-
-		var no = $(this).parents(".form_update").find("select[name='no']").val();
-		if (no == 0) {
-			return false;
-		}
-		var $deleteForm = $(this).parents(".box").find(".form_delete");
-		$deleteForm.attr("action", "/admin/setting/boardType/" + no);
-		$deleteForm.submit();
 	});
 
 	// 게시판 정보 취득

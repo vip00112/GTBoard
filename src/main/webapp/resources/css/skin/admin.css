@@ -8,6 +8,11 @@
     clear: both;
 }
 
+.box .copy,
+.box .delete.main {
+    margin-bottom: 5px;
+}
+
 .box .add {
     text-align: center;
     cursor: pointer;

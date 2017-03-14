@@ -274,4 +274,9 @@ public class MainController {
         return "redirect:/notice";
     }
 
+    // 커스텀 페이지
+    @RequestMapping(value = "/page/{url:[a-z-]+}")
+    public String page(@PathVariable String url) {
+        return url;
+    }
 }
