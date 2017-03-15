@@ -62,5 +62,9 @@ public interface BoardsDAO {
     /** 해당 게시판의 광고 게시글 목록
      *  @param typeNo BoardType.no **/
     public List<Board> selectListByAd(int typeNo);
+    
+    /** 게시판 이동
+     *  @param map typeNo, boardNoList **/
+    public int updateTypeNo(Map<String, Object> map);
 
 }

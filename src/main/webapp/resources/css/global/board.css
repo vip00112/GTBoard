@@ -194,8 +194,24 @@
     color: #fff;
 }
 
+.board_frame .box_select>input,
+.board_frame .box_select>label,
+.board_frame .box_select>form {
+    display: inline-block;
+}
+
+.board_frame .box_select>form {
+    margin-left: 5px;
+}
+
+.board_frame .box_select select {
+    box-sizing: border-box;
+    padding: 0 5px;
+}
+
 .board_frame .box_select button {
-    width: 25px;
+    min-width: 15px;
+    padding: 0 5px;
     border-radius: 5px
 }
 
@@ -243,11 +259,11 @@
     color: #f83938;
 }
 
-.board_frame .line.item .delete {
+.board_frame .line.item .check {
     height: 15px;
 }
 
-.board_frame .line.item .delete input {
+.board_frame .line.item .check input {
     height: 15px;
     line-height: 15px;
     margin: 0;
@@ -379,7 +395,6 @@
     margin-right: 1px;
     width: 14px;
     background-position: 1px -90px;
-    /* real size : 12 x 11 */
 }
 /* .board_frame .line.item span.count_comment:before {
     content: "[";
@@ -485,7 +500,7 @@
     display: none;
 }
 
-.board_frame .line.item .delete {
+.board_frame .line.item .check {
     float: left;
     margin-right: 5px;
 }
@@ -559,7 +574,7 @@
     .board_frame .line .no {
         display: block;
     }
-    .board_frame .line.item .delete {
+    .board_frame .line.item .check {
         position: absolute;
         top: 5;
         left: 0;

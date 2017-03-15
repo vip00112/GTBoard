@@ -172,4 +172,14 @@
 		WHERE typeNo=#{typeNo} AND groupName='ad'
 		ORDER BY regdate DESC
 	</select>
+
+	<!-- 게시판 이동 -->
+	<update id="updateTypeNo" parameterType="hashMap">
+		UPDATE boards SET typeNo=#{typeNo}
+		<where>
+			<foreach collection="boardNoList" item="no" separator="OR">
+				no=#{no}
+			</foreach>
+		</where>
+	</update>
 </mapper>

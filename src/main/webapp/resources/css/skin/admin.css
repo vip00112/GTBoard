@@ -170,20 +170,20 @@
     color: #f83938;
 }
 
-.content>.box form {
+.content>.box .form_update {
     margin: auto;
 }
 
-.content>.box form select,
-.content>.box form label,
-.content>.box form input {
+.content>.box .form_update select,
+.content>.box .form_update label,
+.content>.box .form_update input {
     display: block;
     height: 20px;
     line-height: 20px;
     box-sizing: border-box;
 }
 
-.content>.box form select[name='no'] {
+.content>.box select[name='no'] {
     width: 100%;
     height: 30px;
     line-height: 30px;
@@ -191,31 +191,33 @@
     color: #f83938;
     border: 1px solid #f83938;
     margin-bottom: 5px;
+    cursor: pointer;
+    padding: 0 5px;
 }
 
-.content>.box form label {
+.content>.box .form_update label {
     font-weight: bold;
 }
 
-.content>.box form select {
+.content>.box .form_update select {
     cursor: pointer;
 }
 
-.content>.box form select,
-.content>.box form input {
+.content>.box .form_update select,
+.content>.box .form_update input {
     padding: 0 5px;
     height: 30px;
     line-height: 30px;
 }
 
-.content>.box form span {
+.content>.box .form_update span {
     display: block;
     width: 100%;
     line-height: 20px;
     color: #828282;
 }
 
-.content>.box form button {
+.content>.box .form_update button {
     width: 100%;
     padding: 10px;
     box-sizing: border-box;
@@ -225,8 +227,8 @@
     transition: .2s ease;
 }
 
-.content>.box form button:focus,
-.content>.box form button:hover {
+.content>.box .form_update button:focus,
+.content>.box .form_update button:hover {
     background-color: #000;
 }
 
@@ -236,9 +238,9 @@
     width: 100%;
 }
 
-.content>.box form select,
-.content>.box form label,
-.content>.box form input {
+.content>.box .form_update select,
+.content>.box .form_update label,
+.content>.box .form_update input {
     width: 100%;
 }
 

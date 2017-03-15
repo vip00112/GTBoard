@@ -92,7 +92,7 @@ public class UserController {
     // myPage 게시글 관리: 선택 항목 삭제 ajax 요청 json 반환
     @RequestMapping(value = "/user/{no:[0-9]+}/board/delete", method = RequestMethod.DELETE, produces = "application/json")
     @ResponseBody
-    public boolean myPageBoardDelete(@PathVariable int no, HttpSession session, @RequestParam(value = "boardNo") String boardNo) {
+    public boolean myPageBoardDelete(@PathVariable int no, HttpSession session, @RequestParam String boardNo) {
         User user = (User) userService.getUser(no);
         User loginUser = (User) session.getAttribute(SessionAttribute.USER);
         if (user == null || loginUser == null || user.getNo() != loginUser.getNo()) {

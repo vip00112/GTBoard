@@ -85,4 +85,9 @@ public class BoardsDAOImpl implements BoardsDAO {
     public List<Board> selectListByAd(int typeNo) {
         return session.selectList("boards.selectListByAd", typeNo);
     }
+
+    @Override
+    public int updateTypeNo(Map<String, Object> map) {
+        return session.update("boards.updateTypeNo", map);
+    }
 }

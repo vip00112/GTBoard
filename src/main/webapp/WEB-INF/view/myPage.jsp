@@ -139,14 +139,15 @@
 				<!-- // .box_option -->
 
 				<div class="box_select">
+					<input type="checkbox" id="checkAllBoard">
+					<label for="checkAllBoard">전체선택</label>
+
 					<form action="/user/${loginUser.no}/board/delete" method="post" class="form_delete">
 						<fieldset>
 							<legend class="screen_out">선택 삭제 폼</legend>
 							<input type="hidden" name="CSRFToken" value="${CSRFToken}" />
 							<input type="hidden" name="_method" value="DELETE">
 							<input type="hidden" name="boardNo">
-							<input type="checkbox" id="checkAllBoard">
-							<label for="checkAllBoard">전체선택</label>
 							<button class="btn delete" title="선택 항목 삭제">
 								<i class="fa fa-trash"></i>
 							</button>
@@ -260,7 +261,7 @@
 	<script type="text/template" id="boardTmp">
 	<@ _.each(list, function(board) { @>
 		<ul class="line item">
-			<li class="delete">
+			<li class="check">
 				<input type="checkbox">
 			</li>
 			<li class="type">
@@ -311,7 +312,7 @@
 	<script type="text/template" id="commentTmp">
 	<@ _.each(list, function(comment) { @>
 		<ul class="comment item">
-			<li class="delete">
+			<li class="check">
 				<input type="checkbox">
 			</li>
 			<li class="no"><@=comment.no@></li>
@@ -388,9 +389,9 @@
 				console.log(xhr.status + " : " + code + "\n" + xhr.responseText);
 			}).done(function(data) {
 				// 최대 페이지 넘을시 처리
-				var max = commentPaginate.getMaxPage();
+				var max = boardPaginate.getMaxPage();
 				if (max > 0 && pageNo > max) {
-					getCommentList(max);
+					getBoardList(max);
 					return;
 				}
 

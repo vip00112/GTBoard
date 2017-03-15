@@ -5,7 +5,7 @@ $(window).load(function() {
 	});
 
 	// 체크된 것 해제시 전체선택 해제
-	$(".comment_frame .box_item").on("change", ".comment.item .delete input", function() {
+	$(".comment_frame .box_item").on("change", ".comment.item .check input", function() {
 		gtBoard.comment.uncheckAll($(this));
 	});
 });

@@ -76,4 +76,9 @@ public interface BoardService {
     /** 해당 게시판의 광고 게시글 목록
      *  @param typeNo BoardType.no **/
     public List<Board> getAdList(int typeNo);
+
+    /** 게시판 이동
+     *  @param typeNo 게시판 분류 번호 
+     *  @param boardNoList 이동할 게시글 번호 리스트 **/
+    public boolean changeBoardType(int typeNo, List<Integer> boardNoList);
 }

@@ -81,11 +81,11 @@
     clear: both;
 }
 
-.comment_frame .item .delete {
+.comment_frame .item .check {
     margin-bottom: 5px;
 }
 
-.comment_frame .item .delete input {
+.comment_frame .item .check input {
     display: block;
     margin: 0;
     padding: 0;
@@ -95,7 +95,7 @@
     left: 20px;
 }
 
-.comment_frame .item .delete .form_delete {
+.comment_frame .item .check .form_delete {
     display: block;
     margin: 0;
     padding: 0;
@@ -104,7 +104,7 @@
     right: 20px;
 }
 
-.comment_frame .item .delete .form_delete button {
+.comment_frame .item .check .form_delete button {
     height: 15px;
     cursor: pointer;
     border: none;
@@ -112,7 +112,7 @@
     transition: .2s ease;
 }
 
-.comment_frame .item .delete .form_delete button:hover {
+.comment_frame .item .check .form_delete button:hover {
     color: #f83938;
 }
 

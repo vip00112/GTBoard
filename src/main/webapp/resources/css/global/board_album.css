@@ -22,7 +22,7 @@
     border: 1px solid #f83938;
 }
 
-.board_frame.album .line.item .delete {
+.board_frame.album .line.item .check {
     position: static;
     z-index: 0;
     float: inherit;

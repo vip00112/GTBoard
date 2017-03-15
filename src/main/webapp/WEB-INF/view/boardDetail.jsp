@@ -409,7 +409,7 @@
 								<li class="thumbnail">
 									<a href="/board/${board.no}?url=${boardType.url}&searchType=${searchType}&search=${search}&numPage=${numPage}&pageNo=${pageNo}&order=${order}">
 										<c:set var="thumbnail" value="${board.defaultThumbnail}" />
-										<c:if test="${board.thumbnail != null}">
+										<c:if test="${!board.boardType.secret && board.thumbnail != null}">
 											<c:set var="thumbnail" value="${board.thumbnail}" />
 										</c:if>
 										<img alt="썸네일 이미지" src="${thumbnail}">
@@ -591,7 +591,7 @@
 		<script type="text/template" id="commentTmp">
 		<@ _.each(list, function(comment) { @>
 			<ul class="comment item">
-				<li class="delete">
+				<li class="check">
 					<@ if (admin == "true" || comment.userNo == userNo) { @>
 						<form action="/board/<@=boardNo@>/comment/<@=comment.no@>/delete" method="post" class="form_delete">
 							<fieldset>

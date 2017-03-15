@@ -114,7 +114,7 @@
 			var $frame = $input.parents(".board_frame");
 
 			var checked = $input.prop("checked");
-			$frame.find(".line.item .delete input").prop("checked", checked);
+			$frame.find(".line.item .check input").prop("checked", checked);
 		},
 		uncheckAll: function($input) { // 전체 선택 버튼 체크 해제
 			if (!$input.prop("checked")) {
@@ -131,7 +131,7 @@
 			var items = $form.parents(".board_frame").find(".line.item");
 			var boardNos = [];
 			items.each(function() {
-				var $chk = $(this).find(".delete input");
+				var $chk = $(this).find(".check input");
 				if ($chk.prop("checked")) {
 					var boardNo = $(this).find(".no").text().trim();
 					boardNos.push(parseInt(boardNo));
@@ -155,6 +155,32 @@
 			}
 
 			// ajax 처리가 필요할시 callBack인자로 함수 전달
+			if (typeof callBack === 'function') {
+				callBack();
+			}
+		},
+		moveAll: function(event, $form, callBack) { // 선택된 게시글 전체 이동
+			if (!confirm("선택하신 게시글을 정말 이동 하시겠습니까?")) {
+				event.preventDefault ? event.preventDefault() : (event.returnValue = false);
+				return;
+			}
+
+			var items = $form.parents(".board_frame").find(".line.item");
+			var boardNos = [];
+			items.each(function() {
+				var $chk = $(this).find(".check input");
+				if ($chk.prop("checked")) {
+					var boardNo = $(this).find(".no").text().trim();
+					boardNos.push(parseInt(boardNo));
+				}
+			});
+
+			if (boardNos.length < 1) {
+				alert("선택된 게시글이 없습니다.");
+				return false;
+			}
+
+			$form.find("input[name=boardNo]").val(boardNos);
 			if (typeof callBack === 'function') {
 				callBack();
 			}
@@ -191,7 +217,7 @@
 			var $frame = $input.parents(".comment_frame");
 
 			var checked = $input.prop("checked");
-			$frame.find(".comment.item .delete input").prop("checked", checked);
+			$frame.find(".comment.item .check input").prop("checked", checked);
 		},
 		uncheckAll: function($input) { // 전체 선택 버튼 체크 해제
 			if (!$input.prop("checked")) {
@@ -208,7 +234,7 @@
 			var items = $form.parents(".comment_frame").find(".comment.item");
 			var commentNos = [];
 			items.each(function() {
-				var $chk = $(this).find(".delete input");
+				var $chk = $(this).find(".check input");
 				if ($chk.prop("checked")) {
 					var commentNo = $(this).find(".no").text().trim();
 					commentNos.push(parseInt(commentNo));

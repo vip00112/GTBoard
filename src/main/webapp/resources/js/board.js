@@ -43,7 +43,7 @@ $(window).load(function() {
 	});
 
 	// 체크된 것 해제시 전체선택 해제
-	$(".board_frame .box_item").on("change", ".line.item .delete input", function() {
+	$(".board_frame .box_item").on("change", ".line.item .check input", function() {
 		gtBoard.board.uncheckAll($(this));
 	});
 

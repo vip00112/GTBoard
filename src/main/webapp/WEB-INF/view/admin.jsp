@@ -103,7 +103,7 @@
 		<!-- // .box.boardType -->
 
 		<div class="box board">
-			<h2>게시글 관리</h2>
+			<c:import url="template/admin/board.jsp" />
 		</div>
 		<!-- // .box.board -->
 
@@ -143,7 +143,9 @@
 				}, 200);
 				$content.animate({
 					left: 150
-				}, 200);
+				}, 200, function() {
+					gtBoard.board.resizeTitle();
+				});
 			} else {
 				$icon.removeClass("fa-caret-left");
 				$icon.addClass("fa-caret-right");
@@ -152,7 +154,9 @@
 				}, 200);
 				$content.animate({
 					left: 0
-				}, 200);
+				}, 200, function() {
+					gtBoard.board.resizeTitle();
+				});
 			}
 		});
 
@@ -171,6 +175,8 @@
 				getMenuTypeInfo();
 			} else if (className == "boardType") {
 				getBoardTypeInfo();
+			} else if (className == "board") {
+				getBoardList();
 			}
 		});
 

@@ -249,4 +249,12 @@ public class BoardServiceImpl implements BoardService {
         }
         return list;
     }
+
+    @Override
+    public boolean changeBoardType(int typeNo, List<Integer> boardNoList) {
+        Map<String, Object> paramMap = new HashMap<String, Object>();
+        paramMap.put("typeNo", typeNo);
+        paramMap.put("boardNoList", boardNoList);
+        return boardsDAO.updateTypeNo(paramMap) == boardNoList.size();
+    }
 }

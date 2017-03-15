@@ -21,8 +21,9 @@
 
 <title>${baseSetting.title}-Error</title>
 
-<%-- link Template --%>
-<c:import url="template/link.jsp"></c:import>
+<link rel="icon" href="/resources/img/favicon.ico">
+<link rel="stylesheet" href="/resources/css/global/font-awesome.min.css" />
+<link rel="stylesheet" href="/resources/css/global/reset.css" />
 
 <style>
 body {
@@ -67,13 +68,24 @@ a:hover {
 </head>
 
 <body>
-	<!-- content Area -->
-    <img src="/resources/img/error.png" alt="error">
-    <h1>404 ERROR</h1>
-    <h2>잘못된 접근 입니다.</h2>
-    <a href="/index">
-        <i class="fa fa-caret-right"></i> Home으로 돌아가기
-    </a>
+	<c:set var="statusCode">${requestScope['javax.servlet.error.status_code']}</c:set>
+
+	<img src="/resources/img/error.png" alt="error">
+	<h1>'${statusCode}' ERROR</h1>
+
+	<c:choose>
+		<c:when test="${statusCode == 404}">
+			<h2>페이지를 찾을 수 없습니다.</h2>
+		</c:when>
+		<c:otherwise>
+			<h2>잘못된 접근 입니다.</h2>
+		</c:otherwise>
+	</c:choose>
+
+	<a href="/index">
+		<i class="fa fa-caret-right"></i>
+		Home으로 돌아가기
+	</a>
 </body>
 
 </html>

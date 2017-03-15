@@ -10,9 +10,6 @@
 		<mvc:jsp prefix="/WEB-INF/view/" suffix=".jsp" />
 	</mvc:view-resolvers>
 
-	<!-- Model전달이 필요없는 Controller -->
-	<mvc:view-controller path="/error" />
-
 	<!-- 정적인 리소스 명시 -->
 	<mvc:resources location="/robots.txt" mapping="/robots.txt" order="0" />
 	<mvc:resources location="/resources/" mapping="/resources/**" />

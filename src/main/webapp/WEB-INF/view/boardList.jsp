@@ -254,7 +254,7 @@
 								<li class="thumbnail">
 									<a href="/board/${board.no}?url=${boardType.url}&searchType=${searchType}&search=${search}&numPage=${numPage}&pageNo=${pageNo}&order=${order}">
 										<c:set var="thumbnail" value="${board.defaultThumbnail}" />
-										<c:if test="${board.thumbnail != null}">
+										<c:if test="${!board.boardType.secret && board.thumbnail != null}">
 											<c:set var="thumbnail" value="${board.thumbnail}" />
 										</c:if>
 										<img alt="썸네일 이미지" src="${thumbnail}">
