@@ -2,6 +2,10 @@
     position: fixed;
 }
 
+.box {
+	margin-bottom: 5px;
+}
+
 .box:after {
     display: block;
     content: "";
@@ -14,6 +18,10 @@
 }
 
 .box .add {
+    display: block;
+    width: 100%;
+    line-height: 20px;
+    color: #828282;
     text-align: center;
     cursor: pointer;
     font-weight: bold;
@@ -210,7 +218,7 @@
     line-height: 30px;
 }
 
-.content>.box .form_update span {
+.content>.box .form_update span.desc {
     display: block;
     width: 100%;
     line-height: 20px;
@@ -242,6 +250,10 @@
 .content>.box .form_update label,
 .content>.box .form_update input {
     width: 100%;
+}
+
+.content .box.agreement input[name='regdate'] {
+	cursor: pointer;
 }
 
 /* Tablet & Desktop : 768px 이상 해상도 */

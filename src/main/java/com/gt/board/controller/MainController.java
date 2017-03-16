@@ -17,15 +17,18 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.gt.board.config.SessionAttribute;
 import com.gt.board.enums.Path;
+import com.gt.board.service.AgreementService;
 import com.gt.board.service.BoardService;
 import com.gt.board.service.NoticeService;
 import com.gt.board.service.other.SettingService;
 import com.gt.board.util.CookieUtil;
 import com.gt.board.util.FileUtil;
+import com.gt.board.vo.Agreement;
 import com.gt.board.vo.AttachFile;
 import com.gt.board.vo.Notice;
 import com.gt.board.vo.User;
@@ -33,11 +36,16 @@ import com.gt.board.vo.xml.BoardType;
 
 @Controller
 public class MainController {
+    private AgreementService agreementService;
     private BoardService boardService;
     private NoticeService noticeService;
     private SettingService settingService;
     private CookieUtil cookieUtil;
     private FileUtil fileUtil;
+
+    public void setAgreementService(AgreementService agreementService) {
+        this.agreementService = agreementService;
+    }
 
     public void setBoardService(BoardService boardService) {
         this.boardService = boardService;
@@ -272,6 +280,25 @@ public class MainController {
             ra.addFlashAttribute(SessionAttribute.MSG, "공지사항 삭제가 실패 하였습니다.");
         }
         return "redirect:/notice";
+    }
+
+    // 약관 이력
+    @RequestMapping(value = "/agreement/{type:[a-z]+}", method = RequestMethod.GET)
+    public String agreementList(@PathVariable String type, Model model) {
+        if (!type.equals(Agreement.TERMS) && !type.equals(Agreement.PRIVACY) && !type.equals(Agreement.YOUTH) && !type.equals(Agreement.EMAIL)) {
+            return "redirect:/error";
+        }
+
+        model.addAttribute("type", type);
+        model.addAttribute("agreements", agreementService.getAgreementList(type));
+        return "agreement";
+    }
+
+    // 약관 세부내용 ajax 요청 json 반환
+    @RequestMapping(value = "/agreement/{no:[0-9]+}", method = RequestMethod.GET, produces = "application/json")
+    @ResponseBody
+    public Agreement agreementDetail(@PathVariable int no) {
+        return agreementService.getAgreement(no);
     }
 
     // 커스텀 페이지

@@ -9,6 +9,7 @@
 
 	<!-- Aliases -->
 	<typeAliases>
+		<typeAlias alias="Agreement" type="com.gt.board.vo.Agreement" />
 		<typeAlias alias="AttachFile" type="com.gt.board.vo.AttachFile" />
 		<typeAlias alias="Board" type="com.gt.board.vo.Board" />
 		<typeAlias alias="Comment" type="com.gt.board.vo.Comment" />
@@ -19,6 +20,7 @@
 
 	<!-- Mappers -->
 	<mappers>
+		<mapper resource="com/gt/board/mapper/agreement.xml" />
 		<mapper resource="com/gt/board/mapper/attachFiles.xml" />
 		<mapper resource="com/gt/board/mapper/boards.xml" />
 		<mapper resource="com/gt/board/mapper/comments.xml" />

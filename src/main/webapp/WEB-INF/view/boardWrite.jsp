@@ -208,9 +208,6 @@
 		});
 	</script>
 
-	<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-	<script src="/resources/js/jquery-ui-timepicker.min.js"></script>
-
 	<script>
 		var $captchaLoader = $("#writeForm .box.captcha .loading");
 		var $captchaImg = $("#writeForm .box.captcha img");
@@ -225,8 +222,11 @@
 
 	<%-- 운영자 또는 게시판관리자 일 경우만 load --%>
 	<c:if test="${loginUser != null && (loginUser.admin || loginUser.grade == boardType.adminGrade)}">
+		<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+		<script src="/resources/js/jquery-ui-timepicker.min.js"></script>
+
 		<script>
-			// 작성일자 datepicket 설정
+			// 작성일자 datepicker 설정
 			$("#regdate").datetimepicker({
 				dateFormat: 'yy-mm-dd',
 				monthNamesShort: [ '1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월' ],

@@ -16,8 +16,8 @@
 	<c:param name="description">'${baseSetting.title}'의 회원으로 가입합니다.</c:param>
 	<c:param name="robots"></c:param>
 	<c:param name="ogType"></c:param>
-	<c:param name="title"></c:param>
-	<c:param name="thumbnail">${baseSetting.title} | 회원가입</c:param>
+	<c:param name="title">${baseSetting.title} | 회원가입</c:param>
+	<c:param name="thumbnail"></c:param>
 </c:import>
 
 <title>${baseSetting.title}-회원가입</title>
@@ -64,18 +64,18 @@
 				<input type="hidden" name="isAgree" />
 
 				<div class="box">
-					<input type="checkbox" id="agreement" />
-					<label for="agreement">'이용약관'에 동의 합니다.</label>
-					<div class="text"></div>
-					<!-- // .text -->
+					<input type="checkbox" id="terms" />
+					<label for="terms">'이용약관'에 동의 합니다.</label>
+					<div class="text">${terms.content}</div>
+					<span class="regdate">위 내용은 '${terms.viewRegdate}' 부터 적용 됩니다.</span>
 				</div>
 				<!-- // .box -->
 
 				<div class="box">
 					<input type="checkbox" id="privacy" />
 					<label for="privacy">'개인정보 취급 방침'에 동의 합니다.</label>
-					<div class="text"></div>
-					<!-- // .text -->
+					<div class="text">${privacy.content}</div>
+					<span class="regdate">위 내용은 '${privacy.viewRegdate}' 부터 적용 됩니다.</span>
 				</div>
 				<!-- // .box -->
 
@@ -109,14 +109,14 @@
 
 	<script>
 		$(".box.btn .next").click(function() {
-			var agreementChecked = $("#agreement").prop("checked");
+			var termsChecked = $("#terms").prop("checked");
 			var privactChecked = $("#privacy").prop("checked");
-			if (!agreementChecked || !privactChecked) {
+			if (!termsChecked || !privactChecked) {
 				alert("약관을 충분히 숙지한 후 동의 해주세요.");
 				return false;
 			}
 
-			$("input[name='isAgree']").val(agreementChecked && privactChecked);
+			$("input[name='isAgree']").val(termsChecked && privactChecked);
 		});
 	</script>
 </body>

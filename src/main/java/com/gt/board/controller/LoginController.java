@@ -20,10 +20,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.gt.board.config.SessionAttribute;
+import com.gt.board.service.AgreementService;
 import com.gt.board.service.UserService;
 import com.gt.board.service.other.MailService;
 import com.gt.board.service.other.SettingService;
 import com.gt.board.util.RSAUtil;
+import com.gt.board.vo.Agreement;
 import com.gt.board.vo.AttachFile;
 import com.gt.board.vo.User;
 import com.gt.board.vo.other.MailCode;
@@ -33,10 +35,15 @@ import com.gt.board.vo.other.RSA;
 public class LoginController {
     private static final Logger logger = Logger.getLogger(LoginController.class);
 
+    private AgreementService agreementService;
     private UserService userService;
     private SettingService settingService;
     private MailService mailService;
     private RSAUtil rsaUtil;
+
+    public void setAgreementService(AgreementService agreementService) {
+        this.agreementService = agreementService;
+    }
 
     public void setUserService(UserService userService) {
         this.userService = userService;
@@ -163,7 +170,7 @@ public class LoginController {
 
     // 회원가입 페이지 진입 : 이용 약관
     @RequestMapping(value = "/join/agreement", method = RequestMethod.GET)
-    public String joinFormAgreement(HttpSession session) {
+    public String joinFormAgreement(HttpSession session, Model model) {
         User loginUser = (User) session.getAttribute(SessionAttribute.USER);
         if (loginUser != null) { // 이미 로그인된 경우
             if (!loginUser.isActive()) { // 활성화 안된 경우
@@ -171,6 +178,10 @@ public class LoginController {
             }
             return "redirect:/index";
         }
+
+        // 이용약관, 개인정보취급방침 최신 내용
+        model.addAttribute("terms", agreementService.getAgreementRecent(Agreement.TERMS));
+        model.addAttribute("privacy", agreementService.getAgreementRecent(Agreement.PRIVACY));
 
         session.removeAttribute("agreement");
         return "join-agreement";

@@ -146,7 +146,6 @@
 	</fieldset>
 </form>
 
-<!-- 기본 정보 설정 -->
 <script>
 	// 기본 정보 취득
 	function getBaseInfo() {

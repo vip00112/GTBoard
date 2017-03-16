@@ -185,7 +185,6 @@
 	<@ }) @>
 </script>
 
-<!-- 기본 정보 설정 -->
 <script>
 	var $boardLoader = $(".board_frame .loading");
 	var $boardCheckBox = $(".board_frame #checkAllBoard");

@@ -17,8 +17,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.gt.board.enums.Path;
 import com.gt.board.enums.SettingFile;
+import com.gt.board.service.AgreementService;
 import com.gt.board.service.BoardService;
 import com.gt.board.service.other.SettingService;
+import com.gt.board.vo.Agreement;
 import com.gt.board.vo.Board;
 import com.gt.board.vo.xml.BaseSetting;
 import com.gt.board.vo.xml.BoardSetting;
@@ -28,8 +30,13 @@ import com.gt.board.vo.xml.MenuType;
 
 @Controller
 public class AdminController {
+    private AgreementService agreementService;
     private SettingService settingService;
     private BoardService boardService;
+
+    public void setAgreementService(AgreementService agreementService) {
+        this.agreementService = agreementService;
+    }
 
     public void setSettingService(SettingService settingService) {
         this.settingService = settingService;
@@ -64,6 +71,35 @@ public class AdminController {
         if (new File(path).exists()) {
             settingService.writeSettingXML(path, SettingFile.BASE);
         }
+        return "redirect:/admin";
+    }
+
+    // 운영방침 목록 요청 json 반환
+    @RequestMapping(value = "/admin/agreement/{type:[a-z]+}", method = RequestMethod.GET, produces = "application/json")
+    @ResponseBody
+    public List<Agreement> agreementInfoList(@PathVariable String type) {
+        return agreementService.getAgreementList(type);
+    }
+
+    // 운영방침 단일 요청 json 반환
+    @RequestMapping(value = "/admin/agreement/{no:[0-9]+}", method = RequestMethod.GET, produces = "application/json")
+    @ResponseBody
+    public Agreement agreementInfo(@PathVariable int no) {
+        return agreementService.getAgreement(no);
+    }
+
+    // 운영방침 추가
+    @RequestMapping(value = "/admin/agreement/{no:[0-9]+}", method = RequestMethod.POST)
+    public String agreementWrite(@PathVariable int no, Agreement agreement) {
+        agreementService.addAgreement(agreement);
+        return "redirect:/admin";
+    }
+
+    // 운영방침 수정
+    @RequestMapping(value = "/admin/agreement/{no:[0-9]+}", method = RequestMethod.PUT)
+    public String agreementUpdate(@PathVariable int no, Agreement agreement) {
+        agreement.setNo(no);
+        agreementService.updateAgreement(agreement);
         return "redirect:/admin";
     }
 

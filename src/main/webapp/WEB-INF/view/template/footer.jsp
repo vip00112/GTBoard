@@ -11,19 +11,16 @@
 		<footer class="container">
 			<ul>
 				<li>
-					<a href="">이용약관</a>
+					<a href="/agreement/terms">이용약관</a>
 				</li>
 				<li>
-					<a href="">개인정보 취급 방침</a>
+					<a href="/agreement/privacy">개인정보 취급 방침</a>
 				</li>
 				<li>
-					<a href="">청소년 보호 정책</a>
+					<a href="/agreement/youth">청소년 보호 정책</a>
 				</li>
 				<li>
-					<a href="">이메일 무단 수집 거부</a>
-				</li>
-				<li>
-					<a href="">책임의 한계와 고지</a>
+					<a href="/agreement/email">이메일 무단 수집 거부</a>
 				</li>
 			</ul>
 			<dl>

@@ -27,6 +27,8 @@
 
 <%-- 개별 css --%>
 <link rel="stylesheet" href="/resources/css/skin/admin.css">
+<link rel="stylesheet" href="/resources/css/global/jquery-ui-timepicker-addon.css" />
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css" />
 
 <%-- IE8 이하 link Template --%>
 <c:import url="template/ltIE9.jsp"></c:import>
@@ -69,6 +71,7 @@
 
 		<ul>
 			<li class="base on">기본 정보 설정</li>
+			<li class="agreement">운영방침 설정</li>
 			<li class="menuType">메뉴 설정</li>
 			<li class="boardType">게시판 설정</li>
 			<li class="board">게시글 관리</li>
@@ -91,6 +94,11 @@
 			<c:import url="template/admin/base.jsp" />
 		</div>
 		<!-- // .box.base -->
+
+		<div class="box agreement">
+			<c:import url="template/admin/agreement.jsp" />
+		</div>
+		<!-- // .box.menuType -->
 
 		<div class="box menuType">
 			<c:import url="template/admin/menuType.jsp" />
@@ -171,6 +179,8 @@
 
 			if (className == "base") {
 				getBaseInfo();
+			} else if (className == "agreement") {
+				getAgreementInfo();
 			} else if (className == "menuType") {
 				getMenuTypeInfo();
 			} else if (className == "boardType") {

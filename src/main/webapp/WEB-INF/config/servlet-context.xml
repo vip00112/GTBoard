@@ -55,6 +55,7 @@
 
 	<!-- Spring Web MVC에 대한 설정 (Controller) -->
 	<bean class="com.gt.board.controller.AdminController">
+		<property name="agreementService" ref="agreementService" />
 		<property name="settingService" ref="settingService" />
 		<property name="boardService" ref="boardService" />
 	</bean>
@@ -74,12 +75,14 @@
 		<property name="fileUtil" ref="fileUtil" />
 	</bean>
 	<bean class="com.gt.board.controller.LoginController">
+		<property name="agreementService" ref="agreementService" />
 		<property name="userService" ref="userService" />
 		<property name="settingService" ref="settingService" />
 		<property name="mailService" ref="mailService" />
 		<property name="rsaUtil" ref="RSAUtil" />
 	</bean>
 	<bean class="com.gt.board.controller.MainController">
+		<property name="agreementService" ref="agreementService" />
 		<property name="boardService" ref="boardService" />
 		<property name="noticeService" ref="noticeService" />
 		<property name="settingService" ref="settingService" />

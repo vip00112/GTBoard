@@ -249,7 +249,6 @@
 	</fieldset>
 </form>
 
-<!-- 게시판 설정 -->
 <script>
 	// 신규 게시판 추가
 	$(".content .box.boardType select[name='no']").change(function() {

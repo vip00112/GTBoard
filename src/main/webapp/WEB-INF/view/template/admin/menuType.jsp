@@ -77,7 +77,6 @@
 	</fieldset>
 </form>
 
-<!-- 메뉴 설정 -->
 <script type="text/template" id="subMenuTmp">
 	<@ _.each(list, function(subMenu) { @>
 		<div class="box_wrap">

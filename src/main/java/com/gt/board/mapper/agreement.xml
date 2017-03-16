@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="agreement">
+	<!-- 해당 내용 취득 -->
+	<select id="selectOne" parameterType="int" resultType="Agreement">
+		SELECT no, type, content, regdate
+		FROM agreement
+		WHERE no=#{no}
+	</select>
+
+	<!-- 해당 type의 모든 내용 취득 -->
+	<select id="selectList" parameterType="String" resultType="Agreement">
+		SELECT no, type, content, regdate
+		FROM agreement
+		WHERE type=#{type}
+		ORDER BY regdate DESC
+	</select>
+
+	<!-- 새로운 내용 추가 -->
+	<insert id="insert" parameterType="Agreement">
+		INSERT INTO agreement(type, content)
+		VALUES(#{type}, #{content})
+	</insert>
+
+	<!-- 내용 수정 -->
+	<update id="update" parameterType="Agreement">
+		UPDATE agreement SET content=#{content}, regdate=#{regdate}
+		WHERE no=#{no}
+	</update>
+</mapper>

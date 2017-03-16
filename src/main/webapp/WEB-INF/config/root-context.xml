@@ -51,6 +51,9 @@
 	<bean id="RSAUtil" class="com.gt.board.util.RSAUtil" />
 
 	<!-- DAO -->
+	<bean id="agreementDAO" class="com.gt.board.dao.AgreementDAOImpl">
+		<property name="session" ref="sqlSession" />
+	</bean>
 	<bean id="attachFilesDAO" class="com.gt.board.dao.AttachFilesDAOImpl">
 		<property name="session" ref="sqlSession" />
 	</bean>
@@ -71,6 +74,9 @@
 	</bean>
 
 	<!-- Service -->
+	<bean id="agreementService" class="com.gt.board.service.AgreementServiceImpl">
+		<property name="agreementDAO" ref="agreementDAO" />
+	</bean>
 	<bean id="attachFileService" class="com.gt.board.service.AttachFileServiceImpl">
 		<property name="attachFilesDAO" ref="attachFilesDAO" />
 		<property name="fileUtil" ref="fileUtil" />
